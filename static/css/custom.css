@@ -454,6 +454,128 @@ a:focus {
   color: #eceff3;
 }
 
+.home-email-signup {
+  padding-top: 28px;
+}
+
+.followit-brand-card {
+  background: #0e1116;
+  border: 1px solid var(--brand-line);
+  border-radius: 14px;
+  padding: 24px 22px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+
+.email-signup-intro {
+  color: #c8d0db;
+  margin-top: -2px;
+  margin-bottom: 14px;
+}
+
+.home-email-signup .followit--follow-form-container .form-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  padding: clamp(16px, 4vw, 28px) clamp(16px, 5vw, 32px);
+  border-radius: 10px;
+  border: 1px solid #2a303a;
+  background: linear-gradient(180deg, #10141b 0%, #0c1117 100%);
+}
+
+.home-email-signup .followit--follow-form-container .form-preview,
+.home-email-signup .followit--follow-form-container .form-preview * {
+  box-sizing: border-box;
+}
+
+.home-email-signup .followit--follow-form-container .preview-heading,
+.home-email-signup .followit--follow-form-container .preview-input-field,
+.home-email-signup .followit--follow-form-container .preview-submit-button {
+  width: 100%;
+}
+
+.home-email-signup .followit--follow-form-container .preview-heading h5 {
+  margin: 0;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-size: 26px;
+  letter-spacing: 0.03em;
+}
+
+.home-email-signup .followit--follow-form-container .preview-input-field {
+  margin-top: 16px;
+}
+
+.home-email-signup .followit--follow-form-container .preview-input-field input {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid #2c3542;
+  background-color: #0a0d12;
+  color: #f2f4f7;
+  outline: none;
+  padding: 0 14px;
+  text-align: center;
+  font-family: "Outfit", "Segoe UI", sans-serif;
+  font-size: 15px;
+}
+
+.home-email-signup .followit--follow-form-container .preview-input-field input::placeholder {
+  color: #adb7c5;
+  opacity: 1;
+}
+
+.home-email-signup .followit--follow-form-container .preview-input-field input:focus {
+  border-color: #4b5769;
+  box-shadow: 0 0 0 2px rgba(211, 25, 32, 0.18);
+}
+
+.home-email-signup .followit--follow-form-container .preview-submit-button {
+  margin-top: 12px;
+}
+
+.home-email-signup .followit--follow-form-container .preview-submit-button button {
+  width: 100%;
+  height: 44px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  background: var(--brand-accent);
+  transition: transform 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.home-email-signup .followit--follow-form-container .preview-submit-button button:hover {
+  cursor: pointer;
+  transform: translateY(-1px);
+  background: var(--brand-accent-strong);
+  box-shadow: 0 8px 18px rgba(143, 52, 20, 0.32);
+}
+
+.home-email-signup .followit--follow-form-container .powered-by-line {
+  color: #96a1b1;
+  font-family: "Outfit", "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.home-email-signup .followit--follow-form-container .powered-by-line img {
+  margin-left: 8px;
+  height: 1.13em;
+  max-height: 1.13em;
+}
+
 .home-news-posts .news-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -810,6 +932,22 @@ a:focus {
     min-height: 0;
     font-size: 26px;
     margin-top: 10px;
+  }
+
+  .home-email-signup {
+    padding-top: 18px;
+  }
+
+  .followit-brand-card {
+    padding: 18px 14px;
+  }
+
+  .home-email-signup .followit--follow-form-container .form-preview {
+    padding: 14px;
+  }
+
+  .home-email-signup .followit--follow-form-container .preview-heading h5 {
+    font-size: 24px;
   }
 
   .cta-actions {
