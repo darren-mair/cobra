@@ -1,0 +1,35 @@
+{{ $gallery := site.Data.cobra_champs }}
+{{ if $gallery }}
+{{ $galleryDir := "static/img/cobra-champs" }}
+{{ $files := readDir $galleryDir }}
+<section class="cobra-champs-gallery">
+  <div class="heading text-center">
+    <h2>{{ $gallery.title }}</h2>
+    <p class="lead">{{ $gallery.subtitle }}</p>
+  </div>
+  {{ if gt (len $files) 0 }}
+    <div class="row">
+      {{ range $files }}
+        {{ $fileName := lower .Name }}
+        {{ if findRE "\\.(jpg|jpeg|png|webp|gif|svg)$" $fileName }}
+          {{ $baseName := replaceRE "\\.[^.]+$" "" .Name }}
+          {{ $title := humanize (replace $baseName "-" " ") }}
+          {{ $imagePath := printf "img/cobra-champs/%s" .Name }}
+          <div class="col-sm-6 col-md-4">
+            <article class="champ-card">
+              <a class="champ-card-media" href="{{ $imagePath | relURL }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ $imagePath | relURL }}" alt="{{ $title }}" class="img-responsive" />
+              </a>
+              <div class="champ-card-body">
+                <h3>{{ $title }}</h3>
+              </div>
+            </article>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <p class="gallery-empty">Drop images into <strong>static/img/cobra-champs</strong> and they will appear here automatically.</p>
+  {{ end }}
+</section>
+{{ end }}

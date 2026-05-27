@@ -1,0 +1,34 @@
+{{ if .Site.Params.topbar.enable }}
+<header>
+  <div id="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-5">
+          {{ $messages := .Site.Params.topbar.messages }}
+          {{ if and $messages (gt (len $messages) 0) }}
+          <div id="topbar-carousel" class="carousel slide topbar-carousel" data-ride="carousel" data-interval="4000" data-pause="hover">
+            <div class="carousel-inner" role="listbox">
+              {{ range $index, $message := $messages }}
+              <div class="item{{ if eq $index 0 }} active{{ end }}">
+                <p class="hidden-sm hidden-xs">{{ $message.desktop | safeHTML }}</p>
+                <p class="hidden-md hidden-lg">{{ $message.mobile | safeHTML }}</p>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+          {{ else }}
+          {{ .Site.Params.topbar.text | safeHTML }}
+          {{ end }}
+        </div>
+        <div class="col-xs-7">
+          <div class="social">
+            {{ range .Site.Menus.topbar.ByWeight }}
+            <a href="{{ .URL | safeURL }}" target="_blank" style="opacity: 1;">{{ .Pre }}</a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{ end }}

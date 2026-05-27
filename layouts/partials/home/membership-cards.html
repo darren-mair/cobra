@@ -1,0 +1,31 @@
+{{ $home := site.Data.homepage }}
+{{ $section := $home.membership_cards }}
+{{ if $section }}
+<section class="bar home-membership-cards">
+  <div class="container">
+    <div class="heading text-center">
+      <h2>{{ $section.title }}</h2>
+      <p class="lead">{{ $section.subtitle }}</p>
+    </div>
+    <div class="row">
+      {{ range $section.cards }}
+      <div class="col-md-4 col-sm-6">
+        <article class="membership-card{{ if .featured }} featured{{ end }}">
+          {{ if and .featured .label }}
+          <div class="label">{{ .label }}</div>
+          {{ end }}
+          <h3>{{ .name }}</h3>
+          <p class="price">{{ .price }} <span>{{ .price_suffix }}</span></p>
+          <ul>
+            {{ range .features }}
+            <li>{{ . }}</li>
+            {{ end }}
+          </ul>
+          <a class="btn btn-template-main" href="{{ .button_url }}">{{ .button_text }}</a>
+        </article>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

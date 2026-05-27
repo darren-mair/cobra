@@ -1,0 +1,16 @@
+<svg width="720" height="860" viewBox="0 0 720 860" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cobra Champs placeholder four">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101319"/>
+      <stop offset="100%" stop-color="#2a313a"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="860" rx="28" fill="url(#bg4)"/>
+  <circle cx="360" cy="256" r="70" fill="#ead7bc"/>
+  <rect x="284" y="332" width="152" height="230" rx="40" fill="#ffffff"/>
+  <ellipse cx="252" cy="424" rx="74" ry="62" fill="#ef2c19"/>
+  <ellipse cx="470" cy="424" rx="74" ry="62" fill="#ef2c19"/>
+  <path d="M160 626h400" stroke="#f0b24f" stroke-width="10" stroke-linecap="round"/>
+  <text x="360" y="706" text-anchor="middle" font-family="Impact, Arial Black, sans-serif" font-size="80" fill="#ffffff">PADS</text>
+  <text x="360" y="770" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#f0b24f">Pads and Progress</text>
+</svg>

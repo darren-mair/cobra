@@ -1,0 +1,27 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Boxing gloves and training wall">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1d22"/>
+      <stop offset="100%" stop-color="#0f1115"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2e3642"/>
+      <stop offset="100%" stop-color="#1e242d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg2)"/>
+  <rect y="610" width="1600" height="290" fill="url(#floor)"/>
+
+  <rect x="980" y="180" width="460" height="420" rx="20" fill="#232933" stroke="#f0b24f" stroke-width="4"/>
+  <line x1="1010" y1="260" x2="1410" y2="260" stroke="#3b4451" stroke-width="6"/>
+  <line x1="1010" y1="340" x2="1410" y2="340" stroke="#3b4451" stroke-width="6"/>
+  <line x1="1010" y1="420" x2="1410" y2="420" stroke="#3b4451" stroke-width="6"/>
+
+  <ellipse cx="460" cy="500" rx="140" ry="180" fill="#c6552c"/>
+  <ellipse cx="620" cy="500" rx="140" ry="180" fill="#b64b25"/>
+  <rect x="380" y="620" width="150" height="90" rx="22" fill="#efe3c8"/>
+  <rect x="540" y="620" width="150" height="90" rx="22" fill="#e9d9b8"/>
+
+  <text x="90" y="170" fill="#f5efe3" font-family="Arial, sans-serif" font-size="60" font-weight="700">TRAIN LIKE A TEAM</text>
+  <text x="90" y="235" fill="#f0b24f" font-family="Arial, sans-serif" font-size="32">Small groups. Sharp coaching. Strong habits.</text>
+</svg>

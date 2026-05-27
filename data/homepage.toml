@@ -1,0 +1,131 @@
+[trust_strip]
+[[trust_strip.items]]
+icon = "fas fa-shield-alt"
+text = "Safe coaching standards"
+
+[[trust_strip.items]]
+icon = "fas fa-users"
+text = "Small group sessions"
+
+[[trust_strip.items]]
+icon = "fas fa-stopwatch"
+text = "Flexible class times"
+
+[[trust_strip.items]]
+icon = "fas fa-dumbbell"
+text = "Technique and fitness focus"
+
+[membership_cards]
+title = "Gym Membership Options"
+subtitle = "Simple plans designed for commitment, flexibility, and progression."
+
+[[membership_cards.cards]]
+name = "Starter"
+price = "£6"
+price_suffix = "day pass"
+featured = false
+button_text = "Browse Gym"
+button_url = "/gym/"
+features = [
+  "Flexible day-by-day access",
+  "Ideal for trying the gym",
+  "No commitment required"
+]
+
+[[membership_cards.cards]]
+name = "Unlimited"
+price = "£30"
+price_suffix = "month pass"
+featured = true
+label = "Most Popular"
+button_text = "Join unlimited"
+button_url = "/membership/"
+features = [
+  "Best value monthly access",
+  "Priority class booking",
+  "Consistent training progress"
+]
+
+[[membership_cards.cards]]
+name = "Performance 1-1"
+price = "From 200 GBP"
+price_suffix = "package"
+featured = false
+button_text = "Talk to a coach"
+button_url = "/contact/"
+features = [
+  "One to one coach",
+  "Full Health Plan",
+  "Best for rapid progress"
+]
+
+[class_price_cards]
+title = "Class prices"
+subtitle = "Clear rates for group sessions and private coaching."
+
+[[class_price_cards.cards]]
+name = "Cobra Squad"
+price = "£4"
+price_suffix = "per class"
+featured = false
+button_text = "View classes"
+button_url = "/classes/"
+features = [
+  "Learn the basics",
+  "No Experience needed",
+  "Ages 5-15"
+]
+
+[[class_price_cards.cards]]
+name = "Cobra Squad"
+price = "£4"
+price_suffix = "per class"
+featured = false
+button_text = "View classes"
+button_url = "/classes/"
+features = [
+  "Boxing Technique",
+  "Strength & Fitness",
+  "Sparring (Headguard and Gumshield Required)"
+]
+
+[[class_price_cards.cards]]
+name = "Adults Group"
+price = "£5"
+price_suffix = "per class"
+featured = true
+label = "Most booked"
+button_text = "Book a class"
+button_url = "/contact/"
+features = [
+  "Structured boxing circuits",
+  "Conditioning and pad rounds",
+  "Suitable for all fitness levels"
+]
+
+[[class_price_cards.cards]]
+name = "Gym Personal Trainer"
+price = "From £25"
+price_suffix = "per session"
+featured = false
+button_text = "Talk to a coach"
+button_url = "/contact/"
+features = [
+  "One-to-one gym sessions to build confidence and fitness.",
+  "Strength, conditioning, and weight-loss support",
+  "Flexible session times"
+]
+
+[final_cta]
+title = "Ready for your first session?"
+text = "Tell us your experience level and goals, and we will place you in the right class from day one."
+
+[[final_cta.actions]]
+text = "Book your intro session"
+url = "/contact/"
+style = "primary"
+
+[[final_cta.actions]]
+text = "Read safety policies"
+url = "/policies/"
+style = "outline"

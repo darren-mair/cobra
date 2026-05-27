@@ -1,0 +1,15 @@
+{{ $home := site.Data.homepage }}
+{{ $section := $home.final_cta }}
+{{ if $section }}
+<section class="home-final-cta">
+  <div class="container text-center">
+    <h2>{{ $section.title }}</h2>
+    <p>{{ $section.text }}</p>
+    <div class="cta-actions">
+      {{ range $section.actions }}
+      <a class="btn {{ if eq .style "outline" }}btn-template-transparent-primary{{ else }}btn-template-main{{ end }} btn-lg" href="{{ .url }}">{{ .text }}</a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

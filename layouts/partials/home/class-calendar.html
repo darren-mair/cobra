@@ -1,0 +1,15 @@
+<section class="bar home-class-calendar">
+  <div class="container">
+    {{ $calendar := site.Data.class_calendar }}
+    {{ if $calendar }}
+    <div class="heading text-center">
+      <h2>{{ $calendar.title }}</h2>
+      <p class="lead">{{ $calendar.subtitle }}</p>
+    </div>
+
+    {{ partial "class-calendar-table.html" (dict "calendar" $calendar) }}
+
+    <p class="calendar-note">{{ $calendar.note }}</p>
+    {{ end }}
+  </div>
+</section>

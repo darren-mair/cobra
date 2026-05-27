@@ -1,0 +1,13 @@
+{{ $calendar := site.Data.class_calendar }}
+{{ if $calendar }}
+<div class="home-class-calendar class-calendar-inline">
+  <div class="heading">
+    <h2>{{ $calendar.title }}</h2>
+    <p class="lead">{{ $calendar.subtitle }}</p>
+  </div>
+
+  {{ partial "class-calendar-table.html" (dict "calendar" $calendar) }}
+
+  <p class="calendar-note">{{ $calendar.note }}</p>
+</div>
+{{ end }}

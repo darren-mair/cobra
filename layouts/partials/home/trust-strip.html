@@ -1,0 +1,13 @@
+{{ $home := site.Data.homepage }}
+{{ $section := $home.trust_strip }}
+{{ if $section }}
+<section class="home-trust-strip">
+  <div class="container">
+    <ul class="trust-list">
+      {{ range $section.items }}
+      <li><i class="{{ .icon }}" aria-hidden="true"></i> {{ .text }}</li>
+      {{ end }}
+    </ul>
+  </div>
+</section>
+{{ end }}

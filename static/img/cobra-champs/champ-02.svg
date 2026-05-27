@@ -1,0 +1,16 @@
+<svg width="720" height="860" viewBox="0 0 720 860" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cobra Champs placeholder two">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#111111"/>
+      <stop offset="100%" stop-color="#202833"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="860" rx="28" fill="url(#bg2)"/>
+  <rect x="98" y="120" width="524" height="420" rx="24" fill="#171b22" stroke="#f0b24f" stroke-width="4"/>
+  <circle cx="250" cy="280" r="60" fill="#ead7bc"/>
+  <rect x="198" y="350" width="104" height="150" rx="28" fill="#ef2c19"/>
+  <circle cx="470" cy="280" r="60" fill="#ead7bc"/>
+  <rect x="418" y="350" width="104" height="150" rx="28" fill="#f7f7f7"/>
+  <text x="360" y="678" text-anchor="middle" font-family="Impact, Arial Black, sans-serif" font-size="82" fill="#ef2c19">CHAMPS</text>
+  <text x="360" y="748" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#ffffff">Junior Squad</text>
+</svg>

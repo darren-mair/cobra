@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+  <head>
+    {{ partial "headers.html" . }}
+    {{ partial "custom_headers.html" . }}
+  </head>
+
+  <body>
+
+    <div id="all">
+        {{ partial "top.html" . }}
+
+        {{ partial "nav.html" . }}
+
+        {{ partial "breadcrumbs.html" . }}
+
+        <div id="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="gym-page-content">
+                          {{ .Content }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ partial "footer.html" . }}
+
+    </div>
+
+    {{ partial "scripts.html" . }}
+
+  </body>
+</html>
