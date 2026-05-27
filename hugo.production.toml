@@ -1,0 +1,5 @@
+# Production configuration for GitHub Pages deployment
+# GitHub Pages base URL format: https://username.github.io/repository-name/
+# Replace USERNAME with your GitHub username and REPOSITORY with your repo name
+
+baseURL = "https://USERNAME.github.io/REPOSITORY/"
