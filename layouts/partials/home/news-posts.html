@@ -19,8 +19,12 @@
         <div class="box-simple news-post-card">
           {{ $image := .Params.image }}
           {{ if $image }}
-          {{ $base := site.BaseURL | strings.TrimSuffix "/" }}
-          <p><a href="{{ .RelPermalink }}"><img src="{{ $base }}{{ $image }}" alt="{{ .Title }}" class="img-responsive"></a></p>
+          {{ if or (strings.HasPrefix $image "http://") (strings.HasPrefix $image "https://") }}
+          <p><a href="{{ .RelPermalink }}"><img src="{{ $image }}" alt="{{ .Title }}" class="img-responsive"></a></p>
+          {{ else }}
+          {{ $image = strings.TrimPrefix "/" $image }}
+          <p><a href="{{ .RelPermalink }}"><img src="{{ $image | relURL }}" alt="{{ .Title }}" class="img-responsive"></a></p>
+          {{ end }}
           {{ end }}
           <h4><a href="{{ .RelPermalink }}">{{ .Title | truncate 64 }}</a></h4>
           <p class="text-muted">{{ .Date.Format site.Params.date_format }}</p>

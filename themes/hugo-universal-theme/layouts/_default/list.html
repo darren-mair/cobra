@@ -34,8 +34,14 @@
                                 <div class="col-md-4">
                                   <div class="image">
                                       <a href="{{ .Permalink }}">
-                                          {{ if .Params.image }}
-                                          <img src="{{ .Params.image | relURL }}" class="img-responsive" alt="{{ .Title }}" />
+                                                                                    {{ if .Params.image }}
+                                                                                    {{ $image := .Params.image }}
+                                                                                    {{ if or (strings.HasPrefix $image "http://") (strings.HasPrefix $image "https://") }}
+                                                                                    <img src="{{ $image }}" class="img-responsive" alt="{{ .Title }}" />
+                                                                                    {{ else }}
+                                                                                    {{ $image = strings.TrimPrefix "/" $image }}
+                                                                                    <img src="{{ $image | relURL }}" class="img-responsive" alt="{{ .Title }}" />
+                                                                                    {{ end }}
                                           {{ else if .Params.banner }}
                                           <img src="{{ .Params.banner | relURL }}" class="img-responsive" alt="{{ .Title }}" />
                                           {{ else }}

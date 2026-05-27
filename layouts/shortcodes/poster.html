@@ -1,4 +1,8 @@
 {{- $image := .Get 0 -}}
 {{- $alt := .Get 1 -}}
-{{- $base := site.BaseURL | strings.TrimSuffix "/" -}}
-<img src="{{ $base }}{{ $image }}" alt="{{ $alt }}" class="img-responsive">
+{{- $src := $image -}}
+{{- if not (or (strings.HasPrefix $src "http://") (strings.HasPrefix $src "https://")) -}}
+	{{- $src = strings.TrimPrefix "/" $src -}}
+	{{- $src = $src | relURL -}}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ $alt }}" class="img-responsive">
