@@ -64,8 +64,8 @@ title = "Class prices"
 subtitle = "Clear rates for group sessions and private coaching."
 
 [[class_price_cards.cards]]
-name = "Cobra Squad"
-price = "£4"
+name = "Cobra Kids"
+price = "£3"
 price_suffix = "per class"
 featured = false
 button_text = "View classes"
@@ -111,8 +111,8 @@ featured = false
 button_text = "Talk to a coach"
 button_url = "/contact/"
 features = [
-  "One-to-one gym sessions to build confidence and fitness.",
-  "Strength, conditioning, and weight-loss support",
+  "One-to-one boxing sessions.",
+  "Taylored sessions",
   "Flexible session times"
 ]
 
