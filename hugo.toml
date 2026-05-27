@@ -33,15 +33,20 @@ theme = "hugo-universal-theme"
 	weight = 5
 
 [[menu.main]]
+	name = "News"
+	url = "/news/"
+	weight = 6
+
+[[menu.main]]
 	name = "Policies"
 	url = "/policies/"
-	weight = 6
+	weight = 7
 
 [[menu.main]]
 	identifier = "contact"
 	name = "Contact"
 	url = "/contact/"
-	weight = 7
+	weight = 8
 
 [[menu.topbar]]
 	weight = 1

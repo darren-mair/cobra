@@ -23,15 +23,21 @@
 
                     <div class="col-md-9" id="blog-listing-medium">
 
-                        {{ $paginator := .Paginate (where .Data.Pages "Type" "in" .Site.Params.mainSections) }}
+                        {{ $listPages := where .Data.Pages "Type" "in" .Site.Params.mainSections }}
+                        {{ if eq (len $listPages) 0 }}
+                        {{ $listPages = .RegularPages }}
+                        {{ end }}
+                        {{ $paginator := .Paginate $listPages }}
                         {{ range $paginator.Pages }}
                         <section class="post">
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="image">
                                       <a href="{{ .Permalink }}">
-                                          {{ if .Params.banner }}
-                                          <img src="{{ .Params.banner | relURL }}" class="img-responsive" alt="" />
+                                          {{ if .Params.image }}
+                                          <img src="{{ .Params.image | relURL }}" class="img-responsive" alt="{{ .Title }}" />
+                                          {{ else if .Params.banner }}
+                                          <img src="{{ .Params.banner | relURL }}" class="img-responsive" alt="{{ .Title }}" />
                                           {{ else }}
                                           <img src="{{ "img/placeholder.png" | relURL }}" class="img-responsive" alt="" />
                                           {{ end }}

@@ -1,5 +1,5 @@
 title = "Class Calendar"
-subtitle = "Weekly class timetable based on current Cobra class posters."
+subtitle = "Weekly class timetable."
 note = "Session times can change on bank holidays and fight camp weeks. Message the gym socials for live updates."
 
 [table]
