@@ -9,8 +9,6 @@ Get-Process hugo -ErrorAction SilentlyContinue | Stop-Process -Force
 
 hugo server `
     --config hugo.toml `
-    --environment development `
-    --baseURL ("http://localhost:{0}/" -f $Port) `
     --bind 127.0.0.1 `
     --port $Port `
     --disableFastRender

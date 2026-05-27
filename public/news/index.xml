@@ -2,59 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>News on Cobra Boxing and fitness</title>
-    <link>http://localhost:1313/news/</link>
+    <link>//localhost:58357/news/</link>
     <description>Recent content in News on Cobra Boxing and fitness</description>
     <generator>Hugo</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 27 May 2026 09:06:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/news/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:58357/news/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>New Poster: 706650305</title>
-      <link>http://localhost:1313/news/2026-05-27-poster-706650305/</link>
+      <link>//localhost:58357/news/2026-05-27-poster-706650305/</link>
       <pubDate>Wed, 27 May 2026 09:06:00 +0000</pubDate>
-      <guid>http://localhost:1313/news/2026-05-27-poster-706650305/</guid>
+      <guid>//localhost:58357/news/2026-05-27-poster-706650305/</guid>
       <description>Latest Cobra Boxing and fitness poster update.</description>
     </item>
     <item>
       <title>New Poster: 706217458</title>
-      <link>http://localhost:1313/news/2026-05-27-poster-706217458/</link>
+      <link>//localhost:58357/news/2026-05-27-poster-706217458/</link>
       <pubDate>Wed, 27 May 2026 09:05:00 +0000</pubDate>
-      <guid>http://localhost:1313/news/2026-05-27-poster-706217458/</guid>
+      <guid>//localhost:58357/news/2026-05-27-poster-706217458/</guid>
       <description>Latest Cobra Boxing and fitness poster update.</description>
     </item>
     <item>
       <title>New Poster: 701437261</title>
-      <link>http://localhost:1313/news/2026-05-27-poster-701437261/</link>
+      <link>//localhost:58357/news/2026-05-27-poster-701437261/</link>
       <pubDate>Wed, 27 May 2026 09:04:00 +0000</pubDate>
-      <guid>http://localhost:1313/news/2026-05-27-poster-701437261/</guid>
+      <guid>//localhost:58357/news/2026-05-27-poster-701437261/</guid>
       <description>Latest Cobra Boxing and fitness poster update.</description>
     </item>
     <item>
       <title>New Poster: 700154813</title>
-      <link>http://localhost:1313/news/2026-05-27-poster-700154813/</link>
+      <link>//localhost:58357/news/2026-05-27-poster-700154813/</link>
       <pubDate>Wed, 27 May 2026 09:03:00 +0000</pubDate>
-      <guid>http://localhost:1313/news/2026-05-27-poster-700154813/</guid>
+      <guid>//localhost:58357/news/2026-05-27-poster-700154813/</guid>
       <description>Latest Cobra Boxing and fitness poster update.</description>
     </item>
     <item>
       <title>New Poster: 700083623</title>
-      <link>http://localhost:1313/news/2026-05-27-poster-700083623/</link>
+      <link>//localhost:58357/news/2026-05-27-poster-700083623/</link>
       <pubDate>Wed, 27 May 2026 09:02:00 +0000</pubDate>
-      <guid>http://localhost:1313/news/2026-05-27-poster-700083623/</guid>
+      <guid>//localhost:58357/news/2026-05-27-poster-700083623/</guid>
       <description>Latest Cobra Boxing and fitness poster update.</description>
     </item>
     <item>
       <title>New Poster: 699953839</title>
-      <link>http://localhost:1313/news/2026-05-27-poster-699953839/</link>
+      <link>//localhost:58357/news/2026-05-27-poster-699953839/</link>
       <pubDate>Wed, 27 May 2026 09:01:00 +0000</pubDate>
-      <guid>http://localhost:1313/news/2026-05-27-poster-699953839/</guid>
+      <guid>//localhost:58357/news/2026-05-27-poster-699953839/</guid>
       <description>Latest Cobra Boxing and fitness poster update.</description>
     </item>
     <item>
       <title>Welcome To Cobra News</title>
-      <link>http://localhost:1313/news/welcome-to-cobra-news/</link>
+      <link>//localhost:58357/news/welcome-to-cobra-news/</link>
       <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/news/welcome-to-cobra-news/</guid>
+      <guid>//localhost:58357/news/welcome-to-cobra-news/</guid>
       <description>Use this section for quick updates on classes, events, and gym announcements.</description>
     </item>
   </channel>

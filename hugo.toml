@@ -1,4 +1,4 @@
-baseURL = "http://localhost:1313/"
+baseURL = "/"
 languageCode = "en-gb"
 title = "Cobra Boxing and fitness"
 theme = "hugo-universal-theme"

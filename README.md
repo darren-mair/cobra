@@ -3,9 +3,9 @@ Cobra Site
 
 ## Stable Commands
 
-Use explicit scripts so local and production configs never get mixed.
+Use the standard Hugo commands so local and live builds use the same config and path logic.
 
-- Local dev server (stable localhost styling):
-	- `pwsh -File scripts/start-local.ps1`
+- Local dev server:
+	- `hugo server`
 - Production build:
-	- `pwsh -File scripts/build-production.ps1`
+	- `hugo`
