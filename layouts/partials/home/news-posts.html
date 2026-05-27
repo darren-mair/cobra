@@ -1,9 +1,11 @@
 {{ $newsPosts := where site.RegularPages "Section" "news" }}
 {{ $newsPosts = sort $newsPosts "Date" "desc" }}
 {{ $newsPosts = first 6 $newsPosts }}
+
+{{ if gt (len $newsPosts) 0 }}
 <section class="bar background-white no-mb home-news-posts">
   <div class="container">
-    <div class="row news-grid">
+    <div class="row">
       <div class="col-md-12">
         <div class="heading text-center">
           <h2>News</h2>
@@ -11,36 +13,25 @@
       </div>
     </div>
 
-    {{ if gt (len $newsPosts) 0 }}
-    <div class="row">
+    <div class="row news-grid">
       {{ range $newsPosts }}
-      {{ $post := . }}
       <div class="col-md-4 col-sm-6">
         <div class="box-simple news-post-card">
-          {{ with $post.Params.image }}
-          <p><a href="{{ $post.RelPermalink }}"><img src="{{ . | relURL }}" alt="{{ $post.Title }}" class="img-responsive"></a></p>
+          {{ $image := .Params.image }}
+          {{ if $image }}
+          {{ $base := site.BaseURL | strings.TrimSuffix "/" }}
+          <p><a href="{{ .RelPermalink }}"><img src="{{ $base }}{{ $image }}" alt="{{ .Title }}" class="img-responsive"></a></p>
           {{ end }}
-          <h4><a href="{{ $post.RelPermalink }}">{{ $post.Title | truncate 64 }}</a></h4>
-          <p class="text-muted">{{ $post.Date.Format site.Params.date_format }}</p>
-          {{ if $post.Summary }}
-          <p>{{ $post.Summary }}</p>
+          <h4><a href="{{ .RelPermalink }}">{{ .Title | truncate 64 }}</a></h4>
+          <p class="text-muted">{{ .Date.Format site.Params.date_format }}</p>
+          {{ if .Summary }}
+          <p>{{ .Summary }}</p>
           {{ end }}
-          <p><a href="{{ $post.RelPermalink }}">Read more</a></p>
+          <p><a href="{{ .RelPermalink }}">Read more</a></p>
         </div>
       </div>
       {{ end }}
     </div>
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <p><a href="/news/">View all news posts</a></p>
-      </div>
-    </div>
-    {{ else }}
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <p>No news posts published yet.</p>
-      </div>
-    </div>
-    {{ end }}
   </div>
 </section>
+{{ end }}

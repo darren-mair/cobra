@@ -1,0 +1,4 @@
+{{- $image := .Get 0 -}}
+{{- $alt := .Get 1 -}}
+{{- $base := site.BaseURL | strings.TrimSuffix "/" -}}
+<img src="{{ $base }}{{ $image }}" alt="{{ $alt }}" class="img-responsive">
