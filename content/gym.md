@@ -1,5 +1,6 @@
 +++
 title = "Gym"
+description = "Cobra gym floor access in Newcastle with day and monthly passes, full equipment, and daily opening times."
 type = "page"
 layout = "gym"
 +++

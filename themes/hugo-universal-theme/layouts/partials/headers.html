@@ -3,11 +3,16 @@
 <meta name="googlebot" content="index,follow,snippet,archive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{ $title_plain := .Title | markdownify | plainify }}
-<title>{{ $title_plain }}</title>
+{{ $is_home := .IsHome }}
+<title>{{ if $is_home }}{{ .Site.Title }}{{ else }}{{ $title_plain }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="author" content="{{ .Param "author" }}" />
 
 <!-- Canonical URL for SEO -->
-<link rel="canonical" href="{{ .Permalink | absURL }}" />
+{{ $canonical := .RelPermalink }}
+{{ if and (isset .Site.Params "site_url") .Site.Params.site_url }}
+  {{ $canonical = printf "%s%s" (strings.TrimSuffix "/" .Site.Params.site_url) .RelPermalink }}
+{{ end }}
+<link rel="canonical" href="{{ $canonical }}" />
 
 {{ $keywords := .Site.Params.defaultKeywords | default (slice "" | first 0) }}
 {{ if isset .Params "tags" }}{{ range .Params.tags }}{{ $keywords = $keywords | append . }}{{ end }}{{ end }}
@@ -15,7 +20,10 @@
 {{ if gt (len $keywords) 0 }}
 <meta name="keywords" content="{{ delimit (uniq $keywords) ", " }}">
 {{ end }}
-{{ $description_plain := default .Site.Params.defaultDescription .Description | markdownify | plainify }}
+{{ $description_source := .Description }}
+{{ if not $description_source }}{{ $description_source = .Summary }}{{ end }}
+{{ if not $description_source }}{{ $description_source = .Site.Params.defaultDescription }}{{ end }}
+{{ $description_plain := $description_source | markdownify | plainify }}
 <meta name="description" content="{{ $description_plain }}">
 
 {{ hugo.Generator }}
@@ -61,8 +69,15 @@
 
 <!-- Facebook OpenGraph tags -->
 {{ $is_blog := and (eq .Type "blog") (eq .Kind "page") }}
-{{ $has_image :=  isset .Params "banner" }}
-{{ $image := cond $has_image .Params.banner (.Site.Params.default_sharing_image | default "img/sharing-default.png") }}
+{{ $has_banner := isset .Params "banner" }}
+{{ $has_image_param := isset .Params "image" }}
+{{ $has_image := or $has_banner $has_image_param }}
+{{ $page_image := cond $has_banner .Params.banner .Params.image }}
+{{ $image := cond $has_image $page_image (.Site.Params.default_sharing_image | default "img/cobra-cropped.png") }}
+{{ $image_url := $image | relURL }}
+{{ if and (isset .Site.Params "site_url") .Site.Params.site_url }}
+  {{ $image_url = printf "%s%s" (strings.TrimSuffix "/" .Site.Params.site_url) ($image | relURL) }}
+{{ end }}
 {{ $is_valid_image := print "static/" $image | fileExists }}
 {{ if $is_valid_image }}
 {{ $image_ext := path.Ext $image }}
@@ -70,9 +85,9 @@
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" content="{{ $title_plain }}">
 <meta property="og:type" content="{{ cond $is_blog "article" "website" }}">
-<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:url" content="{{ $canonical }}" />
 <meta property="og:description" content="{{ $description_plain }}">
-<meta property="og:image" content="{{ $image | absURL }}">
+<meta property="og:image" content="{{ $image_url }}">
 <meta property="og:image:type" content="image/{{ if eq $image_ext ".svg" }}svg+xml{{ else }}{{ trim $image_ext "." }}{{ end }}">
 {{ with .Params.banner_alt }}<meta property="og:image:alt" content="{{ . | markdownify | plainify }}">{{ end }}
 {{ $image_local :=  printf "/static/%s" $image}}
@@ -94,11 +109,11 @@
 {{ end }}
 
 <!-- Twitter Card meta tags -->
-<meta name="twitter:card" content="summary{{ if (and $is_blog (and $has_image $is_valid_image)) }}_large_image{{ end }}">
+<meta name="twitter:card" content="summary{{ if (and $has_image $is_valid_image) }}_large_image{{ end }}">
 {{ with .Param "twitter_site" }}<meta name="twitter:site" content="@{{ . }}">{{ end }}
 <meta name="twitter:title" content="{{ $title_plain | truncate 70 }}">
 {{ if $is_valid_image }}
-<meta name="twitter:image" content="{{ $image | absURL }}">
+<meta name="twitter:image" content="{{ $image_url }}">
 {{ end }}
 <meta name="twitter:description" content="{{ $description_plain | truncate 200 }}">
 {{ with .Param "twitter_author" }}<meta name="twitter:creator" content="@{{ . }}">{{ end }}

@@ -1,5 +1,6 @@
 +++
 title = "Contact"
+description = "Contact Cobra Boxing and fitness in Newcastle for classes, memberships, one-to-one coaching, and gym access."
 id = "contact"
 type = "page"
 +++

@@ -2,6 +2,7 @@ baseURL = "/"
 languageCode = "en-gb"
 title = "Cobra Boxing and fitness"
 theme = "hugo-universal-theme"
+enableRobotsTXT = true
 
 [pagination]
 	pagerSize = 8
@@ -87,6 +88,9 @@ theme = "hugo-universal-theme"
 [params]
 	author = "Cobra Boxing and fitness"
 	defaultDescription = "Boxing fitness classes, memberships, and coaching"
+	defaultKeywords = ["boxing gym newcastle", "boxing classes newcastle", "fitness gym newcastle", "cobra boxing and fitness"]
+	default_sharing_image = "img/cobra-cropped.png"
+	site_url = "https://cobraboxingandfitness.com/"
 	mainSections = ["blog"]
 	style = "default"
 	logo_text = "COBRA BOXING AND FITNESS"

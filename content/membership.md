@@ -1,5 +1,6 @@
 +++
 title = "Membership"
+description = "Membership prices for Cobra Boxing and fitness including gym day pass, monthly pass, and class options."
 type = "page"
 +++
 
