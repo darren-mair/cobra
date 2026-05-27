@@ -473,12 +473,9 @@ a:focus {
   }
 }
 
-.home-news-posts .news-grid > [class*="col-"] {
-  float: none;
+.home-news-posts .news-grid-item {
   display: flex;
   width: 100%;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .home-news-posts .news-post-card {

@@ -2,47 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://darren-mair.github.io/cobra/</loc>
+    <loc>http://localhost:54104/</loc>
     <lastmod>2026-05-27T09:06:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/2026-05-27-poster-706650305/</loc>
+    <loc>http://localhost:54104/news/2026-05-27-poster-706650305/</loc>
     <lastmod>2026-05-27T09:06:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/</loc>
+    <loc>http://localhost:54104/news/</loc>
     <lastmod>2026-05-27T09:06:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/2026-05-27-poster-706217458/</loc>
+    <loc>http://localhost:54104/news/2026-05-27-poster-706217458/</loc>
     <lastmod>2026-05-27T09:05:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/2026-05-27-poster-701437261/</loc>
+    <loc>http://localhost:54104/news/2026-05-27-poster-701437261/</loc>
     <lastmod>2026-05-27T09:04:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/2026-05-27-poster-700154813/</loc>
+    <loc>http://localhost:54104/news/2026-05-27-poster-700154813/</loc>
     <lastmod>2026-05-27T09:03:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/2026-05-27-poster-700083623/</loc>
+    <loc>http://localhost:54104/news/2026-05-27-poster-700083623/</loc>
     <lastmod>2026-05-27T09:02:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/2026-05-27-poster-699953839/</loc>
+    <loc>http://localhost:54104/news/2026-05-27-poster-699953839/</loc>
     <lastmod>2026-05-27T09:01:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/news/welcome-to-cobra-news/</loc>
+    <loc>http://localhost:54104/news/welcome-to-cobra-news/</loc>
     <lastmod>2026-05-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/categories/</loc>
+    <loc>http://localhost:54104/categories/</loc>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/classes/</loc>
+    <loc>http://localhost:54104/classes/</loc>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/cobra-champs/</loc>
+    <loc>http://localhost:54104/cobra-champs/</loc>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/contact/</loc>
+    <loc>http://localhost:54104/contact/</loc>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/gym/</loc>
+    <loc>http://localhost:54104/gym/</loc>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/membership/</loc>
+    <loc>http://localhost:54104/membership/</loc>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/policies/</loc>
+    <loc>http://localhost:54104/policies/</loc>
   </url><url>
-    <loc>https://darren-mair.github.io/cobra/tags/</loc>
+    <loc>http://localhost:54104/tags/</loc>
   </url>
 </urlset>

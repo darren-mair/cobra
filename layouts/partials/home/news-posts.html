@@ -13,9 +13,9 @@
       </div>
     </div>
 
-    <div class="row news-grid">
+    <div class="news-grid">
       {{ range $newsPosts }}
-      <div class="col-md-4 col-sm-6">
+      <div class="news-grid-item">
         <div class="box-simple news-post-card">
           {{ $image := .Params.image }}
           {{ if $image }}
