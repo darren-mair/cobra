@@ -35,7 +35,7 @@ jobs:
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
-        run: hugo --environment production
+        run: hugo --environment production --baseURL https://darren-mair.github.io/cobra/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

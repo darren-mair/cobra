@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
 
 hugo `
-    --config hugo.toml,hugo.production.toml `
-    --environment production
+    --environment production `
+    --baseURL "https://darren-mair.github.io/cobra/"
