@@ -1,0 +1,150 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-gb"
+title = "Cobra Boxing and fitness"
+theme = "hugo-universal-theme"
+
+[pagination]
+	pagerSize = 8
+
+[menu]
+[[menu.main]]
+	name = "Home"
+	url = "/"
+	weight = 1
+
+[[menu.main]]
+	name = "Classes"
+	url = "/classes/"
+	weight = 2
+
+[[menu.main]]
+	name = "Gym"
+	url = "/gym/"
+	weight = 3
+
+[[menu.main]]
+	name = "Membership"
+	url = "/membership/"
+	weight = 4
+
+[[menu.main]]
+	name = "Cobra Champs"
+	url = "/cobra-champs/"
+	weight = 5
+
+[[menu.main]]
+	name = "News"
+	url = "/news/"
+	weight = 6
+
+[[menu.main]]
+	name = "Policies"
+	url = "/policies/"
+	weight = 7
+
+[[menu.main]]
+	identifier = "contact"
+	name = "Contact"
+	url = "/contact/"
+	weight = 8
+
+[[menu.topbar]]
+	weight = 1
+	name = "Phone"
+	url = "tel:+447939470671"
+	pre = "<i class='fas fa-2x fa-phone'></i>"
+
+[[menu.topbar]]
+	weight = 2
+	name = "Email"
+	url = "mailto:cobraboxing73@gmail.com"
+	pre = "<i class='fas fa-2x fa-envelope'></i>"
+
+[[menu.topbar]]
+	weight = 3
+	name = "Facebook"
+	url = "https://www.facebook.com/CobraBoxingClub/"
+	pre = "<i class='fab fa-2x fa-facebook-f'></i>"
+
+[[menu.topbar]]
+	weight = 4
+	name = "Instagram"
+	url = "https://www.instagram.com/cobraboxingandfitness/"
+	pre = "<i class='fab fa-2x fa-instagram'></i>"
+
+[[menu.topbar]]
+	weight = 5
+	name = "TikTok"
+	url = "https://www.facebook.com/CobraBoxingClub/"
+	pre = "<i class='fab fa-2x fa-tiktok'></i>"
+
+[[menu.topbar]]
+	weight = 6
+	name = "YouTube"
+	url = "https://www.youtube.com/@FightCollective"
+	pre = "<i class='fab fa-2x fa-youtube'></i>"
+
+[params]
+	author = "Cobra Boxing and fitness"
+	defaultDescription = "Boxing fitness classes, memberships, and coaching"
+	mainSections = ["blog"]
+	style = "default"
+	logo_text = "COBRA BOXING AND FITNESS"
+	disabled_logo = false
+	logo = "img/cobra-cropped.png"
+	logo_small = "img/cobra-cropped.png"
+	contact_url = "/contact"
+	address = """<p class=\"text-uppercase\"><strong>Cobra Boxing and fitness</strong><br>
+	Old Coop Building First Floor<br>
+	Walbottle, Hexham Rd<br>
+	Newcastle upon Tyne<br>
+	NE15 9SR</p>
+	<p><a href=\"https://maps.app.goo.gl/TQDmhsbZmYTccw3Q9\" target=\"_blank\" rel=\"noopener\">Open in Google Maps</a></p>"""
+	about_us = "<p>Cobra Boxing and fitness helps adults, juniors, and families train with structure, safety, and confidence.</p>"
+	copyright = "Copyright (c) 2026 Cobra Boxing and fitness"
+	date_format = "January 2, 2006"
+	formspree_action = ""
+	contact_form_ajax = false
+	enableGoogleMaps = false
+	latitude = "55.0523"
+	longitude = "-1.7459"
+
+[params.topbar]
+	enable = true
+
+
+[[params.topbar.messages]]
+	desktop = "Membership: £6 day pass or £30 month pass."
+	mobile = "Passes from £6."
+
+[[params.topbar.messages]]
+	desktop = "Main Gym Times: Mon-Fri 7 AM-9 PM, Sat 9 AM-4 PM, Sun 9 AM-2 PM."
+	mobile = "Gym open daily."
+
+[[params.topbar.messages]]
+	desktop = "Follow us for updates on Facebook, Instagram, TikTok and YouTube."
+	mobile = "Follow us on socials."
+
+[params.widgets]
+	categories = false
+	tags = false
+	search = false
+
+[params.carouselHomepage]
+	enable = true
+	auto_play = true
+	slide_speed = 3000
+	pagination_speed = 1000
+
+[params.features]
+	enable = true
+	cols = 3
+
+[params.testimonials]
+	enable = false
+
+[params.see_more]
+	enable = true
+	icon = "fas fa-dumbbell"
+	title = "Ready to start boxing?"
+	subtitle = "Try your first class, meet our coaches, and choose a membership plan that fits your schedule."

@@ -35,9 +35,7 @@ jobs:
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
-        run: |
-          echo "Note: Update baseURL in hugo.production.toml with your GitHub Pages URL"
-          hugo --environment production
+        run: hugo --environment production
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
