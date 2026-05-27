@@ -13,12 +13,11 @@ type = "page"
 
 £6 per day.
 
-### Student Membership
+### Mixed Membership
 
-Discounted monthly option with valid student ID.
+Discounted monthly Gym access when combined with boxing classes
 
 ### One to One Package
 
-Buy 10 sessions for the price of 8.
 
-Contact the gym to book your first class or discuss the right package for your goals.
+Contact the gym to book your first session or even discuss the right sessions for your goals.
