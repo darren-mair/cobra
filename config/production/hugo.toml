@@ -1,1 +1,2 @@
-baseURL = "/"
+baseURL = "https://cobraboxingandfitness.com/"
+disableKinds = ["taxonomy", "term"]

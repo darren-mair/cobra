@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{ $title_plain := .Title | markdownify | plainify }}
 {{ $is_home := .IsHome }}
+{{ $is_article := .IsPage }}
 <title>{{ if $is_home }}{{ .Site.Title }}{{ else }}{{ $title_plain }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="author" content="{{ .Param "author" }}" />
 
@@ -25,6 +26,9 @@
 {{ if not $description_source }}{{ $description_source = .Site.Params.defaultDescription }}{{ end }}
 {{ $description_plain := $description_source | markdownify | plainify }}
 <meta name="description" content="{{ $description_plain }}">
+<meta name="theme-color" content="#111111">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 {{ hugo.Generator }}
 
@@ -68,7 +72,6 @@
 <link rel="alternate" href="{{ "/index.xml" | absURL }}" type="application/rss+xml" title="{{ .Site.Title }}">
 
 <!-- Facebook OpenGraph tags -->
-{{ $is_blog := and (eq .Type "blog") (eq .Kind "page") }}
 {{ $has_banner := isset .Params "banner" }}
 {{ $has_image_param := isset .Params "image" }}
 {{ $has_image := or $has_banner $has_image_param }}
@@ -84,12 +87,12 @@
 <meta property="og:locale" content="{{ replace .Site.LanguageCode "-" "_" }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" content="{{ $title_plain }}">
-<meta property="og:type" content="{{ cond $is_blog "article" "website" }}">
+<meta property="og:type" content="{{ cond $is_article "article" "website" }}">
 <meta property="og:url" content="{{ $canonical }}" />
 <meta property="og:description" content="{{ $description_plain }}">
 <meta property="og:image" content="{{ $image_url }}">
 <meta property="og:image:type" content="image/{{ if eq $image_ext ".svg" }}svg+xml{{ else }}{{ trim $image_ext "." }}{{ end }}">
-{{ with .Params.banner_alt }}<meta property="og:image:alt" content="{{ . | markdownify | plainify }}">{{ end }}
+{{ with .Params.banner_alt }}<meta property="og:image:alt" content="{{ . | markdownify | plainify }}">{{ else }}<meta property="og:image:alt" content="{{ $title_plain }}">{{ end }}
 {{ $image_local :=  printf "/static/%s" $image}}
 {{ with (imageConfig $image_local) }}
   <meta property="og:image:width" content="{{ .Width }}">
@@ -97,7 +100,7 @@
 {{ end }}
 {{ end }}
 {{ with .Lastmod }}<meta property="og:updated_time" content="{{ .Format "2006-01-02T15:04:05Z0700" }}">{{ end }}
-{{ if $is_blog }}
+{{ if $is_article }}
   {{ with .Param "facebook_site" }}<meta property="article:publisher" content="https://www.facebook.com/{{ . }}/">{{ end }}
   {{ with .Param "facebook_author" }}<meta property="article:author" content="https://www.facebook.com/{{ . }}/">{{ end }}
   {{ with .Params.categories }}<meta property="article:section" content="{{ index . 0 }}">{{ end }}
@@ -114,6 +117,71 @@
 <meta name="twitter:title" content="{{ $title_plain | truncate 70 }}">
 {{ if $is_valid_image }}
 <meta name="twitter:image" content="{{ $image_url }}">
+<meta name="twitter:image:alt" content="{{ $title_plain }}">
 {{ end }}
 <meta name="twitter:description" content="{{ $description_plain | truncate 200 }}">
 {{ with .Param "twitter_author" }}<meta name="twitter:creator" content="@{{ . }}">{{ end }}
+
+<!-- Structured data -->
+{{ if $is_home }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  "name": {{ .Site.Title | jsonify }},
+  "url": {{ $canonical | jsonify }},
+  "description": {{ $description_plain | jsonify }},
+  "image": {{ $image_url | jsonify }},
+  "telephone": "+44 7939 470671",
+  "email": "cobraboxing73@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Old Coop Building First Floor, Walbottle, Hexham Rd",
+    "addressLocality": "Newcastle upon Tyne",
+    "postalCode": "NE15 9SR",
+    "addressCountry": "GB"
+  },
+  "sameAs": [
+    "https://www.facebook.com/CobraBoxingClub/",
+    "https://www.instagram.com/cobraboxingandfitness/",
+    "https://www.youtube.com/@FightCollective"
+  ]
+}
+</script>
+{{ else if $is_article }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": {{ if eq .Section "news" }}"NewsArticle"{{ else }}"WebPage"{{ end }},
+  "headline": {{ $title_plain | jsonify }},
+  "description": {{ $description_plain | jsonify }},
+  "url": {{ $canonical | jsonify }},
+  "mainEntityOfPage": {{ $canonical | jsonify }},
+  "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "author": {
+    "@type": "Organization",
+    "name": {{ .Site.Params.author | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ .Site.Title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ (printf "%s%s" (strings.TrimSuffix "/" .Site.Params.site_url) ("img/cobra-cropped.png" | relURL)) | jsonify }}
+    }
+  }{{ if $is_valid_image }},
+  "image": {{ $image_url | jsonify }}{{ end }}
+}
+</script>
+{{ else }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ $title_plain | jsonify }},
+  "description": {{ $description_plain | jsonify }},
+  "url": {{ $canonical | jsonify }}
+}
+</script>
+{{ end }}

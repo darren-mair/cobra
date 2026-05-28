@@ -1,8 +1,9 @@
-baseURL = "/"
+baseURL = "https://cobraboxingandfitness.com/"
 languageCode = "en-gb"
-title = "Cobra Boxing and fitness"
+title = "Cobra Boxing and Fitness"
 theme = "hugo-universal-theme"
 enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
 
 [pagination]
 	pagerSize = 8
@@ -86,8 +87,8 @@ enableRobotsTXT = true
 	pre = "<i class='fab fa-2x fa-youtube'></i>"
 
 [params]
-	author = "Cobra Boxing and fitness"
-	defaultDescription = "Boxing fitness classes, memberships, and coaching"
+	author = "Cobra Boxing and Fitness"
+	defaultDescription = "Boxing classes, fitness coaching, family sessions, and membership options in Newcastle at Cobra Boxing and Fitness."
 	defaultKeywords = ["boxing gym newcastle", "boxing classes newcastle", "fitness gym newcastle", "cobra boxing and fitness"]
 	default_sharing_image = "img/cobra-cropped.png"
 	site_url = "https://cobraboxingandfitness.com/"
@@ -104,8 +105,8 @@ enableRobotsTXT = true
 	Newcastle upon Tyne<br>
 	NE15 9SR</p>
 	<p><a href=\"https://maps.app.goo.gl/TQDmhsbZmYTccw3Q9\" target=\"_blank\" rel=\"noopener\">Open in Google Maps</a></p>"""
-	about_us = "<p>Cobra Boxing and fitness helps adults, juniors, and families train with structure, safety, and confidence.</p>"
-	copyright = "Copyright (c) 2026 Cobra Boxing and fitness"
+	about_us = "<p>Cobra Boxing and Fitness helps adults, juniors, and families train with structure, safety, and confidence.</p>"
+	copyright = "Copyright (c) 2026 Cobra Boxing and Fitness"
 	date_format = "January 2, 2006"
 	formspree_action = "https://formspree.io/f/maqkaonp"
 	contact_form_ajax = false
