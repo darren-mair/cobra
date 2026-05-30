@@ -8,6 +8,10 @@ type = "page"
 
 Cobra Boxing and Fitness offers a practical training space built for all experience levels, from first-time gym users to regular athletes.
 
+![Cobra Gym Floor](/img/carousel/gym-header.jpg)
+
+Train in a spacious, fully equipped gym environment with free weights, resistance machines, and cardio equipment.
+
 ### Training Areas
 
 - Free weights area for strength and conditioning
@@ -27,6 +31,21 @@ Cobra Boxing and Fitness offers a practical training space built for all experie
 - Friendly coaching support when needed
 - Flexible access options through day and monthly passes
 - Inclusive environment for adults, juniors, and families
+
+### Gym Access Passes
+
+- £6 day pass
+- £30 month pass
+
+### Main Gym Times
+
+- Monday: 7 AM - 9 PM
+- Tuesday: 7 AM - 9 PM
+- Wednesday: 7 AM - 9 PM
+- Thursday: 7 AM - 9 PM
+- Friday: 7 AM - 9 PM
+- Saturday: 9 AM - 4 PM
+- Sunday: 9 AM - 2 PM
 
 ### Need Help Getting Started?
 
