@@ -8,8 +8,6 @@ type = "page"
 
 Cobra Boxing and Fitness offers a practical training space built for all experience levels, from first-time gym users to regular athletes.
 
-![Cobra Gym Floor](/img/carousel/gym-header.jpg)
-
 Train in a spacious, fully equipped gym environment with free weights, resistance machines, and cardio equipment.
 
 ### Training Areas
@@ -50,3 +48,7 @@ Train in a spacious, fully equipped gym environment with free weights, resistanc
 ### Need Help Getting Started?
 
 If you are new to the gym floor, speak to the team and we will help you choose the right starting plan.
+
+<p style="clear: both; text-align: center; margin-top: 24px;">
+	<img src="/img/carousel/gym-header.jpg" alt="Cobra Gym Floor" style="max-width: 100%; height: auto; display: inline-block;" />
+</p>
