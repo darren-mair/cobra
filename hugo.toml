@@ -32,6 +32,12 @@ disableKinds = ["taxonomy", "term"]
 	parent = "menu.gym"
 
 [[menu.main]]
+	name = "Gym Facilities"
+	url = "/gym-facilities/"
+	weight = 2
+	parent = "menu.gym"
+
+[[menu.main]]
 	name = "Membership"
 	url = "/membership/"
 	weight = 4
