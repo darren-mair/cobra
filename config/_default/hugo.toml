@@ -72,7 +72,7 @@ disableKinds = ["taxonomy", "term"]
 [[menu.topbar]]
 	weight = 2
 	name = "Email"
-	url = "mailto:cobraboxing73@gmail.com"
+	url = "mailto:cobraboxingandfitness@yahoo.com"
 	pre = "<i class='fas fa-2x fa-envelope'></i>"
 
 [[menu.topbar]]
