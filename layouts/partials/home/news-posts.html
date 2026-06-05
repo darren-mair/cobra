@@ -28,8 +28,9 @@
           {{ end }}
           <h4><a href="{{ .RelPermalink }}">{{ .Title | truncate 64 }}</a></h4>
           <p class="text-muted">{{ .Date.Format site.Params.date_format }}</p>
-          {{ if .Summary }}
-          <p>{{ .Summary }}</p>
+          {{ $excerpt := .Description }}
+          {{ if $excerpt }}
+          <p>{{ $excerpt }}</p>
           {{ end }}
           <p><a href="{{ .RelPermalink }}">Read more</a></p>
         </div>

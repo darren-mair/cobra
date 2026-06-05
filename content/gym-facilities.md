@@ -49,6 +49,4 @@ Train in a spacious, fully equipped gym environment with free weights, resistanc
 
 If you are new to the gym floor, speak to the team and we will help you choose the right starting plan.
 
-<p style="clear: both; text-align: center; margin-top: 24px;">
-	<img src="/img/carousel/gym-header.jpg" alt="Cobra Gym Floor" style="max-width: 100%; height: auto; display: inline-block;" />
-</p>
+![Cobra Gym Floor](/img/carousel/gym-header.jpg)

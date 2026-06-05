@@ -1,5 +1,5 @@
 baseURL = "https://cobraboxingandfitness.com/"
-languageCode = "en-gb"
+locale = "en-gb"
 title = "Cobra Boxing and Fitness"
 theme = "hugo-universal-theme"
 enableRobotsTXT = true

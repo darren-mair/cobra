@@ -1,10 +1,8 @@
 weight: 2
 title: "Cobra Ladies Boxing"
-description: >
-  <ul class="list-style-none">
-    <li>Supportive women-only boxing sessions</li>
-    <li>Build technique, confidence, and fitness</li>
-    <li>Suitable for beginners and returning members</li>
-  </ul>
+description: |
+  - Supportive women-only boxing sessions
+  - Build technique, confidence, and fitness
+  - Suitable for beginners and returning members
 image: "img/carousel/cobra_ladies.jpg"
 href: "/classes/"

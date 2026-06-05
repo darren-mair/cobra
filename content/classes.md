@@ -1,6 +1,7 @@
 +++
 title = "Classes"
 description = "Boxing classes in Newcastle including kids, squad, ladies-only, mixed adults, and one-to-one sessions at Cobra Boxing and fitness."
+summary = "Boxing classes for kids, squad, ladies-only, and adults with a weekly timetable."
 type = "page"
 +++
 
