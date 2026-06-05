@@ -20,6 +20,7 @@ disableKinds = ["taxonomy", "term"]
 	weight = 2
 
 [[menu.main]]
+	identifier = "menu.gym"
 	name = "Gym"
 	identifier = "gym"
 	url = "/gym/"
