@@ -20,7 +20,6 @@ disableKinds = ["taxonomy", "term"]
 	weight = 2
 
 [[menu.main]]
-	identifier = "menu.gym"
 	name = "Gym"
 	identifier = "gym"
 	url = "/gym/"
@@ -97,7 +96,7 @@ disableKinds = ["taxonomy", "term"]
 [[menu.topbar]]
 	weight = 6
 	name = "YouTube"
-	url = "https://www.youtube.com/@FightCollective"
+	url = "https://www.youtube.com/@cobraboxingandfitness"
 	pre = "<i class='fab fa-2x fa-youtube'></i>"
 
 [params]
@@ -167,3 +166,18 @@ disableKinds = ["taxonomy", "term"]
 	icon = "fas fa-dumbbell"
 	title = "Ready to start boxing?"
 	subtitle = "Try your first class, meet our coaches, and choose a membership plan that fits your schedule."
+	link_url = "/membership/"
+	link_text = "View membership options"
+
+[params.clients]
+	enable = false
+
+[params.recent_posts]
+	enable = false
+
+[params.footer.recent_posts]
+	enable = false
+
+[taxonomies]
+	category = "categories"
+	tag = "tags"

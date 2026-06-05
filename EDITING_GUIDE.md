@@ -5,8 +5,8 @@ This site is easiest to maintain from markdown files in `content` and data files
 ## What to edit for each change
 
 - Page text (Classes, Membership, Contact, Policies): edit files in `content/`
-- Main menu links/order: edit `hugo.toml` under `[[menu.main]]`
-- Top contact bar text (phone/email line): edit `hugo.toml` under `[params.topbar]`
+- Main menu links/order: edit `config/_default/hugo.toml` under `[[menu.main]]`
+- Top contact bar text (phone/email line): edit `config/_default/hugo.toml` under `[params.topbar]`
 - Homepage class timetable: edit `data/class_calendar.toml`
 - Homepage trust strip/membership cards/final CTA: edit `data/homepage.toml`
 - Homepage slider (hero carousel): edit files in `data/carousel/`
@@ -28,7 +28,7 @@ This site is easiest to maintain from markdown files in `content` and data files
 - `data/carousel/`
 - `data/features/`
 - `data/cobra_champs.toml`
-- `hugo.toml`
+- `config/_default/hugo.toml`
 
 ## Files you should usually avoid editing
 
@@ -54,7 +54,7 @@ Hugo copies `static/` into the built site exactly as-is.
 
 ## Adding menu items quickly
 
-Main nav is controlled by repeated `[[menu.main]]` blocks in `hugo.toml`.
+Main nav is controlled by repeated `[[menu.main]]` blocks in `config/_default/hugo.toml`.
 
 Copy this pattern and change `name`, `url`, and `weight`:
 
