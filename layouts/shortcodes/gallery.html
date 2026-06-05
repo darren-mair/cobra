@@ -1,0 +1,35 @@
+{{- $folder := .Get "folder" | default "posters" -}}
+{{- $galleryDir := printf "static/img/%s" $folder -}}
+{{- $files := slice -}}
+{{- if fileExists $galleryDir -}}
+  {{- $files = readDir $galleryDir -}}
+{{- end -}}
+
+<section class="cobra-champs-gallery">
+  <div class="heading text-center">
+    <h2>Gallery</h2>
+    <p class="lead">A quick look inside Cobra Boxing and Fitness.</p>
+  </div>
+
+  {{ if gt (len $files) 0 }}
+    <div class="row">
+      {{ range $files }}
+        {{ $fileName := lower .Name }}
+        {{ if findRE "\\.(jpg|jpeg|png|webp|gif|svg)$" $fileName }}
+          {{ $baseName := replaceRE "\\.[^.]+$" "" .Name }}
+          {{ $title := humanize (replace $baseName "-" " ") }}
+          {{ $imagePath := printf "img/%s/%s" $folder .Name }}
+          <div class="col-sm-6 col-md-4">
+            <article class="champ-card">
+              <a class="champ-card-media" href="{{ $imagePath | relURL }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ $imagePath | relURL }}" alt="{{ $title }}" class="img-responsive" />
+              </a>
+            </article>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <p class="gallery-empty">Drop images into <strong>static/img/{{ $folder }}</strong> and they will appear here automatically.</p>
+  {{ end }}
+</section>

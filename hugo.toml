@@ -21,12 +21,25 @@ disableKinds = ["taxonomy", "term"]
 
 [[menu.main]]
 	name = "Gym"
+	identifier = "gym"
 	url = "/gym/"
 	weight = 3
 
 [[menu.main]]
+	name = "Gym Overview"
+	url = "/gym/"
+	parent = "gym"
+	weight = 1
+
+[[menu.main]]
 	name = "Membership"
 	url = "/membership/"
+	parent = "gym"
+	weight = 2
+
+[[menu.main]]
+	name = "Gallery"
+	url = "/gallery/"
 	weight = 4
 
 [[menu.main]]
@@ -83,7 +96,7 @@ disableKinds = ["taxonomy", "term"]
 [[menu.topbar]]
 	weight = 6
 	name = "YouTube"
-	url = "https://www.youtube.com/@FightCollective"
+	url = "https://www.youtube.com/@cobraboxingandfitness"
 	pre = "<i class='fab fa-2x fa-youtube'></i>"
 
 [params]
