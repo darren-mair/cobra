@@ -1,3 +1,3 @@
-# Production configuration for the live domain.
-baseURL = "https://cobraboxingandfitness.com/"
-disableKinds = ["taxonomy", "term"]
+# Intentionally empty.
+# This project uses a single config in config/_default/hugo.toml
+# so local and live builds render with the same settings.

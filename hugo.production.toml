@@ -1,5 +1,4 @@
-# Production configuration for GitHub Pages deployment
-# GitHub Pages base URL format: https://username.github.io/darren-mair/cobra
-# Replace USERNAME with your GitHub username and REPOSITORY with your repo name
-
-baseURL = "https://darren-mair.github.io/cobra/"
+# Legacy file kept for compatibility.
+# Single-source config lives in config/_default/hugo.toml.
+# Keep this value aligned with the live site if this file is ever used explicitly.
+baseURL = "https://cobraboxingandfitness.com/"
