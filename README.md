@@ -38,10 +38,38 @@ Only edit templates in `layouts/` or `themes/` when changing structure or behavi
 
 CI now validates Hugo builds against:
 
-- Hugo `0.147.7` (Cloudflare-compatible)
-- Hugo `0.160.1` (current local/GitHub setup)
+- Hugo `0.160.1`
 - Both base URLs:
 	- `https://cobraboxingandfitness.com/`
 	- `https://darren-mair.github.io/cobra/`
 
 Validation workflow: `.github/workflows/hugo-validate.yml`.
+
+## Hosting Version Alignment
+
+Set the same Hugo version (`0.160.1`) in all hosts:
+
+- GitHub Pages: managed in `.github/workflows/hugo-deploy.yml`
+- Cloudflare Pages: set build environment variable `HUGO_VERSION=0.160.1`
+
+## Google Reviews Automation
+
+Google reviews are fetched at build time into `data/google_reviews.json` by:
+
+- Script: `scripts/fetch_google_reviews.py`
+- Deploy workflow: `.github/workflows/hugo-deploy.yml`
+
+Required secrets/env vars:
+
+- `GOOGLE_PLACE_ID`
+- `GOOGLE_PLACES_API_KEY`
+
+Cloudflare Pages configuration:
+
+- Build command: `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 6 && hugo`
+- Environment variables:
+	- `HUGO_VERSION=0.160.1`
+	- `GOOGLE_PLACE_ID=<your_place_id>`
+	- `GOOGLE_PLACES_API_KEY=<your_api_key>`
+
+Testimonials page renders Google reviews through the shortcode in `content/testimonials.md`.

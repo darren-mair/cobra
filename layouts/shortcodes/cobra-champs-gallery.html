@@ -1,4 +1,4 @@
-{{ $gallery := site.Data.cobra_champs }}
+{{ $gallery := hugo.Data.cobra_champs }}
 {{ if $gallery }}
 {{ $galleryDir := "static/img/cobra-champs" }}
 {{ $files := readDir $galleryDir }}

@@ -1,0 +1,11 @@
+{
+  "source": "google_places",
+  "fetched_at": "",
+  "ok": false,
+  "reason": "not_fetched",
+  "business_name": "",
+  "google_maps_url": "",
+  "rating": null,
+  "user_ratings_total": null,
+  "reviews": []
+}

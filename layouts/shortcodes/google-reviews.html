@@ -1,0 +1,35 @@
+{{ $reviews := hugo.Data.google_reviews }}
+<section class="google-reviews-block">
+  <h2>Google Reviews</h2>
+
+  {{ if and $reviews $reviews.ok }}
+    <p class="text-muted">
+      {{ if $reviews.business_name }}{{ $reviews.business_name }}{{ else }}Cobra Boxing and Fitness{{ end }}
+      {{ if $reviews.rating }} | Rating: {{ $reviews.rating }}/5{{ end }}
+      {{ if $reviews.user_ratings_total }} ({{ $reviews.user_ratings_total }} reviews){{ end }}
+    </p>
+
+    {{ if gt (len $reviews.reviews) 0 }}
+      <div class="row">
+        {{ range $reviews.reviews }}
+          <div class="col-md-6">
+            <article class="box-simple">
+              <h4>{{ .author_name }}</h4>
+              {{ if .rating }}<p class="text-muted">Rating: {{ .rating }}/5{{ if .relative_time_description }} | {{ .relative_time_description }}{{ end }}</p>{{ end }}
+              {{ if .text }}<p>{{ .text }}</p>{{ end }}
+              {{ if .author_url }}<p><a href="{{ .author_url }}" target="_blank" rel="noopener">View profile</a></p>{{ end }}
+            </article>
+          </div>
+        {{ end }}
+      </div>
+    {{ else }}
+      <p>No Google reviews available yet.</p>
+    {{ end }}
+
+    {{ if $reviews.google_maps_url }}
+      <p><a href="{{ $reviews.google_maps_url }}" target="_blank" rel="noopener">Read all reviews on Google</a></p>
+    {{ end }}
+  {{ else }}
+    <p>Google reviews are currently unavailable. Please check back later.</p>
+  {{ end }}
+</section>
