@@ -1,6 +1,6 @@
 <section class="bar home-class-calendar">
   <div class="container">
-    {{ $calendar := hugo.Data.class_calendar }}
+    {{ $calendar := site.Data.class_calendar }}
     {{ if $calendar }}
     <div class="heading text-center">
       <h2>{{ $calendar.title }}</h2>

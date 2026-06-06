@@ -22,3 +22,26 @@ Use one config for both local and live output.
 	- `hugo -s cobra`
 
 Avoid environment flags unless you intentionally add environment-specific overrides.
+
+## Markdown-First Maintenance
+
+For day-to-day updates, prefer content and data files:
+
+- Pages: `content/`
+- Homepage cards/CTA/calendar: `data/homepage.toml`, `data/class_calendar.toml`
+- Carousel and feature boxes: `data/carousel/`, `data/features/`
+- Images: `static/img/`
+
+Only edit templates in `layouts/` or `themes/` when changing structure or behavior.
+
+## Build Guardrails
+
+CI now validates Hugo builds against:
+
+- Hugo `0.147.7` (Cloudflare-compatible)
+- Hugo `0.160.1` (current local/GitHub setup)
+- Both base URLs:
+	- `https://cobraboxingandfitness.com/`
+	- `https://darren-mair.github.io/cobra/`
+
+Validation workflow: `.github/workflows/hugo-validate.yml`.

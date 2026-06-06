@@ -1,4 +1,4 @@
-{{ $home := hugo.Data.homepage }}
+{{ $home := site.Data.homepage }}
 {{ $section := $home.final_cta }}
 {{ if $section }}
 <section class="home-final-cta">
@@ -8,8 +8,7 @@
     <div class="cta-actions">
       {{ range $section.actions }}
       {{ $actionURL := .url }}
-      {{ $internalActionURL := strings.TrimPrefix "/" $actionURL }}
-      <a class="btn {{ if eq .style "outline" }}btn-template-transparent-primary{{ else }}btn-template-main{{ end }} btn-lg" href="{{ if or (strings.HasPrefix $actionURL "http://") (strings.HasPrefix $actionURL "https://") (strings.HasPrefix $actionURL "mailto:") (strings.HasPrefix $actionURL "tel:") }}{{ $actionURL }}{{ else }}{{ $internalActionURL | relURL }}{{ end }}">{{ .text }}</a>
+      <a class="btn {{ if eq .style "outline" }}btn-template-transparent-primary{{ else }}btn-template-main{{ end }} btn-lg" href="{{ partial "helpers/internal-link.html" (dict "url" $actionURL) }}">{{ .text }}</a>
       {{ end }}
     </div>
   </div>

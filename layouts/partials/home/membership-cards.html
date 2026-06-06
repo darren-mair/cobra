@@ -1,4 +1,4 @@
-{{ $home := hugo.Data.homepage }}
+{{ $home := site.Data.homepage }}
 {{ $section := $home.membership_cards }}
 {{ if $section }}
 <section class="bar home-membership-cards">
@@ -22,8 +22,7 @@
             {{ end }}
           </ul>
           {{ $buttonURL := .button_url }}
-          {{ $internalButtonURL := strings.TrimPrefix "/" $buttonURL }}
-          <a class="btn btn-template-main" href="{{ if or (strings.HasPrefix $buttonURL "http://") (strings.HasPrefix $buttonURL "https://") (strings.HasPrefix $buttonURL "mailto:") (strings.HasPrefix $buttonURL "tel:") }}{{ $buttonURL }}{{ else }}{{ $internalButtonURL | relURL }}{{ end }}">{{ .button_text }}</a>
+          <a class="btn btn-template-main" href="{{ partial "helpers/internal-link.html" (dict "url" $buttonURL) }}">{{ .button_text }}</a>
         </article>
       </div>
       {{ end }}

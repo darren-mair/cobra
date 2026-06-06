@@ -1,11 +1,11 @@
 {{ if isset .Site.Params "features" }}
 {{ if .Site.Params.features.enable }}
-{{ if isset hugo.Data "features" }}
-{{ if gt (len hugo.Data.features) 0 }}
+{{ if isset site.Data "features" }}
+{{ if gt (len site.Data.features) 0 }}
 <section class="bar background-white">
     <div class="container">
         {{ $elements := default 3 .Site.Params.features.cols }}
-        {{ $features := sort hugo.Data.features "weight" }}
+        {{ $features := sort site.Data.features "weight" }}
 
         {{ $total_rows := div (len $features) $elements }}
 
@@ -24,8 +24,7 @@
                     <div class="col-md-{{ div 12 $elements }} col-{{ $j }} col-{{ if eq (mod $j 2) 0 }}odd{{ else }}even{{ end }}">
                         <div class="box-simple">
                             {{ with $element.url }}
-                            {{ $internalURL := strings.TrimPrefix "/" $element.url }}
-                            <a href="{{ if or (strings.HasPrefix $element.url "http://") (strings.HasPrefix $element.url "https://") (strings.HasPrefix $element.url "mailto:") (strings.HasPrefix $element.url "tel:") }}{{ $element.url }}{{ else }}{{ $internalURL | relURL }}{{ end }}">
+                            <a href="{{ partial "helpers/internal-link.html" (dict "url" $element.url) }}">
                             {{ end }}
                                 <div class="icon">
                                     <i class="{{ $element.icon }}"></i>

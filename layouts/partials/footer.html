@@ -50,8 +50,7 @@
             {{ .Site.Params.address | safeHTML }}
 
             {{ $contactURL := default "/contact" .Site.Params.contact_url }}
-            {{ $internalContactURL := strings.TrimPrefix "/" $contactURL }}
-            <a href="{{ if or (strings.HasPrefix $contactURL "http://") (strings.HasPrefix $contactURL "https://") (strings.HasPrefix $contactURL "mailto:") (strings.HasPrefix $contactURL "tel:") }}{{ $contactURL }}{{ else }}{{ $internalContactURL | relURL }}{{ end }}" class="btn btn-small btn-template-main">{{ i18n "contactGoTo" }}</a>
+            <a href="{{ partial "helpers/internal-link.html" (dict "url" $contactURL) }}" class="btn btn-small btn-template-main">{{ i18n "contactGoTo" }}</a>
 
             <hr class="hidden-md hidden-lg hidden-sm">
 

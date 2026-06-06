@@ -1,0 +1,7 @@
+{{- $url := .url -}}
+{{- if not $url -}}
+{{- else if or (strings.HasPrefix $url "http://") (strings.HasPrefix $url "https://") (strings.HasPrefix $url "mailto:") (strings.HasPrefix $url "tel:") -}}
+{{- $url -}}
+{{- else -}}
+{{- strings.TrimPrefix "/" $url | relURL -}}
+{{- end -}}

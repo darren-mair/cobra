@@ -36,6 +36,8 @@ This site is easiest to maintain from markdown files in `content` and data files
 - `themes/hugo-universal-theme/` (theme source)
 - `layouts/` unless you want to change page structure/components
 
+When templates must change, prefer shared helpers in `layouts/partials/helpers/` so link and compatibility logic stays in one place.
+
 ## Why there is content in static
 
 `static/` is for assets, not page copy:
@@ -51,6 +53,12 @@ Hugo copies `static/` into the built site exactly as-is.
 2. Add images under `static/img/`.
 3. Run `hugo` to build.
 4. Run `hugo server` to preview.
+
+## Stability checks
+
+- CI runs `.github/workflows/hugo-validate.yml` on pushes and PRs.
+- It validates both old and new Hugo versions and both deployment base URLs.
+- If this fails, do not deploy until the template or data issue is fixed.
 
 ## Adding menu items quickly
 
