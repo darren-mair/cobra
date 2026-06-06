@@ -24,7 +24,8 @@
                     <div class="col-md-{{ div 12 $elements }} col-{{ $j }} col-{{ if eq (mod $j 2) 0 }}odd{{ else }}even{{ end }}">
                         <div class="box-simple">
                             {{ with $element.url }}
-                            <a href="{{ $element.url }}">
+                            {{ $internalURL := strings.TrimPrefix "/" $element.url }}
+                            <a href="{{ if or (strings.HasPrefix $element.url "http://") (strings.HasPrefix $element.url "https://") (strings.HasPrefix $element.url "mailto:") (strings.HasPrefix $element.url "tel:") }}{{ $element.url }}{{ else }}{{ $internalURL | relURL }}{{ end }}">
                             {{ end }}
                                 <div class="icon">
                                     <i class="{{ $element.icon }}"></i>

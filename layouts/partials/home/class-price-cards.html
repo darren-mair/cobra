@@ -21,7 +21,9 @@
             <li>{{ . }}</li>
             {{ end }}
           </ul>
-          <a class="btn btn-template-main" href="{{ .button_url }}">{{ .button_text }}</a>
+          {{ $buttonURL := .button_url }}
+          {{ $internalButtonURL := strings.TrimPrefix "/" $buttonURL }}
+          <a class="btn btn-template-main" href="{{ if or (strings.HasPrefix $buttonURL "http://") (strings.HasPrefix $buttonURL "https://") (strings.HasPrefix $buttonURL "mailto:") (strings.HasPrefix $buttonURL "tel:") }}{{ $buttonURL }}{{ else }}{{ $internalButtonURL | relURL }}{{ end }}">{{ .button_text }}</a>
         </article>
       </div>
       {{ end }}

@@ -12,7 +12,8 @@
                 {{ range sort hugo.Data.carousel "weight" }}
                 <div class="item">
                     {{ if .href }}
-                    <a href="{{ .href }}" target="_blank" title="{{ .title | safeHTML }}">
+                    {{ $internalHref := strings.TrimPrefix "/" .href }}
+                    <a href="{{ if or (strings.HasPrefix .href "http://") (strings.HasPrefix .href "https://") (strings.HasPrefix .href "mailto:") (strings.HasPrefix .href "tel:") }}{{ .href }}{{ else }}{{ $internalHref | relURL }}{{ end }}" target="_blank" title="{{ .title | safeHTML }}">
                     {{ end }}
                         <div class="row">
                             <div class="col-sm-5 right">
@@ -20,7 +21,8 @@
                                 {{ .description | markdownify }}
                             </div>
                             <div class="col-sm-7">
-                                <img class="img-responsive" src="{{ .image }}" alt="">
+                                {{ $internalImage := strings.TrimPrefix "/" .image }}
+                                <img class="img-responsive" src="{{ $internalImage | relURL }}" alt="">
                             </div>
                         </div>
                     {{ if .href }}

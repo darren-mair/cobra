@@ -7,7 +7,9 @@
     <p>{{ $section.text }}</p>
     <div class="cta-actions">
       {{ range $section.actions }}
-      <a class="btn {{ if eq .style "outline" }}btn-template-transparent-primary{{ else }}btn-template-main{{ end }} btn-lg" href="{{ .url }}">{{ .text }}</a>
+      {{ $actionURL := .url }}
+      {{ $internalActionURL := strings.TrimPrefix "/" $actionURL }}
+      <a class="btn {{ if eq .style "outline" }}btn-template-transparent-primary{{ else }}btn-template-main{{ end }} btn-lg" href="{{ if or (strings.HasPrefix $actionURL "http://") (strings.HasPrefix $actionURL "https://") (strings.HasPrefix $actionURL "mailto:") (strings.HasPrefix $actionURL "tel:") }}{{ $actionURL }}{{ else }}{{ $internalActionURL | relURL }}{{ end }}">{{ .text }}</a>
       {{ end }}
     </div>
   </div>

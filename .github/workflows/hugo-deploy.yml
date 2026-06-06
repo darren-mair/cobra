@@ -37,7 +37,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build with Hugo
-        run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --gc --minify --baseURL "https://cobraboxingandfitness.com/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
