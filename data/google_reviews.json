@@ -1,8 +1,8 @@
 {
   "source": "google_places",
-  "fetched_at": "",
+  "fetched_at": "2026-06-08T11:29:11.965612+00:00",
   "ok": false,
-  "reason": "not_fetched",
+  "reason": "missing_credentials",
   "business_name": "",
   "google_maps_url": "",
   "rating": null,
