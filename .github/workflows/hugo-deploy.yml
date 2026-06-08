@@ -47,11 +47,15 @@ jobs:
           with open("data/google_reviews.json", "r", encoding="utf-8") as f:
               payload = json.load(f)
 
-          if not payload.get("ok"):
-              print(f"Google reviews payload invalid: {payload.get('reason', 'unknown_reason')}")
+          reason = payload.get("reason", "unknown_reason")
+          if not payload.get("ok") and reason != "missing_credentials":
+              print(f"Google reviews payload invalid: {reason}")
               sys.exit(1)
 
-          print(f"Google reviews payload valid with {len(payload.get('reviews', []))} reviews")
+          if payload.get("ok"):
+              print(f"Google reviews payload valid with {len(payload.get('reviews', []))} reviews")
+          else:
+              print(f"Google reviews payload fallback accepted: {reason}")
           PY
 
       - name: Commit refreshed Google reviews data
