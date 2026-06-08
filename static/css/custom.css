@@ -348,6 +348,19 @@ a:focus {
   padding-left: 20px;
 }
 
+.google-reviews-block .google-review-card {
+  min-height: 0;
+  height: auto;
+}
+
+.google-reviews-block .row > div {
+  margin-bottom: 18px;
+}
+
+.google-reviews-block .google-review-card p:last-child {
+  margin-bottom: 0;
+}
+
 .cobra-champs-gallery {
   padding: 8px 0 24px;
 }

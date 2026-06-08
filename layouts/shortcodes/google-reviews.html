@@ -13,7 +13,7 @@
       <div class="row">
         {{ range $reviews.reviews }}
           <div class="col-md-6">
-            <article class="box-simple">
+            <article class="box-simple google-review-card">
               <h4>{{ .author_name }}</h4>
               {{ if .rating }}<p class="text-muted">Rating: {{ .rating }}/5{{ if .relative_time_description }} | {{ .relative_time_description }}{{ end }}</p>{{ end }}
               {{ if .text }}<p>{{ .text }}</p>{{ end }}
