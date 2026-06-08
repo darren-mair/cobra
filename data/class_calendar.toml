@@ -11,7 +11,7 @@ slots = ["-", "-", "-", "-", "Cobra Squad (Kids Advanced)", "Mixed Adults"]
 
 [[table.rows]]
 day = "Tuesday"
-slots = ["-", "-", "-", "-", "Cobra Kids (Beginners)", "Mixed Adults"]
+slots = ["-", "-", "-", "-", "-", "Mixed Adults"]
 
 [[table.rows]]
 day = "Wednesday"
