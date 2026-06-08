@@ -21,21 +21,8 @@ disableKinds = ["taxonomy", "term"]
 
 [[menu.main]]
 	name = "Gym"
-	identifier = "gym"
 	url = "/gym/"
 	weight = 3
-
-[[menu.main]]
-	name = "Gym Overview"
-	url = "/gym/"
-	parent = "gym"
-	weight = 1
-
-[[menu.main]]
-	name = "Membership"
-	url = "/membership/"
-	parent = "gym"
-	weight = 2
 
 [[menu.main]]
 	name = "Gallery"
