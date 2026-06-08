@@ -36,6 +36,16 @@ def load_existing_reviews(path: str) -> list[dict]:
     return [r for r in reviews if isinstance(r, dict)]
 
 
+def load_existing_payload(path: str) -> dict | None:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return None
+
+    return data if isinstance(data, dict) else None
+
+
 def review_key(review: dict) -> tuple:
     return (
         review.get("time") or 0,
@@ -135,8 +145,14 @@ def main() -> int:
     output = args.output
     place_id = args.place_id.strip()
     api_key = args.api_key.strip()
+    existing_payload = load_existing_payload(output)
 
     if not place_id or not api_key:
+        if existing_payload and existing_payload.get("ok"):
+            write_payload(output, existing_payload)
+            print("Google reviews sync: missing credentials; preserved existing payload.")
+            return 0
+
         write_payload(output, empty_payload("missing_credentials"))
         print("Google reviews sync: missing GOOGLE_PLACE_ID or GOOGLE_PLACES_API_KEY; wrote empty payload.")
         return 0
@@ -149,7 +165,17 @@ def main() -> int:
             output_path=output,
         )
     except Exception as exc:
+        if existing_payload and existing_payload.get("ok"):
+            write_payload(output, existing_payload)
+            print(f"Google reviews sync: preserved existing payload after request error ({exc.__class__.__name__}).")
+            return 0
+
         payload = empty_payload(f"request_error:{exc.__class__.__name__}")
+
+    if not payload.get("ok") and existing_payload and existing_payload.get("ok"):
+        write_payload(output, existing_payload)
+        print(f"Google reviews sync: preserved existing payload ({payload.get('reason')}).")
+        return 0
 
     write_payload(output, payload)
 
