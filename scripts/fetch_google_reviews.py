@@ -23,6 +23,43 @@ def write_payload(path: str, payload: dict) -> None:
         f.write("\n")
 
 
+def load_existing_reviews(path: str) -> list[dict]:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return []
+
+    reviews = data.get("reviews", []) if isinstance(data, dict) else []
+    if not isinstance(reviews, list):
+        return []
+    return [r for r in reviews if isinstance(r, dict)]
+
+
+def review_key(review: dict) -> tuple:
+    return (
+        review.get("time") or 0,
+        (review.get("author_name") or "").strip(),
+        (review.get("text") or "").strip(),
+    )
+
+
+def merge_reviews(new_reviews: list[dict], existing_reviews: list[dict], max_reviews: int) -> list[dict]:
+    deduped: dict[tuple, dict] = {}
+
+    for review in new_reviews:
+        deduped[review_key(review)] = review
+
+    for review in existing_reviews:
+        key = review_key(review)
+        if key not in deduped:
+            deduped[key] = review
+
+    merged = list(deduped.values())
+    merged.sort(key=lambda r: (r.get("time") or 0), reverse=True)
+    return merged[:max_reviews]
+
+
 def empty_payload(reason: str) -> dict:
     return {
         "source": "google_places",
@@ -37,7 +74,7 @@ def empty_payload(reason: str) -> dict:
     }
 
 
-def fetch_reviews(api_key: str, place_id: str, max_reviews: int) -> dict:
+def fetch_reviews(api_key: str, place_id: str, max_reviews: int, output_path: str) -> dict:
     params = {
         "place_id": place_id,
         "fields": "name,rating,user_ratings_total,reviews,url",
@@ -71,6 +108,9 @@ def fetch_reviews(api_key: str, place_id: str, max_reviews: int) -> dict:
             }
         )
 
+    existing = load_existing_reviews(output_path)
+    merged_reviews = merge_reviews(normalized, existing, max_reviews=max_reviews)
+
     return {
         "source": "google_places",
         "fetched_at": now_iso(),
@@ -80,7 +120,7 @@ def fetch_reviews(api_key: str, place_id: str, max_reviews: int) -> dict:
         "google_maps_url": result.get("url", ""),
         "rating": result.get("rating"),
         "user_ratings_total": result.get("user_ratings_total"),
-        "reviews": normalized,
+        "reviews": merged_reviews,
     }
 
 
@@ -89,7 +129,7 @@ def main() -> int:
     parser.add_argument("--output", default=DEFAULT_OUTPUT, help="Path to output JSON file")
     parser.add_argument("--place-id", default=os.getenv("GOOGLE_PLACE_ID", ""), help="Google Place ID")
     parser.add_argument("--api-key", default=os.getenv("GOOGLE_PLACES_API_KEY", ""), help="Google Places API key")
-    parser.add_argument("--max-reviews", type=int, default=5, help="Maximum number of reviews to keep")
+    parser.add_argument("--max-reviews", type=int, default=20, help="Maximum number of reviews to keep")
     args = parser.parse_args()
 
     output = args.output
@@ -102,7 +142,12 @@ def main() -> int:
         return 0
 
     try:
-        payload = fetch_reviews(api_key=api_key, place_id=place_id, max_reviews=max(1, args.max_reviews))
+        payload = fetch_reviews(
+            api_key=api_key,
+            place_id=place_id,
+            max_reviews=max(1, args.max_reviews),
+            output_path=output,
+        )
     except Exception as exc:
         payload = empty_payload(f"request_error:{exc.__class__.__name__}")
 
