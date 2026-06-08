@@ -16,7 +16,7 @@
           {{ $title := humanize (replace $baseName "-" " ") }}
           {{ $imagePath := printf "img/cobra-champs/%s" .Name }}
           <div class="col-sm-6 col-md-4">
-            <article class="champ-card">
+            <article class="champ-card champ-card--belt">
               <a class="champ-card-media" href="{{ $imagePath | relURL }}" target="_blank" rel="noopener noreferrer">
                 <img src="{{ $imagePath | relURL }}" alt="{{ $title }}" class="img-responsive" />
               </a>

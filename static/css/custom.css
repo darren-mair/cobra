@@ -381,16 +381,49 @@ a:focus {
   box-shadow: 0 20px 34px rgba(0, 0, 0, 0.48);
 }
 
+.champ-card--belt {
+  position: relative;
+  border-color: transparent;
+  background: transparent;
+  isolation: isolate;
+  overflow: visible;
+  padding-bottom: 34px;
+}
+
+.champ-card--belt .champ-card-media {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  height: 280px;
+  background: #0f131a;
+}
+
+.champ-card--belt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 86px;
+  z-index: 2;
+  pointer-events: none;
+  background: url('/img/cobra_belt.png') center bottom / 100% 100% no-repeat;
+}
+
 .champ-card-media {
   display: block;
   background: #171b22;
+  height: 280px;
 }
 
 .champ-card-media img {
   display: block;
   width: 100%;
-  height: 280px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
 }
 
 .champ-card-body {
@@ -950,6 +983,10 @@ a:focus {
     min-height: 0;
     font-size: 26px;
     margin-top: 10px;
+  }
+
+  .champ-card-media {
+    height: 240px;
   }
 
   .home-email-signup {
