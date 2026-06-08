@@ -1,11 +1,57 @@
 {
   "source": "google_places",
-  "fetched_at": "2026-06-08T11:43:56.955517+00:00",
-  "ok": false,
-  "reason": "missing_credentials",
-  "business_name": "",
-  "google_maps_url": "",
-  "rating": null,
-  "user_ratings_total": null,
-  "reviews": []
+  "fetched_at": "2026-06-08T11:58:10.207085+00:00",
+  "ok": true,
+  "reason": "",
+  "business_name": "Cobra Gym",
+  "google_maps_url": "https://maps.google.com/?cid=6215753959370902186",
+  "rating": 4.9,
+  "user_ratings_total": 22,
+  "reviews": [
+    {
+      "author_name": "Michaela King",
+      "author_url": "https://www.google.com/maps/contrib/103072407579169380638/reviews",
+      "profile_photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJZbnV1vVcFAZLqYAAqvIk4yr9tERs7fjL2O8SKwWC2t9FgrQ=s128-c0x00000000-cc-rp-mo",
+      "rating": 5,
+      "relative_time_description": "in the last week",
+      "time": 1780754182,
+      "text": "Amazing place! I’ve been going to the ladies’ sessions since January and have already lost two and a half stone. The coaches are incredible, the ladies are the best bunch you could ask for, and the whole atmosphere feels like a true community. I definitely recommend joining the Cobra fam!\n\nMy partner attends the gym and the mixed sessions, and our daughter is part of the Cobra squad — this place has become our second home."
+    },
+    {
+      "author_name": "Gracie",
+      "author_url": "https://www.google.com/maps/contrib/112368947490535857228/reviews",
+      "profile_photo_url": "https://lh3.googleusercontent.com/a/ACg8ocI9Ww2Yf1wJqaQOm3h6p9zu0AfzIyKUyA5-aucnqEpfU6hyuQ=s128-c0x00000000-cc-rp-mo",
+      "rating": 5,
+      "relative_time_description": "3 weeks ago",
+      "time": 1778693427,
+      "text": "Looks good on photos and best place to go"
+    },
+    {
+      "author_name": "Alan bainbridge",
+      "author_url": "https://www.google.com/maps/contrib/115786083886673876043/reviews",
+      "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjX8f1ZLmjmOM_MjtpoAmKZTGwP87vzDAwMV51IPkKuRxEGr1s92aQ=s128-c0x00000000-cc-rp-mo-ba5",
+      "rating": 5,
+      "relative_time_description": "3 weeks ago",
+      "time": 1778602659,
+      "text": "Excellent gym for busting some moves."
+    },
+    {
+      "author_name": "alex foggoa",
+      "author_url": "https://www.google.com/maps/contrib/115675641669384164044/reviews",
+      "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjXcquLG-uNepvz5RAtbxsNf5UqsH8uToiN9-9ho5VrbM08tHtI=s128-c0x00000000-cc-rp-mo-ba3",
+      "rating": 5,
+      "relative_time_description": "a month ago",
+      "time": 1777900557,
+      "text": "Great for the kids"
+    },
+    {
+      "author_name": "kieran slater",
+      "author_url": "https://www.google.com/maps/contrib/104110702983158930190/reviews",
+      "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjWT8HQMBdu9eTvLf-DY-iLfCyC_rC3qqHc9WSfqSZbIUR3eJjDboQ=s128-c0x00000000-cc-rp-mo-ba2",
+      "rating": 5,
+      "relative_time_description": "3 months ago",
+      "time": 1772792293,
+      "text": "Cobra  boxing gym it top class gym the trainers have vast amount of knowledge this is a family who look after the members   anyone welcome to have a go try it"
+    }
+  ]
 }
