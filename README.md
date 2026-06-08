@@ -58,6 +58,7 @@ Google reviews are fetched at build time into `data/google_reviews.json` by:
 
 - Script: `scripts/fetch_google_reviews.py`
 - Deploy workflow: `.github/workflows/hugo-deploy.yml`
+- Deploy workflow now commits refreshed `data/google_reviews.json` back to `main` so review history is persisted across builds
 
 Required secrets/env vars:
 
@@ -66,13 +67,19 @@ Required secrets/env vars:
 
 Cloudflare Pages configuration:
 
-- Build command: `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && hugo`
+- Build command (recommended): `hugo`
+- Optional fetch-on-build command: `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && hugo`
 - Environment variables:
 	- `HUGO_VERSION=0.160.1`
 	- `GOOGLE_PLACE_ID=<your_place_id>`
 	- `GOOGLE_PLACES_API_KEY=<your_api_key>`
 
 Testimonials page renders Google reviews through the shortcode in `content/testimonials.md`.
+
+Notes:
+
+- Google Place Details returns up to 5 reviews per request, but the script merges new results with committed `data/google_reviews.json` history.
+- Persisted data in the repo allows up to `--max-reviews` (20) to render over time, including on Cloudflare's ephemeral build environment.
 
 ## Facebook Posts to News Automation
 

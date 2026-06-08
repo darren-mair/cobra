@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -43,6 +43,19 @@ jobs:
         env:
           FB_PAGE_USERNAME: ${{ secrets.FB_PAGE_USERNAME }}
           FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+
+      - name: Commit refreshed Google reviews data
+        run: |
+          if git diff --quiet -- data/google_reviews.json; then
+            echo "No Google reviews data changes to commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/google_reviews.json
+          git commit -m "chore(data): refresh Google reviews [skip ci]"
+          git push
 
       - name: Configure GitHub Pages
         id: pages
