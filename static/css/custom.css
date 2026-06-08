@@ -67,8 +67,13 @@ a:focus {
   padding: 0;
   margin-top: 6px;
   margin-bottom: 6px;
-  background: #101216;
-  border-radius: 4px;
+  background: transparent;
+  border-radius: 0;
+}
+
+.navbar-brand.home:hover,
+.navbar-brand.home:focus {
+  background: transparent;
 }
 
 .navbar-brand.home img {
@@ -325,7 +330,7 @@ a:focus {
 }
 
 .gym-page-content {
-  text-align: center;
+  text-align: left;
 }
 
 .gym-page-content img {
@@ -337,9 +342,9 @@ a:focus {
 }
 
 .gym-page-content ul {
-  display: inline-block;
+  display: block;
   text-align: left;
-  margin: 12px auto 18px;
+  margin: 12px 0 18px;
   padding-left: 20px;
 }
 

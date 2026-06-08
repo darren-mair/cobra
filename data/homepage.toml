@@ -39,7 +39,7 @@ price_suffix = "month pass"
 featured = true
 label = "Most Popular"
 button_text = "Join unlimited"
-button_url = "/membership/"
+button_url = "/gym/"
 features = [
   "Best value monthly access",
   "Priority class booking",

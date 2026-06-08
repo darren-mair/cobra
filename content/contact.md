@@ -1,6 +1,6 @@
 +++
 title = "Contact"
-description = "Contact Cobra Boxing and fitness in Newcastle for classes, memberships, one-to-one coaching, and gym access."
+description = "Contact Cobra Boxing and Fitness in Newcastle near Throckley and Walbottle for boxing classes, personal training, and gym access."
 id = "contact"
 type = "page"
 +++

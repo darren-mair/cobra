@@ -1,0 +1,46 @@
+{{ $siteURL := .Site.Params.site_url | default "https://cobraboxingandfitness.com/" }}
+{{ $canonical := .RelPermalink }}
+{{ if $siteURL }}
+  {{ $canonical = printf "%s%s" (strings.TrimSuffix "/" $siteURL) .RelPermalink }}
+{{ end }}
+
+<meta name="geo.region" content="GB-NET">
+<meta name="geo.placename" content="Walbottle, Newcastle upon Tyne">
+<meta name="geo.position" content="55.0523;-1.7459">
+<meta name="ICBM" content="55.0523, -1.7459">
+
+{{ if or .IsHome (eq .RelPermalink "/contact/") }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  "name": {{ .Site.Title | jsonify }},
+  "url": {{ $canonical | jsonify }},
+  "telephone": "+44 7939 470671",
+  "email": "cobraboxing73@gmail.com",
+  "areaServed": [
+    { "@type": "City", "name": "Newcastle upon Tyne" },
+    { "@type": "Place", "name": "Throckley" },
+    { "@type": "Place", "name": "Walbottle" }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Old Coop Building First Floor, Walbottle, Hexham Rd",
+    "addressLocality": "Walbottle",
+    "addressRegion": "Tyne and Wear",
+    "postalCode": "NE15 9SR",
+    "addressCountry": "GB"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 55.0523,
+    "longitude": -1.7459
+  },
+  "sameAs": [
+    "https://www.facebook.com/CobraBoxingClub/",
+    "https://www.instagram.com/cobraboxingandfitness/",
+    "https://www.youtube.com/@cobraboxingandfitness"
+  ]
+}
+</script>
+{{ end }}

@@ -1,7 +1,8 @@
 +++
 title = "Classes"
-description = "Boxing classes in Newcastle including kids, squad, ladies-only, mixed adults, and one-to-one sessions at Cobra Boxing and fitness."
-summary = "Boxing classes for kids, squad, ladies-only, and adults with a weekly timetable."
+description = "Boxing classes in Newcastle, Throckley, and Walbottle including kids, squad, ladies-only, mixed adults, and one-to-one coaching at Cobra Boxing and Fitness."
+summary = "Boxing classes in Newcastle for kids, squad, ladies-only, and adults with a weekly timetable."
+keywords = ["boxing classes newcastle", "boxing classes throckley", "boxing classes walbottle", "kids boxing newcastle", "ladies boxing newcastle", "boxing training newcastle"]
 type = "page"
 +++
 
@@ -16,6 +17,8 @@ Train with sessions built for your age, ability, and goals.
 - Mixed Adult sessions
 - One to one pad sessions
 
-See membership options for Gym access.
+Based near Throckley and Walbottle, our Newcastle boxing sessions are open to beginners and experienced members.
+
+See gym access options on the Gym page.
 
 {{< class-calendar >}}

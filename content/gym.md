@@ -1,13 +1,14 @@
 +++
 title = "Gym"
-description = "Cobra gym floor access in Newcastle with facilities, personal training, day and monthly passes, and daily opening times."
+description = "Workout gym in Newcastle, Throckley, and Walbottle with boxing-focused facilities, personal training, day and monthly passes, and daily opening times."
 type = "page"
 layout = "gym"
 aliases = ["/gym-facilities/", "/personal-trainer/", "/membership/"]
+keywords = ["gym newcastle", "gym throckley", "gym walbottle", "workout gym newcastle", "boxing gym newcastle", "boxing walbottle", "personal trainer newcastle"]
 +++
 
 
-Train in a spacious, fully equipped gym environment with free weights, resistance machines, and cardio equipment.
+Train in a spacious, fully equipped gym environment in Newcastle near Throckley and Walbottle, with free weights, resistance machines, and cardio equipment.
 
 ## Facilities
 

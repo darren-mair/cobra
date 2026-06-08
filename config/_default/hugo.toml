@@ -5,6 +5,11 @@ theme = "hugo-universal-theme"
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
 
+[sitemap]
+	changeFreq = "weekly"
+	priority = 0.8
+	filename = "sitemap.xml"
+
 [pagination]
 	pagerSize = 8
 
@@ -93,8 +98,8 @@ disableKinds = ["taxonomy", "term"]
 
 [params]
 	author = "Cobra Boxing and Fitness"
-	defaultDescription = "Boxing classes, fitness coaching, family sessions, and membership options in Newcastle at Cobra Boxing and Fitness."
-	defaultKeywords = ["boxing gym newcastle", "boxing classes newcastle", "fitness gym newcastle", "cobra boxing and fitness"]
+	defaultDescription = "Boxing gym in Newcastle, Throckley, and Walbottle offering boxing classes, personal training, fitness coaching, and gym workouts at Cobra Boxing and Fitness."
+	defaultKeywords = ["boxing gym newcastle", "boxing classes newcastle", "gym newcastle", "gym throckley", "gym walbottle", "boxing throckley", "boxing walbottle", "personal trainer newcastle", "workout gym newcastle", "fitness classes newcastle", "cobra boxing and fitness"]
 	default_sharing_image = "img/cobra-cropped.png"
 	site_url = "https://cobraboxingandfitness.com/"
 	mainSections = ["blog"]
@@ -158,8 +163,8 @@ disableKinds = ["taxonomy", "term"]
 	icon = "fas fa-dumbbell"
 	title = "Ready to start boxing?"
 	subtitle = "Try your first class, meet our coaches, and choose a membership plan that fits your schedule."
-	link_url = "/membership/"
-	link_text = "View membership options"
+	link_url = "/gym/"
+	link_text = "View gym options"
 
 [params.clients]
 	enable = false
