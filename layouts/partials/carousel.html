@@ -1,0 +1,49 @@
+{{ if default true .Site.Params.CarouselHomepage.enable }}
+{{ if isset hugo.Data "carousel" }}
+{{ if gt (len hugo.Data.carousel) 0 }}
+<section>
+    <div class="home-carousel">
+        <div class="dark-mask"></div>
+        <div class="container">
+            <div class="homepage owl-carousel"
+                data-autoplay="{{ default true .Site.Params.CarouselHomepage.auto_play }}"
+                data-slide-speed="{{ default 2000 .Site.Params.CarouselHomepage.slide_speed }}"
+                data-pagination-speed="{{ default 1000 .Site.Params.CarouselHomepage.pagination_speed }}">
+                {{ range $index, $item := sort hugo.Data.carousel "weight" }}
+                <div class="item">
+                    {{ if $item.href }}
+                    <a href="{{ partial "helpers/internal-link.html" (dict "url" $item.href) }}" target="_blank" title="{{ $item.title | safeHTML }}">
+                    {{ end }}
+                        <div class="row">
+                            <div class="col-sm-5 right">
+                                <h1>{{ $item.title | safeHTML }}</h1>
+                                {{ $item.description | markdownify }}
+                            </div>
+                            <div class="col-sm-7">
+                                {{ $internalImage := strings.TrimPrefix "/" $item.image }}
+                                {{ $imageStaticPath := printf "static/%s" $internalImage }}
+                                {{ $imageLocalPath := printf "/%s" $imageStaticPath }}
+                                {{ $imgWidth := 1200 }}
+                                {{ $imgHeight := 800 }}
+                                {{ if fileExists $imageStaticPath }}
+                                  {{ with imageConfig $imageLocalPath }}
+                                    {{ $imgWidth = .Width }}
+                                    {{ $imgHeight = .Height }}
+                                  {{ end }}
+                                {{ end }}
+                                <img class="img-responsive" src="{{ $internalImage | relURL }}" alt="{{ $item.title | plainify }}" width="{{ $imgWidth }}" height="{{ $imgHeight }}" loading="{{ if eq $index 0 }}eager{{ else }}lazy{{ end }}" decoding="async" fetchpriority="{{ if eq $index 0 }}high{{ else }}low{{ end }}" sizes="(max-width: 767px) 100vw, 58vw">
+                            </div>
+                        </div>
+                    {{ if $item.href }}
+                    </a>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+            <!-- /.project owl-slider -->
+        </div>
+    </div>
+</section>
+{{ end }}
+{{ end }}
+{{ end }}

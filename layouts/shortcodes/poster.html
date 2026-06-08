@@ -1,8 +1,18 @@
 {{- $image := .Get 0 -}}
 {{- $alt := .Get 1 -}}
 {{- $src := $image -}}
+{{- $imgWidth := 1200 -}}
+{{- $imgHeight := 675 -}}
 {{- if not (or (strings.HasPrefix $src "http://") (strings.HasPrefix $src "https://")) -}}
 	{{- $src = strings.TrimPrefix "/" $src -}}
+	{{- $imageStaticPath := printf "static/%s" $src -}}
+	{{- $imageLocalPath := printf "/%s" $imageStaticPath -}}
+	{{- if fileExists $imageStaticPath -}}
+		{{- with imageConfig $imageLocalPath -}}
+			{{- $imgWidth = .Width -}}
+			{{- $imgHeight = .Height -}}
+		{{- end -}}
+	{{- end -}}
 	{{- $src = $src | relURL -}}
 {{- end -}}
-<img src="{{ $src }}" alt="{{ $alt }}" class="img-responsive">
+<img src="{{ $src }}" alt="{{ $alt }}" class="img-responsive" loading="lazy" decoding="async" width="{{ $imgWidth }}" height="{{ $imgHeight }}">

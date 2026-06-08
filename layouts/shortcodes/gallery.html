@@ -19,10 +19,20 @@
           {{ $baseName := replaceRE "\\.[^.]+$" "" .Name }}
           {{ $title := humanize (replace $baseName "-" " ") }}
           {{ $imagePath := printf "img/%s/%s" $folder .Name }}
+          {{ $imageStaticPath := printf "static/%s" $imagePath }}
+          {{ $imageLocalPath := printf "/%s" $imageStaticPath }}
+          {{ $imgWidth := 1200 }}
+          {{ $imgHeight := 800 }}
+          {{ if fileExists $imageStaticPath }}
+            {{ with imageConfig $imageLocalPath }}
+              {{ $imgWidth = .Width }}
+              {{ $imgHeight = .Height }}
+            {{ end }}
+          {{ end }}
           <div class="col-sm-6 col-md-4">
             <article class="champ-card">
               <a class="champ-card-media" href="{{ $imagePath | relURL }}" target="_blank" rel="noopener noreferrer">
-                <img src="{{ $imagePath | relURL }}" alt="{{ $title }}" class="img-responsive" />
+                <img src="{{ $imagePath | relURL }}" alt="{{ $title }}" class="img-responsive" loading="lazy" decoding="async" width="{{ $imgWidth }}" height="{{ $imgHeight }}" sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw" />
               </a>
             </article>
           </div>
