@@ -73,3 +73,27 @@ Cloudflare Pages configuration:
 	- `GOOGLE_PLACES_API_KEY=<your_api_key>`
 
 Testimonials page renders Google reviews through the shortcode in `content/testimonials.md`.
+
+## Facebook Posts to News Automation
+
+Facebook page posts can be imported into Hugo news posts at build time:
+
+- Script: `scripts/fetch_facebook_news.py`
+- Output news markdown: `content/news/`
+- Sync status file: `data/facebook_news_sync.json`
+
+Required secrets/env vars:
+
+- `FB_PAGE_USERNAME` (for example `CobraBoxingClub`)
+- `FB_ACCESS_TOKEN`
+
+GitHub workflow uses these secrets in `.github/workflows/hugo-deploy.yml`.
+
+Cloudflare Pages build command should include both sync steps:
+
+- `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 6 && python3 scripts/fetch_facebook_news.py --output-dir content/news --max-posts 5 && hugo`
+
+Cloudflare environment variables should include:
+
+- `FB_PAGE_USERNAME=<your_page_username>`
+- `FB_ACCESS_TOKEN=<your_facebook_access_token>`

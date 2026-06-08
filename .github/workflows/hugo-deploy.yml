@@ -38,6 +38,12 @@ jobs:
           GOOGLE_PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
           GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
 
+      - name: Fetch Facebook posts into News
+        run: python3 scripts/fetch_facebook_news.py --output-dir content/news --max-posts 5
+        env:
+          FB_PAGE_USERNAME: ${{ secrets.FB_PAGE_USERNAME }}
+          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+
       - name: Configure GitHub Pages
         id: pages
         uses: actions/configure-pages@v5
