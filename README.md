@@ -66,7 +66,7 @@ Required secrets/env vars:
 
 Cloudflare Pages configuration:
 
-- Build command: `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 6 && hugo`
+- Build command: `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && hugo`
 - Environment variables:
 	- `HUGO_VERSION=0.160.1`
 	- `GOOGLE_PLACE_ID=<your_place_id>`
@@ -91,7 +91,7 @@ GitHub workflow uses these secrets in `.github/workflows/hugo-deploy.yml`.
 
 Cloudflare Pages build command should include both sync steps:
 
-- `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 6 && python3 scripts/fetch_facebook_news.py --output-dir content/news --max-posts 5 && hugo`
+- `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && python3 scripts/fetch_facebook_news.py --output-dir content/news --max-posts 5 && hugo`
 
 Cloudflare environment variables should include:
 
