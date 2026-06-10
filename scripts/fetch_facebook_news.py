@@ -50,6 +50,14 @@ def read_text_url(url: str) -> str:
         return resp.read().decode("utf-8", errors="replace")
 
 
+def load_existing_posts_payload(path: Path) -> dict | None:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return data if isinstance(data, dict) else None
+
+
 def resolve_page_id(page_ref: str, token: str) -> str:
     data = read_json_url(
         f"{GRAPH_BASE}/{page_ref}",
@@ -243,11 +251,20 @@ def fetch_posts_public(page_ref: str, max_posts: int) -> list[dict]:
 
     links = []
     seen = set()
+    blocked_signals = 0
     for entry in entry_points:
         try:
             html = read_text_url(entry)
         except Exception:
             continue
+
+        lower_html = html.lower()
+        if (
+            "join facebook or log in to continue" in lower_html
+            or "allow the use of cookies from facebook" in lower_html
+            or "login.php" in lower_html and "mbasic.facebook.com" in lower_html
+        ):
+            blocked_signals += 1
 
         for link in extract_public_post_links(html, page_ref):
             if link in seen:
@@ -257,6 +274,9 @@ def fetch_posts_public(page_ref: str, max_posts: int) -> list[dict]:
 
         if len(links) >= max_posts:
             break
+
+    if not links and blocked_signals >= 1:
+        raise RuntimeError("public_blocked_login_wall")
 
     posts = []
     for permalink in links[:max_posts]:
@@ -367,6 +387,7 @@ def main() -> int:
 
     status_path = Path(args.status_file)
     posts_path = Path(args.posts_file)
+    existing_posts_payload = load_existing_posts_payload(posts_path)
 
     page_ref = normalize_page_ref(args.page)
     token = (args.token or "").strip()
@@ -447,18 +468,25 @@ def main() -> int:
         return 0
     except Exception as exc:
         err_detail = str(exc).strip() or "unknown"
-        posts_payload = {
-            "source": "facebook",
-            "ok": False,
-            "reason": f"request_error:{exc.__class__.__name__}:{err_detail}",
-            "mode": "",
-            "page": page_ref,
-            "page_id": "",
-            "generated": 0,
-            "posts": [],
-            "fetched_at": now_utc().isoformat(),
-        }
-        write_posts_json(posts_path, posts_payload)
+        if existing_posts_payload and existing_posts_payload.get("posts"):
+            existing_posts_payload["ok"] = True
+            existing_posts_payload["reason"] = ""
+            existing_posts_payload["fetched_at"] = now_utc().isoformat()
+            existing_posts_payload["preserved_on_error"] = f"request_error:{exc.__class__.__name__}:{err_detail}"
+            write_posts_json(posts_path, existing_posts_payload)
+        else:
+            posts_payload = {
+                "source": "facebook",
+                "ok": False,
+                "reason": f"request_error:{exc.__class__.__name__}:{err_detail}",
+                "mode": "",
+                "page": page_ref,
+                "page_id": "",
+                "generated": 0,
+                "posts": [],
+                "fetched_at": now_utc().isoformat(),
+            }
+            write_posts_json(posts_path, posts_payload)
         write_status(
             status_path,
             {
