@@ -1,9 +1,9 @@
 {
   "source": "google_places",
-  "fetched_at": "2026-06-08T11:58:10.207085+00:00",
+  "fetched_at": "2026-06-10T10:16:48.720905+00:00",
   "ok": true,
   "reason": "",
-  "business_name": "Cobra Gym",
+  "business_name": "Cobra boxing and fitness Gym",
   "google_maps_url": "https://maps.google.com/?cid=6215753959370902186",
   "rating": 4.9,
   "user_ratings_total": 22,
@@ -31,7 +31,7 @@
       "author_url": "https://www.google.com/maps/contrib/115786083886673876043/reviews",
       "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjX8f1ZLmjmOM_MjtpoAmKZTGwP87vzDAwMV51IPkKuRxEGr1s92aQ=s128-c0x00000000-cc-rp-mo-ba5",
       "rating": 5,
-      "relative_time_description": "3 weeks ago",
+      "relative_time_description": "4 weeks ago",
       "time": 1778602659,
       "text": "Excellent gym for busting some moves."
     },
