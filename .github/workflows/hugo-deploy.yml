@@ -73,6 +73,14 @@ jobs:
           FB_PAGE_USERNAME: ${{ secrets.FB_PAGE_USERNAME }}
           FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
 
+      - name: Sync OneDrive gallery images
+        run: python3 scripts/sync_onedrive_gallery.py --output-dir static/img/gallery
+        env:
+          ONEDRIVE_FOLDER_SHARE_URL: ${{ secrets.ONEDRIVE_FOLDER_SHARE_URL }}
+          ONEDRIVE_CLIENT_ID: ${{ secrets.ONEDRIVE_CLIENT_ID }}
+          ONEDRIVE_CLIENT_SECRET: ${{ secrets.ONEDRIVE_CLIENT_SECRET }}
+          ONEDRIVE_REFRESH_TOKEN: ${{ secrets.ONEDRIVE_REFRESH_TOKEN }}
+
       - name: Configure GitHub Pages
         id: pages
         uses: actions/configure-pages@v5

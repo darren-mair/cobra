@@ -120,3 +120,28 @@ Public scrape mode notes:
 - Uses public Facebook page HTML only, no token required.
 - This is unofficial and can break if Facebook markup changes.
 - If it fails, existing `content/news` posts remain in place.
+
+## OneDrive Gallery Sync
+
+Gallery images can be synced from a shared OneDrive folder at build time:
+
+- Script: `scripts/sync_onedrive_gallery.py`
+- Output image folder: `static/img/gallery/`
+- Sync status file: `data/onedrive_gallery_sync.json`
+
+Required secrets/env vars:
+
+- `ONEDRIVE_FOLDER_SHARE_URL`
+- `ONEDRIVE_CLIENT_ID`
+- `ONEDRIVE_CLIENT_SECRET`
+- `ONEDRIVE_REFRESH_TOKEN`
+
+Cloudflare Pages build command with gallery sync:
+
+- `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && python3 scripts/sync_onedrive_gallery.py --output-dir static/img/gallery && hugo`
+
+Notes:
+
+- Synced images are written into `static/img/gallery/` with the prefix `onedrive-`.
+- Existing non-OneDrive gallery files are left untouched.
+- The OneDrive folder should contain image files only for the cleanest results.

@@ -35,5 +35,8 @@ jobs:
       - name: Generate fallback Facebook news sync status
         run: python3 scripts/fetch_facebook_news.py --page https://www.facebook.com/CobraBoxingClub --public-scrape --output-dir content/news --max-posts 3
 
+      - name: Sync OneDrive gallery images
+        run: python3 scripts/sync_onedrive_gallery.py --output-dir static/img/gallery
+
       - name: Build
         run: hugo --gc --minify --baseURL "${{ matrix.base_url }}"
