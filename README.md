@@ -88,19 +88,35 @@ Facebook page posts can be imported into Hugo news posts at build time:
 - Script: `scripts/fetch_facebook_news.py`
 - Output news markdown: `content/news/`
 - Sync status file: `data/facebook_news_sync.json`
+- Posts cache/data file: `data/facebook_posts.json`
 
-Required secrets/env vars:
+Modes:
 
-- `FB_PAGE_USERNAME` (for example `CobraBoxingClub`)
+- Graph API mode (requires token): use `FB_PAGE_USERNAME` and `FB_ACCESS_TOKEN`
+- Public scrape mode (free, no API): pass `--public-scrape` and page handle or full page URL
+
+Required secrets/env vars (Graph API mode only):
+
+- `FB_PAGE_USERNAME` (for example `CobraBoxingClub` or `https://www.facebook.com/CobraBoxingClub`)
 - `FB_ACCESS_TOKEN`
 
 GitHub workflow uses these secrets in `.github/workflows/hugo-deploy.yml`.
 
 Cloudflare Pages build command should include both sync steps:
 
-- `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && python3 scripts/fetch_facebook_news.py --output-dir content/news --max-posts 5 && hugo`
+- `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && python3 scripts/fetch_facebook_news.py --page https://www.facebook.com/CobraBoxingClub --public-scrape --output-dir content/news --max-posts 5 && hugo`
+
+Optional: override JSON output path for posts cache:
+
+- `--posts-file data/facebook_posts.json`
 
 Cloudflare environment variables should include:
 
-- `FB_PAGE_USERNAME=<your_page_username>`
-- `FB_ACCESS_TOKEN=<your_facebook_access_token>`
+- `FB_PAGE_USERNAME=<your_page_username>` (only needed for Graph API mode)
+- `FB_ACCESS_TOKEN=<your_facebook_access_token>` (only needed for Graph API mode)
+
+Public scrape mode notes:
+
+- Uses public Facebook page HTML only, no token required.
+- This is unofficial and can break if Facebook markup changes.
+- If it fails, existing `content/news` posts remain in place.

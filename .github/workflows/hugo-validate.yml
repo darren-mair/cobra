@@ -33,7 +33,7 @@ jobs:
         run: python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20
 
       - name: Generate fallback Facebook news sync status
-        run: python3 scripts/fetch_facebook_news.py --output-dir content/news --max-posts 3
+        run: python3 scripts/fetch_facebook_news.py --page https://www.facebook.com/CobraBoxingClub --public-scrape --output-dir content/news --max-posts 3
 
       - name: Build
         run: hugo --gc --minify --baseURL "${{ matrix.base_url }}"
