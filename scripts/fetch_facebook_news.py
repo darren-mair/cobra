@@ -166,6 +166,9 @@ def normalize_page_ref(value: str) -> str:
 
 def extract_public_post_links(page_html: str, page_ref: str) -> list[str]:
     links = re.findall(r'href=["\']([^"\']+)["\']', page_html, flags=re.IGNORECASE)
+    # Facebook often embeds links inside escaped JSON blobs as \u002F or \/.
+    links.extend(re.findall(r'https:\\/\\/www\\.facebook\\.com\\/[^"\s<]+', page_html, flags=re.IGNORECASE))
+    links.extend(re.findall(r'https://www\.facebook\.com/[^"\s<]+', page_html, flags=re.IGNORECASE))
     candidates = []
 
     for raw in links:
@@ -177,6 +180,7 @@ def extract_public_post_links(page_html: str, page_ref: str) -> list[str]:
             f"/{page_ref}/posts/" in url
             or "story.php?story_fbid=" in url
             or "permalink.php?story_fbid=" in url
+            or "/groups/" in url and "/posts/" in url
             or "/share/p/" in url
         )
         if not is_post_like:
@@ -230,6 +234,9 @@ def scrape_public_post(permalink: str) -> dict:
 def fetch_posts_public(page_ref: str, max_posts: int) -> list[dict]:
     entry_points = [
         f"https://mbasic.facebook.com/{page_ref}/",
+        f"https://mbasic.facebook.com/{page_ref}/?v=timeline",
+        f"https://m.facebook.com/{page_ref}/",
+        f"https://m.facebook.com/{page_ref}/posts/",
         f"https://www.facebook.com/{page_ref}/posts/",
         f"https://www.facebook.com/{page_ref}",
     ]
@@ -439,10 +446,11 @@ def main() -> int:
         print(f"Facebook news sync ({mode}): wrote {len(written)} post files into {output_dir}")
         return 0
     except Exception as exc:
+        err_detail = str(exc).strip() or "unknown"
         posts_payload = {
             "source": "facebook",
             "ok": False,
-            "reason": f"request_error:{exc.__class__.__name__}",
+            "reason": f"request_error:{exc.__class__.__name__}:{err_detail}",
             "mode": "",
             "page": page_ref,
             "page_id": "",
@@ -455,12 +463,12 @@ def main() -> int:
             status_path,
             {
                 "ok": False,
-                "reason": f"request_error:{exc.__class__.__name__}",
+                "reason": f"request_error:{exc.__class__.__name__}:{err_detail}",
                 "generated": 0,
                 "fetched_at": now_utc().isoformat(),
             },
         )
-        print(f"Facebook news sync: failed ({exc.__class__.__name__}); continuing with existing content.")
+        print(f"Facebook news sync: failed ({exc.__class__.__name__}: {err_detail}); continuing with existing content.")
         return 0
 
 
