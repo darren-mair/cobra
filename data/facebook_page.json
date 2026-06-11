@@ -1,0 +1,131 @@
+{
+  "ok": true,
+  "reason": "",
+  "fetched_at": "2026-06-11T07:07:12.3750649Z",
+  "page_url": "https://facebook.com/CobraBoxingClub",
+  "data": {
+    "success": true,
+    "adLibrary": {
+      "adStatus": "This Page isn't currently running ads.",
+      "pageId": "1382103735359280"
+    },
+    "creationDate": "September 29, 2013",
+    "id": "100054208944064",
+    "name": "Cobra Boxing & Fitness",
+    "url": "https://www.facebook.com/CobraBoxingClub",
+    "gender": "NEUTER",
+    "coverPhoto": {
+      "focus": {
+        "x": 0.5,
+        "y": 0.62617554858934
+      },
+      "photo": {
+        "id": "1502539444896339",
+        "image": {
+          "uri": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-6/707022760_1502539448229672_6064048238684272388_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s960x960&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=Gho2tH-_4gUQ7kNvwH3UYgl&_nc_oc=Ado4nVvvHE5jsWx2udUzlNsLBHiWdx8G8DvuiOOEacjSoil0xR0qn0X5BzI4WUShHl4&_nc_zt=23&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af8O_ssl95XrrCO8s6VlO3wqkttYlUMAvzAaWBqBSyLNfw&oe=6A302A26",
+          "width": 960,
+          "height": 720
+        },
+        "viewer_image": {
+          "height": 1536,
+          "width": 2048
+        },
+        "blurred_image": {
+          "uri": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-6/707022760_1502539448229672_6064048238684272388_n.jpg?stp=cp6_dst-jpg_fb50_s320x320_tt6&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=Gho2tH-_4gUQ7kNvwH3UYgl&_nc_oc=Ado4nVvvHE5jsWx2udUzlNsLBHiWdx8G8DvuiOOEacjSoil0xR0qn0X5BzI4WUShHl4&_nc_zt=23&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af8Ed4XCWPDzwpeR2WmTCMqnOPqU4-8y0jAh_OURAJ0Ljw&oe=6A302A26",
+          "width": 320,
+          "height": 240
+        },
+        "url": "https://www.facebook.com/photo/?fbid=1502539444896339&set=a.284815140002115"
+      }
+    },
+    "isBusinessPageActive": false,
+    "profilePhoto": {
+      "url": "https://www.facebook.com/photo/?fbid=1502538578229759&set=a.284815136668782",
+      "viewer_image": {
+        "height": 858,
+        "width": 858
+      },
+      "id": "1502538578229759"
+    },
+    "profilePicLarge": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-1/706337703_1502538581563092_6619453686934078421_n.jpg?stp=dst-jpg_tt6&cstp=mx858x858&ctp=s200x200&_nc_cat=111&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=9F2FYim4YnEQ7kNvwGqpWcB&_nc_oc=Adrex_K34vYt3C6LwbUSsUyKDYu7zAUL46v84eiiCOCHJlTRTIWB41weY8eCci10dyg&_nc_zt=24&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af9SSbz8oNuH1n8Ub1I4FSQkx49Zh7TjbPmFAm7jg6nCTQ&oe=6A302F10",
+    "profilePicMedium": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-1/706337703_1502538581563092_6619453686934078421_n.jpg?stp=dst-jpg_tt6&cstp=mx858x858&ctp=s148x148&_nc_cat=111&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=9F2FYim4YnEQ7kNvwGqpWcB&_nc_oc=Adrex_K34vYt3C6LwbUSsUyKDYu7zAUL46v84eiiCOCHJlTRTIWB41weY8eCci10dyg&_nc_zt=24&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af9SSbz8oNuH1n8Ub1I4FSQkx49Zh7TjbPmFAm7jg6nCTQ&oe=6A302F10",
+    "profilePicSmall": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-1/706337703_1502538581563092_6619453686934078421_n.jpg?stp=dst-jpg_tt6&cstp=mx858x858&ctp=s100x100&_nc_cat=111&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=9F2FYim4YnEQ7kNvwGqpWcB&_nc_oc=Adrex_K34vYt3C6LwbUSsUyKDYu7zAUL46v84eiiCOCHJlTRTIWB41weY8eCci10dyg&_nc_zt=24&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af9SSbz8oNuH1n8Ub1I4FSQkx49Zh7TjbPmFAm7jg6nCTQ&oe=6A302F10",
+    "category": "Amateur Sports Team",
+    "links": {
+      "0": "https://www.instagram.com/cobraboxing73"
+    },
+    "phone": "+44 7939 470671",
+    "website": null,
+    "priceRange": "$$",
+    "rating": "96% recommend (19 Reviews)",
+    "ratingCount": 19,
+    "likeCount": 1994,
+    "followerCount": 1900,
+    "businessHours": null
+  },
+  "raw": {
+    "success": true,
+    "data": {
+      "success": true,
+      "adLibrary": {
+        "adStatus": "This Page isn't currently running ads.",
+        "pageId": "1382103735359280"
+      },
+      "creationDate": "September 29, 2013",
+      "id": "100054208944064",
+      "name": "Cobra Boxing & Fitness",
+      "url": "https://www.facebook.com/CobraBoxingClub",
+      "gender": "NEUTER",
+      "coverPhoto": {
+        "focus": {
+          "x": 0.5,
+          "y": 0.62617554858934
+        },
+        "photo": {
+          "id": "1502539444896339",
+          "image": {
+            "uri": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-6/707022760_1502539448229672_6064048238684272388_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s960x960&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=Gho2tH-_4gUQ7kNvwH3UYgl&_nc_oc=Ado4nVvvHE5jsWx2udUzlNsLBHiWdx8G8DvuiOOEacjSoil0xR0qn0X5BzI4WUShHl4&_nc_zt=23&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af8O_ssl95XrrCO8s6VlO3wqkttYlUMAvzAaWBqBSyLNfw&oe=6A302A26",
+            "width": 960,
+            "height": 720
+          },
+          "viewer_image": {
+            "height": 1536,
+            "width": 2048
+          },
+          "blurred_image": {
+            "uri": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-6/707022760_1502539448229672_6064048238684272388_n.jpg?stp=cp6_dst-jpg_fb50_s320x320_tt6&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=Gho2tH-_4gUQ7kNvwH3UYgl&_nc_oc=Ado4nVvvHE5jsWx2udUzlNsLBHiWdx8G8DvuiOOEacjSoil0xR0qn0X5BzI4WUShHl4&_nc_zt=23&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af8Ed4XCWPDzwpeR2WmTCMqnOPqU4-8y0jAh_OURAJ0Ljw&oe=6A302A26",
+            "width": 320,
+            "height": 240
+          },
+          "url": "https://www.facebook.com/photo/?fbid=1502539444896339&set=a.284815140002115"
+        }
+      },
+      "isBusinessPageActive": false,
+      "profilePhoto": {
+        "url": "https://www.facebook.com/photo/?fbid=1502538578229759&set=a.284815136668782",
+        "viewer_image": {
+          "height": 858,
+          "width": 858
+        },
+        "id": "1502538578229759"
+      },
+      "profilePicLarge": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-1/706337703_1502538581563092_6619453686934078421_n.jpg?stp=dst-jpg_tt6&cstp=mx858x858&ctp=s200x200&_nc_cat=111&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=9F2FYim4YnEQ7kNvwGqpWcB&_nc_oc=Adrex_K34vYt3C6LwbUSsUyKDYu7zAUL46v84eiiCOCHJlTRTIWB41weY8eCci10dyg&_nc_zt=24&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af9SSbz8oNuH1n8Ub1I4FSQkx49Zh7TjbPmFAm7jg6nCTQ&oe=6A302F10",
+      "profilePicMedium": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-1/706337703_1502538581563092_6619453686934078421_n.jpg?stp=dst-jpg_tt6&cstp=mx858x858&ctp=s148x148&_nc_cat=111&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=9F2FYim4YnEQ7kNvwGqpWcB&_nc_oc=Adrex_K34vYt3C6LwbUSsUyKDYu7zAUL46v84eiiCOCHJlTRTIWB41weY8eCci10dyg&_nc_zt=24&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af9SSbz8oNuH1n8Ub1I4FSQkx49Zh7TjbPmFAm7jg6nCTQ&oe=6A302F10",
+      "profilePicSmall": "https://scontent-det1-1.xx.fbcdn.net/v/t39.30808-1/706337703_1502538581563092_6619453686934078421_n.jpg?stp=dst-jpg_tt6&cstp=mx858x858&ctp=s100x100&_nc_cat=111&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=9F2FYim4YnEQ7kNvwGqpWcB&_nc_oc=Adrex_K34vYt3C6LwbUSsUyKDYu7zAUL46v84eiiCOCHJlTRTIWB41weY8eCci10dyg&_nc_zt=24&_nc_ht=scontent-det1-1.xx&_nc_gid=6RwYJlhDIfAmvBatN1iZLA&_nc_ss=7e289&oh=00_Af9SSbz8oNuH1n8Ub1I4FSQkx49Zh7TjbPmFAm7jg6nCTQ&oe=6A302F10",
+      "category": "Amateur Sports Team",
+      "links": {
+        "0": "https://www.instagram.com/cobraboxing73"
+      },
+      "phone": "+44 7939 470671",
+      "website": null,
+      "priceRange": "$$",
+      "rating": "96% recommend (19 Reviews)",
+      "ratingCount": 19,
+      "likeCount": 1994,
+      "followerCount": 1900,
+      "businessHours": null
+    },
+    "credits_used": 1,
+    "endpoint": "facebook/profile"
+  }
+}

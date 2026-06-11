@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import sys
 from html import unescape
 from datetime import datetime, timezone
@@ -14,7 +15,10 @@ from urllib.request import Request, urlopen
 GRAPH_BASE = "https://graph.facebook.com/v23.0"
 DEFAULT_OUTPUT_DIR = "content/news"
 DEFAULT_POSTS_FILE = "data/facebook_posts.json"
+DEFAULT_IMAGE_DIR = "static/img/posters"
+DEFAULT_CHAMPS_IMAGE_DIR = "static/img/cobra-champs"
 PUBLIC_FB_BASE = "https://www.facebook.com"
+DEFAULT_FALLBACK_IMAGE = "img/cobra-cropped.png"
 HTTP_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -297,6 +301,58 @@ def post_title(message: str, fallback_id: str) -> str:
     return raw[:90]
 
 
+def safe_post_id(post: dict) -> str:
+    post_id = str(post.get("id", "")).strip() or "post"
+    return re.sub(r"[^0-9a-zA-Z_-]", "", post_id.split("_")[-1]) or "post"
+
+
+def detect_ext_from_url(url: str) -> str:
+    parsed = urlparse(url or "")
+    ext = Path(parsed.path or "").suffix.lower()
+    if ext in {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".avif"}:
+        return ext
+    return ".jpg"
+
+
+def download_image(url: str, destination: Path) -> bool:
+    try:
+        req = Request(url, headers=HTTP_HEADERS)
+        with urlopen(req, timeout=30) as resp:
+            destination.write_bytes(resp.read())
+        return True
+    except Exception:
+        return False
+
+
+def localize_post_image(post: dict, image_dir: Path, champs_image_dir: Path, fallback_image: str) -> None:
+    image_url = (post.get("full_picture") or "").strip()
+    message = (post.get("message") or "").strip()
+
+    if not image_url:
+        post["full_picture"] = fallback_image
+        return
+
+    image_dir.mkdir(parents=True, exist_ok=True)
+    champs_image_dir.mkdir(parents=True, exist_ok=True)
+
+    stable_id = safe_post_id(post)
+    ext = detect_ext_from_url(image_url)
+    file_name = f"facebook-{stable_id}{ext}"
+    local_path = image_dir / file_name
+
+    if not download_image(image_url, local_path):
+        post["full_picture"] = fallback_image
+        return
+
+    post["full_picture"] = f"img/posters/{file_name}"
+
+    if re.search(r"champ", message, flags=re.IGNORECASE):
+        try:
+            shutil.copy2(local_path, champs_image_dir / file_name)
+        except Exception:
+            pass
+
+
 def write_hugo_post(output_dir: Path, post: dict) -> str:
     post_id = str(post.get("id", "")).strip() or "unknown"
     message = (post.get("message") or "").strip()
@@ -304,14 +360,14 @@ def write_hugo_post(output_dir: Path, post: dict) -> str:
     title = post_title(message, post_id)
 
     date_prefix = created.strftime("%Y-%m-%d")
-    stable_id = re.sub(r"[^0-9a-zA-Z_-]", "", post_id.split("_")[-1]) or "post"
+    stable_id = safe_post_id(post)
     file_name = f"{date_prefix}-facebook-{stable_id}.md"
     file_path = output_dir / file_name
 
     summary = message.splitlines()[0].strip() if message else "Latest update from our Facebook page."
     summary = summary[:155]
     permalink = (post.get("permalink_url") or "").strip()
-    image = (post.get("full_picture") or "").strip()
+    image = (post.get("full_picture") or "").strip() or DEFAULT_FALLBACK_IMAGE
 
     parts = [
         "+++",
@@ -322,8 +378,7 @@ def write_hugo_post(output_dir: Path, post: dict) -> str:
         f'summary = "{toml_escape(summary)}"',
     ]
 
-    if image:
-        parts.append(f'image = "{toml_escape(image)}"')
+    parts.append(f'image = "{toml_escape(image)}"')
 
     parts.extend(["+++", ""])
 
@@ -354,7 +409,7 @@ def normalize_post(post: dict) -> dict:
         "created_time": post.get("created_time", ""),
         "message": (post.get("message") or "").strip(),
         "permalink_url": (post.get("permalink_url") or "").strip(),
-        "full_picture": (post.get("full_picture") or "").strip(),
+        "full_picture": (post.get("full_picture") or "").strip() or DEFAULT_FALLBACK_IMAGE,
     }
 
 
@@ -373,6 +428,13 @@ def main() -> int:
         help="Use public page scraping instead of Graph API token",
     )
     parser.add_argument("--output-dir", default=DEFAULT_OUTPUT_DIR, help="Directory for generated Hugo news posts")
+    parser.add_argument("--image-dir", default=DEFAULT_IMAGE_DIR, help="Directory for downloaded post images")
+    parser.add_argument(
+        "--champs-image-dir",
+        default=DEFAULT_CHAMPS_IMAGE_DIR,
+        help="Directory where champ-related images are duplicated",
+    )
+    parser.add_argument("--fallback-image", default=DEFAULT_FALLBACK_IMAGE, help="Fallback image path for posts with no image")
     parser.add_argument("--max-posts", type=int, default=5, help="Maximum posts to generate")
     parser.add_argument("--status-file", default="data/facebook_news_sync.json", help="Status JSON output file")
     parser.add_argument(
@@ -384,6 +446,10 @@ def main() -> int:
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+    image_dir = Path(args.image_dir)
+    image_dir.mkdir(parents=True, exist_ok=True)
+    champs_image_dir = Path(args.champs_image_dir)
+    champs_image_dir.mkdir(parents=True, exist_ok=True)
 
     status_path = Path(args.status_file)
     posts_path = Path(args.posts_file)
@@ -432,6 +498,9 @@ def main() -> int:
 
         if not posts:
             raise RuntimeError("no_posts_found")
+
+        for post in posts:
+            localize_post_image(post, image_dir, champs_image_dir, args.fallback_image)
 
         written = []
         for post in posts:

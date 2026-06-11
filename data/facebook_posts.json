@@ -1,0 +1,150 @@
+{
+  "ok": true,
+  "reason": "",
+  "fetched_at": "2026-06-11T08:01:57.678327+00:00",
+  "page_url": "https://facebook.com/CobraBoxingClub",
+  "endpoint": "https://api.sociavault.com/v1/scrape/facebook/profile/posts?url=https%3A%2F%2Ffacebook.com%2FCobraBoxingClub&count=5",
+  "attempts": [
+    {
+      "endpoint": "https://api.sociavault.com/v1/scrape/facebook/profile/posts?url=https%3A%2F%2Ffacebook.com%2FCobraBoxingClub&count=5",
+      "ok": true,
+      "posts_detected": 3,
+      "error": ""
+    }
+  ],
+  "generated": 3,
+  "files": [
+    "content\\news\\2026-06-11-sociavault-1515937493556534.md",
+    "content\\news\\2026-06-11-sociavault-1515164866967130.md",
+    "content\\news\\2026-06-11-sociavault-1514437337039883.md"
+  ],
+  "posts": [
+    {
+      "id": "1515937493556534",
+      "created_time": "2026-06-11T08:00:16.7776309+00:00",
+      "message": "We are back tonight with our Mixed Adults Class 6-7pm\n\nFrom experienced to beginners and anyone looking for some a bit different and out your comfort zone. No pressure, no need to keep up just go at your own pace and stay within your limits. \n\nA warm friendly welcome awaits all who walk into Cobra Boxing and Fitness. \n\nWHAT ARE YOU WAITING FOR……\n\nAlso back on at 9:30am tmrw we have Eve Morris and her Ladies Only session",
+      "permalink_url": "https://www.facebook.com/CobraBoxingClub/posts/pfbid02R3rDabTgPgmnPwCh7YDofigvfUinZdLcAJto7gybGVrgYnE9Boz3hjVxvgRRg63Nl",
+      "full_picture": "img/cobra-cropped.png"
+    },
+    {
+      "id": "1515164866967130",
+      "created_time": "2026-06-11T07:59:16.7830531+00:00",
+      "message": "Great Post Alert………\n\nChamp of the Week goes to Josh Mair. This kid never gives up always tries his best and always puts 100% effort in.\n\nWell done Josh your 3rd time now winning the belt and that says a lot about you. The only thing that you need to do now is, BELIEVE IN YOURSELF👍\n\nWell done Josh💥🥊👌\n\nDONT JOIN A GYM \nJOIN THE COBRA FAMILY❤️",
+      "permalink_url": "https://www.facebook.com/CobraBoxingClub/posts/pfbid0aVYCNxiVkqk1SEmi9o8Xm8msSFv8B6DWhLF1Xbm9CHsegtKpwiT37RGQP3PuSmNSl",
+      "full_picture": "img/posters/sociavault-1515164866967130.jpg"
+    },
+    {
+      "id": "1514437337039883",
+      "created_time": "2026-06-11T07:58:17.3092887+00:00",
+      "message": "Morning class is back with Eve Morris tmrw morning down at Cobra Boxing & Fitness.\n9:30am-10:15am",
+      "permalink_url": "https://www.facebook.com/CobraBoxingClub/posts/pfbid02sbbuk1U9UQEntgJtTsyvwF45xkD79dT2FasVLkSKZCHskBYpNNBZbEMAeSCAJCEel",
+      "full_picture": "img/posters/sociavault-1514437337039883.jpg"
+    }
+  ],
+  "raw": {
+    "success": true,
+    "data": {
+      "success": true,
+      "posts": {
+        "0": {
+          "id": "1515937493556534",
+          "text": "We are back tonight with our Mixed Adults Class 6-7pm\n\nFrom experienced to beginners and anyone looking for some a bit different and out your comfort zone. No pressure, no need to keep up just go at your own pace and stay within your limits. \n\nA warm friendly welcome awaits all who walk into Cobra Boxing and Fitness. \n\nWHAT ARE YOU WAITING FOR……\n\nAlso back on at 9:30am tmrw we have Eve Morris and her Ladies Only session",
+          "url": "https://www.facebook.com/CobraBoxingClub/posts/pfbid02R3rDabTgPgmnPwCh7YDofigvfUinZdLcAJto7gybGVrgYnE9Boz3hjVxvgRRg63Nl",
+          "author": {
+            "__typename": "User",
+            "name": "Cobra Boxing & Fitness",
+            "short_name": "Cobra Boxing & Fitness",
+            "id": "100054208944064"
+          },
+          "videoDetails": {},
+          "image": null,
+          "reactionCount": 7,
+          "reactionCounts": {
+            "thankful": 0,
+            "like": 6,
+            "love": 1,
+            "care": 0,
+            "haha": 0,
+            "wow": 0,
+            "sad": 0,
+            "anger": 0,
+            "pride": 0,
+            "confused": 0
+          },
+          "commentCount": 0,
+          "videoViewCount": null,
+          "publishTime": 1781021205,
+          "topComments": {}
+        },
+        "1": {
+          "id": "1515164866967130",
+          "text": "Great Post Alert………\n\nChamp of the Week goes to Josh Mair. This kid never gives up always tries his best and always puts 100% effort in.\n\nWell done Josh your 3rd time now winning the belt and that says a lot about you. The only thing that you need to do now is, BELIEVE IN YOURSELF👍\n\nWell done Josh💥🥊👌\n\nDONT JOIN A GYM \nJOIN THE COBRA FAMILY❤️",
+          "url": "https://www.facebook.com/CobraBoxingClub/posts/pfbid0aVYCNxiVkqk1SEmi9o8Xm8msSFv8B6DWhLF1Xbm9CHsegtKpwiT37RGQP3PuSmNSl",
+          "author": {
+            "__typename": "User",
+            "name": "Cobra Boxing & Fitness",
+            "short_name": "Cobra Boxing & Fitness",
+            "id": "100054208944064"
+          },
+          "reactionCount": 15,
+          "reaction_counts": {
+            "thankful": 0,
+            "like": 9,
+            "love": 6,
+            "care": 0,
+            "haha": 0,
+            "wow": 0,
+            "sad": 0,
+            "anger": 0,
+            "pride": 0,
+            "confused": 0
+          },
+          "commentCount": 0,
+          "videoViewCount": null,
+          "publishTime": 1780941473,
+          "videoDetails": {},
+          "image": "https://scontent-bos5-1.xx.fbcdn.net/v/t39.30808-6/719525833_1515164933633790_1918036102355205111_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=bmGFZhKVm6AQ7kNvwHdjw4K&_nc_oc=Adr_NAGYqzZrBZK_U5boaiZCkiv81i0FWLUPjcmRm1nw3Jk6biMNjU9AXzdw2DaIe7c&_nc_zt=23&_nc_ht=scontent-bos5-1.xx&_nc_gid=mDGVFVEuGMYdoj4JOASyMg&_nc_ss=7e289&oh=00_Af8f_2_DyodcIgZxylvlIvzv8N8PyBUfklyjk_xni-3EfQ&oe=6A302416",
+          "images": {
+            "0": "https://scontent-bos5-1.xx.fbcdn.net/v/t39.30808-6/719525833_1515164933633790_1918036102355205111_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=bmGFZhKVm6AQ7kNvwHdjw4K&_nc_oc=Adr_NAGYqzZrBZK_U5boaiZCkiv81i0FWLUPjcmRm1nw3Jk6biMNjU9AXzdw2DaIe7c&_nc_zt=23&_nc_ht=scontent-bos5-1.xx&_nc_gid=mDGVFVEuGMYdoj4JOASyMg&_nc_ss=7e289&oh=00_Af8f_2_DyodcIgZxylvlIvzv8N8PyBUfklyjk_xni-3EfQ&oe=6A302416",
+            "1": "https://scontent-bos5-1.xx.fbcdn.net/v/t39.30808-6/718702325_1515164940300456_5712923944943866270_n.jpg?stp=dst-jpg_p552x414_tt6&_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=O1BZeBPd62EQ7kNvwF68BsC&_nc_oc=AdoqYuJ8R1WTJtlTbPmq9JCUtxnrQ_7UFwrCxzD32X01ETmOELqWsj9Rl0VetBhFa_U&_nc_zt=23&_nc_ht=scontent-bos5-1.xx&_nc_gid=mDGVFVEuGMYdoj4JOASyMg&_nc_ss=7e289&oh=00_Af9c4Oa3LI5Cb2pDmYlarb6J8zzaqS_IbtJkf8PeKitEqA&oe=6A3028EA"
+          },
+          "topComments": {}
+        },
+        "2": {
+          "id": "1514437337039883",
+          "text": "Morning class is back with Eve Morris tmrw morning down at Cobra Boxing & Fitness.\n9:30am-10:15am",
+          "url": "https://www.facebook.com/CobraBoxingClub/posts/pfbid02sbbuk1U9UQEntgJtTsyvwF45xkD79dT2FasVLkSKZCHskBYpNNBZbEMAeSCAJCEel",
+          "author": {
+            "__typename": "User",
+            "name": "Cobra Boxing & Fitness",
+            "short_name": "Cobra Boxing & Fitness",
+            "id": "100054208944064"
+          },
+          "reactionCount": 1,
+          "reaction_counts": {
+            "thankful": 0,
+            "like": 1,
+            "love": 0,
+            "care": 0,
+            "haha": 0,
+            "wow": 0,
+            "sad": 0,
+            "anger": 0,
+            "pride": 0,
+            "confused": 0
+          },
+          "commentCount": 0,
+          "videoViewCount": null,
+          "publishTime": 1780864855,
+          "videoDetails": {},
+          "image": "https://scontent-bos5-1.xx.fbcdn.net/v/t39.30808-6/717668515_1514436803706603_7320924434790131089_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=UuufimqxDHEQ7kNvwGsnijM&_nc_oc=AdptTJHbFyFvp-7FJ8a1UJFPKVhaAlS0U7vRWX_CHnqxffAZJ97tu0o3z-tpTZW0uEU&_nc_zt=23&_nc_ht=scontent-bos5-1.xx&_nc_gid=mDGVFVEuGMYdoj4JOASyMg&_nc_ss=7e289&oh=00_Af9jlHTsrDaQKRw6RwCcxrkAT1YtnLmX_PSmy-VdKds-Fw&oe=6A305322",
+          "topComments": {}
+        }
+      },
+      "cursor": "Cg8Ob3JnYW5pY19jdXJzb3IJAAACb0FRSFN1NGJnWVdLNG1US1BGQVc0Slp5VU1Ic1pyTHhMT25IMlJ5anRoT1RzOTIxSmtMNUVHdFV4c19PVVM0Z0l5bXhjbGM0UWI3UzhXOE03TVJtcUw0azVLbzE0cVVqdHBpRzZMbTNiNS1HZXJTWTFDSWR3eFlaanhRby1Sa3FRUHNoUENYYzNGV0FSU1lKc09hMDJGcExTTFZSWWtMMkZPV3RmaFZpU3UzeWxFR2J4aXgwRjJEQUw2UV9XV3pqNlQ1YkRvV256cVRLTDMzLUhRUzRNbTA5ZGhCcnBHMG42MDVoQ3BtRWlQS1p5QXZ0aHgyOEZTZmloWWw3Vl9yVUR2WWQxaHp0U192WUl1Q0JITy1KWkNsNFhJbGdnbDhfNmp5NWVDNEI3NWlsdEV5MGFiNE81bEx2X3dGYXRpTnp5NVVLeHUtcS1sUE9DTlpXWVhaTU1EU2Z6QVktcFI2dmtWSHhyN1AxdUlWeU50Z2hnMjBSaThQY0pocDFNTnU1bkNEYTF2Mzc2RWk4RHhnMFZZMFppRHZqMkRiNHZTWUpoOC1RQkRMeUV0cHVPVWFSTTBreS1EOFFmT0pHNS1CS1dTR0w4UGZUSlV1X0MwdERCYU8zOUlIUFcxRWdCLU5GMFpuS0hrVXZ1aGlDVlgwLW1WQWhNUEV6dHc3NjFKbW5uMW9hWHQ1NklRYXJoUHdnMFlPMG5zN2hlN3hZaFpZTXRZNW9qbDJnVDk3RWhwWTZmVmNiVEpWTE5Jek1qVDJreGtLOFhnUGZXWThVSFEwdmdaVDFXUnE5N0hsd2syaGtndWQ0Tk1hdVY4Sm4yWWlrDwlhZF9jdXJzb3IODw9nbG9iYWxfcG9zaXRpb24CAA8Gb2Zmc2V0AgAPEGxhc3RfYWRfcG9zaXRpb24C/wE="
+    },
+    "credits_used": 1,
+    "endpoint": "facebook/profile/posts"
+  },
+  "preserved_on_error": "request_error:RuntimeError:no_posts_found"
+}
