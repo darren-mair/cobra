@@ -54,54 +54,54 @@ jobs:
           print(f"Google reviews payload valid with {len(payload.get('reviews', []))} reviews")
           PY
 
-    - name: Detect newly imported Google reviews
-    id: google_reviews_delta
-    run: |
-      python3 - <<'PY'
-      import json
-      import subprocess
+      - name: Detect newly imported Google reviews
+        id: google_reviews_delta
+        run: |
+          python3 - <<'PY'
+          import json
+          import subprocess
 
-      def review_key(review):
-        return (
-          review.get("time") or 0,
-          (review.get("author_name") or "").strip(),
-          (review.get("text") or "").strip(),
-        )
+          def review_key(review):
+              return (
+                  review.get("time") or 0,
+                  (review.get("author_name") or "").strip(),
+                  (review.get("text") or "").strip(),
+              )
 
-      def get_reviews_from_path(path):
-        try:
-          with open(path, "r", encoding="utf-8") as f:
-            payload = json.load(f)
-        except Exception:
-          return []
-        reviews = payload.get("reviews", []) if isinstance(payload, dict) else []
-        return [r for r in reviews if isinstance(r, dict)]
+          def get_reviews_from_path(path):
+              try:
+                  with open(path, "r", encoding="utf-8") as f:
+                      payload = json.load(f)
+              except Exception:
+                  return []
+              reviews = payload.get("reviews", []) if isinstance(payload, dict) else []
+              return [r for r in reviews if isinstance(r, dict)]
 
-      def get_reviews_from_head(path):
-        try:
-          content = subprocess.check_output(["git", "show", f"HEAD:{path}"], text=True)
-          payload = json.loads(content)
-        except Exception:
-          return []
-        reviews = payload.get("reviews", []) if isinstance(payload, dict) else []
-        return [r for r in reviews if isinstance(r, dict)]
+          def get_reviews_from_head(path):
+              try:
+                  content = subprocess.check_output(["git", "show", f"HEAD:{path}"], text=True)
+                  payload = json.loads(content)
+              except Exception:
+                  return []
+              reviews = payload.get("reviews", []) if isinstance(payload, dict) else []
+              return [r for r in reviews if isinstance(r, dict)]
 
-      current = get_reviews_from_path("data/google_reviews.json")
-      previous = get_reviews_from_head("data/google_reviews.json")
+          current = get_reviews_from_path("data/google_reviews.json")
+          previous = get_reviews_from_head("data/google_reviews.json")
 
-      current_keys = {review_key(r) for r in current}
-      previous_keys = {review_key(r) for r in previous}
-      new_count = len(current_keys - previous_keys)
-      has_new = new_count > 0
+          current_keys = {review_key(r) for r in current}
+          previous_keys = {review_key(r) for r in previous}
+          new_count = len(current_keys - previous_keys)
+          has_new = new_count > 0
 
-      print(f"Detected {new_count} newly imported Google reviews")
-      with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
-        out.write(f"new_count={new_count}\n")
-        out.write(f"has_new={'true' if has_new else 'false'}\n")
-      PY
+          print(f"Detected {new_count} newly imported Google reviews")
+          with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
+              out.write(f"new_count={new_count}\n")
+              out.write(f"has_new={'true' if has_new else 'false'}\n")
+          PY
 
       - name: Commit refreshed Google reviews data
-    if: steps.google_reviews_delta.outputs.has_new == 'true'
+        if: steps.google_reviews_delta.outputs.has_new == 'true'
         run: |
           if git diff --quiet -- data/google_reviews.json; then
             echo "No Google reviews data changes to commit"
