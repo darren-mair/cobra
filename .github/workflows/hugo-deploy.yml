@@ -54,7 +54,54 @@ jobs:
           print(f"Google reviews payload valid with {len(payload.get('reviews', []))} reviews")
           PY
 
+    - name: Detect newly imported Google reviews
+    id: google_reviews_delta
+    run: |
+      python3 - <<'PY'
+      import json
+      import subprocess
+
+      def review_key(review):
+        return (
+          review.get("time") or 0,
+          (review.get("author_name") or "").strip(),
+          (review.get("text") or "").strip(),
+        )
+
+      def get_reviews_from_path(path):
+        try:
+          with open(path, "r", encoding="utf-8") as f:
+            payload = json.load(f)
+        except Exception:
+          return []
+        reviews = payload.get("reviews", []) if isinstance(payload, dict) else []
+        return [r for r in reviews if isinstance(r, dict)]
+
+      def get_reviews_from_head(path):
+        try:
+          content = subprocess.check_output(["git", "show", f"HEAD:{path}"], text=True)
+          payload = json.loads(content)
+        except Exception:
+          return []
+        reviews = payload.get("reviews", []) if isinstance(payload, dict) else []
+        return [r for r in reviews if isinstance(r, dict)]
+
+      current = get_reviews_from_path("data/google_reviews.json")
+      previous = get_reviews_from_head("data/google_reviews.json")
+
+      current_keys = {review_key(r) for r in current}
+      previous_keys = {review_key(r) for r in previous}
+      new_count = len(current_keys - previous_keys)
+      has_new = new_count > 0
+
+      print(f"Detected {new_count} newly imported Google reviews")
+      with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
+        out.write(f"new_count={new_count}\n")
+        out.write(f"has_new={'true' if has_new else 'false'}\n")
+      PY
+
       - name: Commit refreshed Google reviews data
+    if: steps.google_reviews_delta.outputs.has_new == 'true'
         run: |
           if git diff --quiet -- data/google_reviews.json; then
             echo "No Google reviews data changes to commit"
@@ -67,11 +114,78 @@ jobs:
           git commit -m "chore(data): refresh Google reviews [skip ci]"
           git push
 
-      - name: Fetch Facebook posts into News
-        run: python3 scripts/fetch_facebook_news.py --page https://www.facebook.com/CobraBoxingClub --public-scrape --output-dir content/news --max-posts 5
+      - name: Skip Google reviews commit (no new imports)
+        if: steps.google_reviews_delta.outputs.has_new != 'true'
+        run: echo "No new Google reviews imported; skipping commit."
+
+      - name: Fetch Facebook posts into News (Sociavault)
+        run: |
+          pwsh -File scripts/test_sociavault_posts_to_hugo.ps1 \
+            -OutputDir content/news \
+            -ImageDir static/img/posters \
+            -ChampsImageDir static/img/cobra-champs \
+            -PostsJsonOut data/facebook_posts.json \
+            -MaxPosts 5
         env:
-          FB_PAGE_USERNAME: ${{ secrets.FB_PAGE_USERNAME }}
-          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+          FB_PAGE_URL: ${{ secrets.FB_PAGE_URL }}
+          SOCIAVAULT_API_KEY: ${{ secrets.SOCIAVAULT_API_KEY }}
+
+      - name: Detect newly imported Facebook posts
+        id: facebook_posts_delta
+        run: |
+          python3 - <<'PY'
+          import json
+          import subprocess
+
+          def get_posts_from_path(path):
+              try:
+                  with open(path, "r", encoding="utf-8") as f:
+                      payload = json.load(f)
+              except Exception:
+                  return []
+              posts = payload.get("posts", []) if isinstance(payload, dict) else []
+              return [p for p in posts if isinstance(p, dict)]
+
+          def get_posts_from_head(path):
+              try:
+                  content = subprocess.check_output(["git", "show", f"HEAD:{path}"], text=True)
+                  payload = json.loads(content)
+              except Exception:
+                  return []
+              posts = payload.get("posts", []) if isinstance(payload, dict) else []
+              return [p for p in posts if isinstance(p, dict)]
+
+          current = get_posts_from_path("data/facebook_posts.json")
+          previous = get_posts_from_head("data/facebook_posts.json")
+
+          current_ids = {str(p.get("id", "")).strip() for p in current if str(p.get("id", "")).strip()}
+          previous_ids = {str(p.get("id", "")).strip() for p in previous if str(p.get("id", "")).strip()}
+          new_count = len(current_ids - previous_ids)
+          has_new = new_count > 0
+
+          print(f"Detected {new_count} newly imported Facebook posts")
+          with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
+              out.write(f"new_count={new_count}\n")
+              out.write(f"has_new={'true' if has_new else 'false'}\n")
+          PY
+
+      - name: Commit refreshed Facebook news data
+        if: steps.facebook_posts_delta.outputs.has_new == 'true'
+        run: |
+          if git diff --quiet -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs; then
+            echo "No Facebook news changes to commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/facebook_posts.json content/news static/img/posters static/img/cobra-champs
+          git commit -m "chore(data): refresh Facebook news posts [skip ci]"
+          git push
+
+      - name: Skip Facebook commit (no new imports)
+        if: steps.facebook_posts_delta.outputs.has_new != 'true'
+        run: echo "No new Facebook posts imported; skipping commit."
 
       - name: Sync OneDrive gallery images
         run: python3 scripts/sync_onedrive_gallery.py --output-dir static/img/gallery
