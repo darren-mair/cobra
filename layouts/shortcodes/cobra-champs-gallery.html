@@ -2,6 +2,7 @@
 {{ if $gallery }}
 {{ $galleryDir := "static/img/cobra-champs" }}
 {{ $files := readDir $galleryDir }}
+{{ $files = sort $files "ModTime" "desc" }}
 <section class="cobra-champs-gallery">
   <div class="heading text-center">
     <h2>{{ $gallery.title }}</h2>
