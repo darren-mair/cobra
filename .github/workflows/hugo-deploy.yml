@@ -94,8 +94,9 @@ jobs:
           new_count = len(current_keys - previous_keys)
           has_new = new_count > 0
 
+          import os
           print(f"Detected {new_count} newly imported Google reviews")
-          with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
               out.write(f"new_count={new_count}\n")
               out.write(f"has_new={'true' if has_new else 'false'}\n")
           PY
@@ -162,17 +163,17 @@ jobs:
           current_ids = {str(p.get("id", "")).strip() for p in current if str(p.get("id", "")).strip()}
           previous_ids = {str(p.get("id", "")).strip() for p in previous if str(p.get("id", "")).strip()}
           new_count = len(current_ids - previous_ids)
-          content_changed = (
-              subprocess.call(
-                  ["git", "diff", "--quiet", "--", "content/news", "static/img/posters", "static/img/cobra-champs"]
-              )
-              != 0
+          content_changed = bool(
+              subprocess.check_output(
+                  ["git", "status", "--porcelain", "--", "content/news", "static/img/posters", "static/img/cobra-champs"]
+              ).strip()
           )
           has_changes = new_count > 0 or content_changed
 
+          import os
           print(f"Detected {new_count} newly imported Facebook posts")
           print(f"Detected generated Facebook content changes: {content_changed}")
-          with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
               out.write(f"new_count={new_count}\n")
               out.write(f"content_changed={'true' if content_changed else 'false'}\n")
               out.write(f"has_changes={'true' if has_changes else 'false'}\n")
@@ -181,7 +182,7 @@ jobs:
       - name: Commit refreshed Facebook news data
         if: steps.facebook_posts_delta.outputs.has_changes == 'true'
         run: |
-          if git diff --quiet -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs; then
+          if [ -z "$(git status --porcelain -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs)" ]; then
             echo "No Facebook news changes to commit"
             exit 0
           fi
