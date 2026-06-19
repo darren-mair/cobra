@@ -65,9 +65,9 @@ function Get-PostDate {
     foreach ($value in $candidates) {
         try {
             $stringValue = [string]$value
-            if ($stringValue -match '^\d{10,13}$') {
+            if ($stringValue -match '^\d+$') {
                 $epochValue = [int64]$stringValue
-                if ($stringValue.Length -ge 13) {
+                if ($epochValue -ge 100000000000) {
                     return [DateTimeOffset]::FromUnixTimeMilliseconds($epochValue).ToUniversalTime()
                 }
                 return [DateTimeOffset]::FromUnixTimeSeconds($epochValue).ToUniversalTime()
