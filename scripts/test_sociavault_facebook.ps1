@@ -1,7 +1,36 @@
 param(
-    [string]$PageUrl = $(if ($env:FB_PAGE_URL) { $env:FB_PAGE_URL } else { "https://facebook.com/CobraBoxingClub" }),
+    [string]$PageUrl = "",
     [string]$OutputFile = "data/facebook_page.json"
 )
+
+function Resolve-PageUrl {
+    param([string]$InputValue)
+
+    $candidate = $InputValue
+    if ([string]::IsNullOrWhiteSpace($candidate)) { $candidate = $env:FB_PAGE_URL }
+    if ([string]::IsNullOrWhiteSpace($candidate)) { $candidate = $env:FB_PAGE_USERNAME }
+    if ([string]::IsNullOrWhiteSpace($candidate)) { $candidate = "https://www.facebook.com/CobraBoxingClub" }
+
+    $candidate = $candidate.Trim()
+    if ($candidate -notmatch '^[A-Za-z][A-Za-z0-9+.-]*://') {
+        return "https://www.facebook.com/$($candidate.Trim('/'))"
+    }
+
+    try {
+        $uri = [System.Uri]$candidate
+        $builder = [System.UriBuilder]$uri
+        if ($builder.Host -in @("facebook.com", "m.facebook.com", "mbasic.facebook.com")) {
+            $builder.Scheme = "https"
+            $builder.Host = "www.facebook.com"
+        }
+        return $builder.Uri.AbsoluteUri.TrimEnd("/")
+    }
+    catch {
+        return $candidate.TrimEnd("/")
+    }
+}
+
+$PageUrl = Resolve-PageUrl -InputValue $PageUrl
 
 $apiKey = $env:SOCIAVAULT_API_KEY
 

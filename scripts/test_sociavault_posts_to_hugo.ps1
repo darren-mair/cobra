@@ -1,5 +1,5 @@
 param(
-    [string]$PageUrl = $(if ($env:FB_PAGE_URL) { $env:FB_PAGE_URL } else { "https://facebook.com/CobraBoxingClub" }),
+    [string]$PageUrl = "",
     [string]$OutputDir = "content/news",
     [string]$ImageDir = "static/img/posters",
     [string]$ChampsImageDir = "static/img/cobra-champs",
@@ -8,6 +8,33 @@ param(
     [int]$MaxPosts = 10,
     [string]$Endpoint = "https://api.sociavault.com/v1/scrape/facebook/profile/posts"
 )
+
+function Resolve-PageUrl {
+    param([string]$InputValue)
+
+    $candidate = $InputValue
+    if ([string]::IsNullOrWhiteSpace($candidate)) { $candidate = $env:FB_PAGE_URL }
+    if ([string]::IsNullOrWhiteSpace($candidate)) { $candidate = $env:FB_PAGE_USERNAME }
+    if ([string]::IsNullOrWhiteSpace($candidate)) { $candidate = "https://www.facebook.com/CobraBoxingClub" }
+
+    $candidate = $candidate.Trim()
+    if ($candidate -notmatch '^[A-Za-z][A-Za-z0-9+.-]*://') {
+        return "https://www.facebook.com/$($candidate.Trim('/'))"
+    }
+
+    try {
+        $uri = [System.Uri]$candidate
+        $builder = [System.UriBuilder]$uri
+        if ($builder.Host -in @("facebook.com", "m.facebook.com", "mbasic.facebook.com")) {
+            $builder.Scheme = "https"
+            $builder.Host = "www.facebook.com"
+        }
+        return $builder.Uri.AbsoluteUri.TrimEnd("/")
+    }
+    catch {
+        return $candidate.TrimEnd("/")
+    }
+}
 
 function New-Slug {
     param([string]$Text)
@@ -29,13 +56,24 @@ function Get-PostDate {
         $Post.created_time,
         $Post.createdAt,
         $Post.published_at,
+        $Post.publishTime,
+        $Post.published_time,
         $Post.timestamp,
         $Post.time
     ) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
 
     foreach ($value in $candidates) {
         try {
-            return [DateTimeOffset]::Parse($value).ToUniversalTime()
+            $stringValue = [string]$value
+            if ($stringValue -match '^\d{10,13}$') {
+                $epochValue = [int64]$stringValue
+                if ($stringValue.Length -ge 13) {
+                    return [DateTimeOffset]::FromUnixTimeMilliseconds($epochValue).ToUniversalTime()
+                }
+                return [DateTimeOffset]::FromUnixTimeSeconds($epochValue).ToUniversalTime()
+            }
+
+            return [DateTimeOffset]::Parse($stringValue).ToUniversalTime()
         }
         catch { }
     }
@@ -177,6 +215,8 @@ function Build-EndpointCandidates {
 
     return $candidates | Select-Object -Unique
 }
+
+$PageUrl = Resolve-PageUrl -InputValue $PageUrl
 
 $apiKey = $env:SOCIAVAULT_API_KEY
 if ([string]::IsNullOrWhiteSpace($apiKey)) {
