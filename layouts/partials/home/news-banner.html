@@ -1,0 +1,92 @@
+{{ $newsPosts := where site.RegularPages "Section" "news" }}
+{{ $newsPosts = sort $newsPosts "Date" "desc" }}
+
+{{ if gt (len $newsPosts) 0 }}
+  {{ $latestPost := index $newsPosts 0 }}
+  {{ $postDate := $latestPost.Date }}
+  {{ $today := now }}
+  {{ $daysSincePost := div (sub $today.Unix $postDate.Unix) 86400 }}
+  
+  {{ if lt $daysSincePost 2 }}
+  <div class="news-flash-banner">
+    <div class="news-banner-content">
+      <span class="news-icon">📰</span>
+      <span class="news-text">New News Posted!</span>
+      <a href="{{ $latestPost.RelPermalink }}" class="news-banner-link">Check it out →</a>
+    </div>
+  </div>
+  
+  <style>
+    .news-flash-banner {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      padding: 15px 0;
+      text-align: center;
+      animation: flash-banner 1.5s infinite;
+    }
+    
+    .news-banner-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .news-icon {
+      font-size: 24px;
+      animation: bounce 1.5s infinite;
+    }
+    
+    .news-text {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+    }
+    
+    .news-banner-link {
+      color: white;
+      text-decoration: underline;
+      font-weight: 600;
+      transition: opacity 0.3s ease;
+    }
+    
+    .news-banner-link:hover {
+      opacity: 0.8;
+    }
+    
+    @keyframes flash-banner {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.85;
+      }
+    }
+    
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .news-banner-content {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .news-text {
+        font-size: 14px;
+      }
+      
+      .news-icon {
+        font-size: 20px;
+      }
+    }
+  </style>
+  {{ end }}
+{{ end }}
