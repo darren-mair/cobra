@@ -3,7 +3,7 @@
 {{- $files := slice -}}
 {{- if fileExists $galleryDir -}}
   {{- $files = readDir $galleryDir -}}
-  {{- $files = sort $files "ModTime" "desc" -}}
+  {{- $files = sort $files "Name" "desc" -}}
 {{- end -}}
 
 <section class="cobra-champs-gallery">
