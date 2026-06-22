@@ -1,0 +1,7 @@
+{{- $src := .Get "src" -}}
+{{- if $src -}}
+<video controls preload="metadata" style="width:100%;max-width:960px;height:auto;">
+  <source src="{{ $src | relURL }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+{{- end -}}

@@ -44,12 +44,15 @@ function Get-PostDate {
     }
     catch { }
 
+    # Facebook-specific date fields from Apify
     $candidates = @(
         $Post.created_time,
         $Post.createdAt,
         $Post.time,
         $Post.published_at,
-        $Post.timestamp
+        $Post.timestamp,
+        $Post.post_created,
+        $Post.postCreated
     ) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
 
     foreach ($value in $candidates) {
@@ -59,7 +62,9 @@ function Get-PostDate {
         catch { }
     }
 
-    return [DateTimeOffset]::UtcNow.AddMinutes(-1 * $Index)
+    # If no valid date found, return minimum datetime to indicate data quality issue
+    Write-Warning "Post $($Post.id) has no valid date; using epoch"
+    return [DateTimeOffset]::MinValue
 }
 
 function Get-PostText {
@@ -493,6 +498,16 @@ try {
     $normalized = @()
     $count = [Math]::Min($MaxPosts, $posts.Count)
 
+    # Build set of already-imported post IDs from existing markdown files
+    $importedIds = @{}
+    if (Test-Path -LiteralPath $OutputDir) {
+        Get-ChildItem -Path $OutputDir -Filter "*-apify-*.md" -ErrorAction SilentlyContinue | ForEach-Object {
+            if ($_ -match "-apify-(.+?)\.md$") {
+                $importedIds[$matches[1]] = $true
+            }
+        }
+    }
+
     for ($i = 0; $i -lt $count; $i++) {
         $post = $posts[$i]
 
@@ -525,6 +540,12 @@ try {
         $postId = if (-not [string]::IsNullOrWhiteSpace($resolvedId)) { $resolvedId } else { "post-$($i + 1)" }
         $safeId = [regex]::Replace($postId, "[^0-9A-Za-z_-]", "")
         if ([string]::IsNullOrWhiteSpace($safeId)) { $safeId = "post-$($i + 1)" }
+
+        # Skip if already imported
+        if ($importedIds.ContainsKey($safeId)) {
+            Write-Host "Skipping already-imported post: $safeId"
+            continue
+        }
 
         $line = (($text -split "`r?`n")[0]).Trim()
         if ([string]::IsNullOrWhiteSpace($line)) { $line = "Facebook update $safeId" }

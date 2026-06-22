@@ -118,9 +118,9 @@ jobs:
         if: steps.google_reviews_delta.outputs.has_new != 'true'
         run: echo "No new Google reviews imported; skipping commit."
 
-      - name: Fetch Facebook posts into News (Sociavault)
+      - name: Fetch Facebook posts into News (Apify dataset)
         run: |
-          pwsh -File scripts/test_sociavault_posts_to_hugo.ps1 \
+          pwsh -File scripts/fetch-apify-facebook-posts.ps1 \
             -OutputDir content/news \
             -ImageDir static/img/posters \
             -ChampsImageDir static/img/cobra-champs \
@@ -128,7 +128,7 @@ jobs:
             -MaxPosts 5
         env:
           FB_PAGE_URL: ${{ secrets.FB_PAGE_URL }}
-          SOCIAVAULT_API_KEY: ${{ secrets.SOCIAVAULT_API_KEY }}
+          APIFY_DATASET_ITEMS_URL: ${{ secrets.APIFY_DATASET_ITEMS_URL }}
 
       - name: Detect newly imported Facebook posts
         id: facebook_posts_delta
