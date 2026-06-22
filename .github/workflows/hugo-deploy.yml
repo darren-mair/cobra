@@ -125,7 +125,7 @@ jobs:
             -ImageDir static/img/posters \
             -ChampsImageDir static/img/cobra-champs \
             -PostsJsonOut data/facebook_posts.json \
-            -MaxPosts 5
+            -MaxPosts 50
         env:
           FB_PAGE_URL: ${{ secrets.FB_PAGE_URL }}
           APIFY_DATASET_ITEMS_URL: ${{ secrets.APIFY_DATASET_ITEMS_URL }}
