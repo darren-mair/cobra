@@ -5,9 +5,14 @@
   {{ $latestPost := index $newsPosts 0 }}
   {{ $postDate := $latestPost.Date }}
   {{ $today := now }}
+  
+  <!-- Debug: Show post date and current time -->
+  <!-- Post: {{ $postDate }} | Now: {{ $today }} -->
+  
   {{ $daysSincePost := div (sub $today.Unix $postDate.Unix) 86400 }}
   
-  {{ if lt $daysSincePost 2 }}
+  <!-- Show banner if post is less than 2 days old -->
+  {{ if le $daysSincePost 1 }}
   <div class="news-flash-banner">
     <div class="news-banner-content">
       <span class="news-icon">📰</span>
@@ -18,7 +23,7 @@
   
   <style>
     .news-flash-banner {
-      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      background: linear-gradient(135deg, #d31920 0%, #b81318 100%);
       padding: 15px 0;
       text-align: center;
       animation: flash-banner 1.5s infinite;
