@@ -161,16 +161,24 @@ jobs:
           current_ids = {str(p.get("id", "")).strip() for p in current if str(p.get("id", "")).strip()}
           previous_ids = {str(p.get("id", "")).strip() for p in previous if str(p.get("id", "")).strip()}
           new_count = len(current_ids - previous_ids)
-          has_new = new_count > 0
+          content_changed = (
+              subprocess.call(
+                  ["git", "diff", "--quiet", "--", "content/news", "static/img/posters", "static/img/cobra-champs"]
+              )
+              != 0
+          )
+          has_changes = new_count > 0 or content_changed
 
           print(f"Detected {new_count} newly imported Facebook posts")
+          print(f"Detected generated Facebook content changes: {content_changed}")
           with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
               out.write(f"new_count={new_count}\n")
-              out.write(f"has_new={'true' if has_new else 'false'}\n")
+              out.write(f"content_changed={'true' if content_changed else 'false'}\n")
+              out.write(f"has_changes={'true' if has_changes else 'false'}\n")
           PY
 
       - name: Commit refreshed Facebook news data
-        if: steps.facebook_posts_delta.outputs.has_new == 'true'
+        if: steps.facebook_posts_delta.outputs.has_changes == 'true'
         run: |
           if git diff --quiet -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs; then
             echo "No Facebook news changes to commit"
@@ -184,8 +192,8 @@ jobs:
           git push
 
       - name: Skip Facebook commit (no new imports)
-        if: steps.facebook_posts_delta.outputs.has_new != 'true'
-        run: echo "No new Facebook posts imported; skipping commit."
+        if: steps.facebook_posts_delta.outputs.has_changes != 'true'
+        run: echo "No Facebook news changes detected; skipping commit."
 
       - name: Sync OneDrive gallery images
         run: python3 scripts/sync_onedrive_gallery.py --output-dir static/img/gallery

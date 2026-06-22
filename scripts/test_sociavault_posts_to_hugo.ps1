@@ -1,5 +1,5 @@
 param(
-    [string]$PageUrl = $(if ($env:FB_PAGE_URL) { $env:FB_PAGE_URL } else { "https://facebook.com/CobraBoxingClub" }),
+    [string]$PageUrl = "",
     [string]$OutputDir = "content/news",
     [string]$ImageDir = "static/img/posters",
     [string]$ChampsImageDir = "static/img/cobra-champs",
@@ -54,7 +54,16 @@ function Get-PostDate {
 
     foreach ($value in $candidates) {
         try {
-            return [DateTimeOffset]::Parse($value).ToUniversalTime()
+            $stringValue = [string]$value
+            if ($stringValue -match '^\d+$') {
+                $epochValue = [int64]$stringValue
+                if ($epochValue -ge 100000000000) {
+                    return [DateTimeOffset]::FromUnixTimeMilliseconds($epochValue).ToUniversalTime()
+                }
+                return [DateTimeOffset]::FromUnixTimeSeconds($epochValue).ToUniversalTime()
+            }
+
+            return [DateTimeOffset]::Parse($stringValue).ToUniversalTime()
         }
         catch { }
     }
