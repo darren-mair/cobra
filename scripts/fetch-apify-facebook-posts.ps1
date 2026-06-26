@@ -8,13 +8,91 @@ param(
     [string]$FallbackImage = "img/cobra-cropped.png",
     [string]$PostsJsonOut = "data/facebook_posts.json",
     [int]$MaxPosts = 10,
-    [string]$Endpoint = $env:APIFY_DATASET_ITEMS_URL
+    [string]$Endpoint = $env:APIFY_DATASET_ITEMS_URL,
+    [string]$DatasetId = $env:APIFY_DATASET_ID,
+    [string]$TaskId = $env:APIFY_TASK_ID,
+    [string]$ApiToken = $env:APIFY_TOKEN,
+    [string]$ApiBaseUrl = $(if ($env:APIFY_API_BASE_URL) { $env:APIFY_API_BASE_URL } else { "https://api.apify.com/v2" })
 )
 
-if ([string]::IsNullOrWhiteSpace($Endpoint)) {
-    Write-Host "Missing APIFY_DATASET_ITEMS_URL environment variable. Set it to your Apify dataset items endpoint."
-    exit 1
+function Join-QueryPairs {
+    param(
+        [System.Collections.ArrayList]$Pairs,
+        [string]$Key,
+        [string]$Value
+    )
+
+    if ([string]::IsNullOrWhiteSpace($Key) -or [string]::IsNullOrWhiteSpace($Value)) {
+        return
+    }
+
+    $encodedKey = [System.Uri]::EscapeDataString($Key)
+    $encodedValue = [System.Uri]::EscapeDataString($Value)
+    [void]$Pairs.Add("$encodedKey=$encodedValue")
 }
+
+function Resolve-ApifyItemsEndpoint {
+    param(
+        [string]$ExplicitEndpoint,
+        [string]$ResolvedDatasetId,
+        [string]$ResolvedTaskId,
+        [string]$ResolvedApiToken,
+        [string]$ResolvedApiBaseUrl
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($ExplicitEndpoint)) {
+        return [ordered]@{
+            endpoint = $ExplicitEndpoint.Trim()
+            source = "APIFY_DATASET_ITEMS_URL"
+        }
+    }
+
+    $base = ($ResolvedApiBaseUrl ?? "").Trim().TrimEnd('/')
+    if ([string]::IsNullOrWhiteSpace($base)) {
+        $base = "https://api.apify.com/v2"
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($ResolvedTaskId)) {
+        if ([string]::IsNullOrWhiteSpace($ResolvedApiToken)) {
+            throw [System.Exception]::new("APIFY_TASK_ID requires APIFY_TOKEN so the workflow can read the last task run dataset.")
+        }
+
+        $query = [System.Collections.ArrayList]::new()
+        Join-QueryPairs -Pairs $query -Key "token" -Value $ResolvedApiToken
+        Join-QueryPairs -Pairs $query -Key "clean" -Value "1"
+        Join-QueryPairs -Pairs $query -Key "format" -Value "json"
+        Join-QueryPairs -Pairs $query -Key "desc" -Value "1"
+
+        $queryString = if ($query.Count -gt 0) { "?" + ($query -join "&") } else { "" }
+        return [ordered]@{
+            endpoint = "$base/actor-tasks/$ResolvedTaskId/runs/last/dataset/items$queryString"
+            source = "APIFY_TASK_ID"
+        }
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($ResolvedDatasetId)) {
+        $query = [System.Collections.ArrayList]::new()
+        Join-QueryPairs -Pairs $query -Key "clean" -Value "1"
+        Join-QueryPairs -Pairs $query -Key "format" -Value "json"
+        Join-QueryPairs -Pairs $query -Key "desc" -Value "1"
+        if (-not [string]::IsNullOrWhiteSpace($ResolvedApiToken)) {
+            Join-QueryPairs -Pairs $query -Key "token" -Value $ResolvedApiToken
+        }
+
+        $queryString = if ($query.Count -gt 0) { "?" + ($query -join "&") } else { "" }
+        return [ordered]@{
+            endpoint = "$base/datasets/$ResolvedDatasetId/items$queryString"
+            source = "APIFY_DATASET_ID"
+        }
+    }
+
+    throw [System.Exception]::new("Missing Apify source. Set APIFY_DATASET_ITEMS_URL, or APIFY_TASK_ID + APIFY_TOKEN, or APIFY_DATASET_ID.")
+}
+
+$resolvedEndpointInfo = Resolve-ApifyItemsEndpoint -ExplicitEndpoint $Endpoint -ResolvedDatasetId $DatasetId -ResolvedTaskId $TaskId -ResolvedApiToken $ApiToken -ResolvedApiBaseUrl $ApiBaseUrl
+$Endpoint = [string]$resolvedEndpointInfo.endpoint
+$EndpointSource = [string]$resolvedEndpointInfo.source
+Write-Host "Apify source: $EndpointSource"
 
 function New-Slug {
     param([string]$Text)
@@ -486,6 +564,7 @@ try {
             fetched_at = (Get-Date).ToUniversalTime().ToString("o")
             page_url   = $PageUrl
             endpoint   = $usedUri
+            endpoint_source = $EndpointSource
             attempts   = $attempts
             raw        = $response
         }
@@ -698,6 +777,7 @@ try {
         fetched_at = (Get-Date).ToUniversalTime().ToString("o")
         page_url = $PageUrl
         endpoint = $usedUri
+        endpoint_source = $EndpointSource
         attempts = $attempts
         generated = $generated.Count
         files = $generated
@@ -716,6 +796,7 @@ catch {
         fetched_at = (Get-Date).ToUniversalTime().ToString("o")
         page_url = $PageUrl
         endpoint = $Endpoint
+        endpoint_source = $EndpointSource
         attempts = $attempts
     }
     $payload | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8

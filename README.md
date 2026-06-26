@@ -102,6 +102,19 @@ Required secrets/env vars (Graph API mode only):
 
 GitHub workflow uses these secrets in `.github/workflows/hugo-deploy.yml`.
 
+Apify source configuration for GitHub Actions (in priority order):
+
+- `APIFY_DATASET_ITEMS_URL`:
+	- Direct dataset items endpoint (legacy mode).
+	- Use only if this URL points to a stable dataset.
+- `APIFY_TASK_ID` + `APIFY_TOKEN`:
+	- Recommended when your Apify task creates a new unnamed dataset each run.
+	- The importer reads `.../actor-tasks/{taskId}/runs/last/dataset/items`, so it always follows the latest successful run automatically.
+- `APIFY_DATASET_ID` (+ optional `APIFY_TOKEN`):
+	- Use a named or fixed dataset ID so the endpoint does not rotate.
+
+If GitHub Actions misses new posts, switch from `APIFY_DATASET_ITEMS_URL` to `APIFY_TASK_ID` + `APIFY_TOKEN` or a fixed `APIFY_DATASET_ID`.
+
 Cloudflare Pages build command should include both sync steps:
 
 - `python3 scripts/fetch_google_reviews.py --output data/google_reviews.json --max-reviews 20 && python3 scripts/fetch_facebook_news.py --page https://www.facebook.com/CobraBoxingClub --public-scrape --output-dir content/news --max-posts 5 && hugo`

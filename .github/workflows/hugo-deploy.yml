@@ -129,6 +129,9 @@ jobs:
         env:
           FB_PAGE_URL: ${{ secrets.FB_PAGE_URL }}
           APIFY_DATASET_ITEMS_URL: ${{ secrets.APIFY_DATASET_ITEMS_URL }}
+          APIFY_TASK_ID: ${{ secrets.APIFY_TASK_ID }}
+          APIFY_DATASET_ID: ${{ secrets.APIFY_DATASET_ID }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
 
       - name: Detect newly imported Facebook posts
         id: facebook_posts_delta
