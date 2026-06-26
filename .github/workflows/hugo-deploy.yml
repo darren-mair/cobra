@@ -108,14 +108,15 @@ jobs:
       - name: Commit refreshed Google reviews data
         if: steps.google_reviews_delta.outputs.has_new == 'true'
         run: |
-          if git diff --quiet -- data/google_reviews.json; then
+          git add data/google_reviews.json
+
+          if git diff --cached --quiet -- data/google_reviews.json; then
             echo "No Google reviews data changes to commit"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/google_reviews.json
           git commit -m "chore(data): refresh Google reviews [skip ci]"
           git push
 
@@ -174,12 +175,20 @@ jobs:
           current_ids = {str(p.get("id", "")).strip() for p in current if str(p.get("id", "")).strip()}
           previous_ids = {str(p.get("id", "")).strip() for p in previous if str(p.get("id", "")).strip()}
           new_count = len(current_ids - previous_ids)
-          content_changed = (
-              subprocess.call(
-                  ["git", "diff", "--quiet", "--", "content/news", "static/img/posters", "static/img/cobra-champs"]
-              )
-              != 0
-          )
+            status_output = subprocess.check_output(
+              [
+                "git",
+                "status",
+                "--porcelain",
+                "--",
+                "data/facebook_posts.json",
+                "content/news",
+                "static/img/posters",
+                "static/img/cobra-champs",
+              ],
+              text=True,
+            )
+            content_changed = bool(status_output.strip())
           has_changes = new_count > 0 or content_changed
 
           print(f"Detected {new_count} newly imported Facebook posts")
@@ -193,14 +202,15 @@ jobs:
       - name: Commit refreshed Facebook news data
         if: steps.facebook_posts_delta.outputs.has_changes == 'true'
         run: |
-          if git diff --quiet -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs; then
+          git add -A data/facebook_posts.json content/news static/img/posters static/img/cobra-champs
+
+          if git diff --cached --quiet -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs; then
             echo "No Facebook news changes to commit"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data/facebook_posts.json content/news static/img/posters static/img/cobra-champs
           git commit -m "chore(data): refresh Facebook news posts [skip ci]"
           git push
 
