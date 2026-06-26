@@ -94,6 +94,65 @@ $Endpoint = [string]$resolvedEndpointInfo.endpoint
 $EndpointSource = [string]$resolvedEndpointInfo.source
 Write-Host "Apify source: $EndpointSource"
 
+function Redact-SecretsInString {
+    param([string]$Text)
+
+    if ([string]::IsNullOrEmpty($Text)) {
+        return $Text
+    }
+
+    $value = $Text
+
+    # Hide common query-string token parameters in URLs.
+    $value = [regex]::Replace($value, '(?<=[?&](?:token|apiKey|apikey|access_token)=)[^&\s]+', '***REDACTED***', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+
+    # Hide the active APIFY_TOKEN anywhere it appears verbatim.
+    if (-not [string]::IsNullOrWhiteSpace($ApiToken)) {
+        $escapedToken = [regex]::Escape($ApiToken)
+        $value = [regex]::Replace($value, $escapedToken, '***REDACTED***')
+    }
+
+    return $value
+}
+
+function Convert-ToSafeSerializable {
+    param($Value)
+
+    if ($null -eq $Value) {
+        return $null
+    }
+
+    if ($Value -is [string]) {
+        return (Redact-SecretsInString -Text $Value)
+    }
+
+    if ($Value -is [System.Collections.IDictionary]) {
+        $safeMap = [ordered]@{}
+        foreach ($key in $Value.Keys) {
+            $safeMap[[string]$key] = Convert-ToSafeSerializable -Value $Value[$key]
+        }
+        return [PSCustomObject]$safeMap
+    }
+
+    if ($Value -is [System.Collections.IEnumerable] -and -not ($Value -is [string])) {
+        $safeList = [System.Collections.ArrayList]::new()
+        foreach ($item in $Value) {
+            [void]$safeList.Add((Convert-ToSafeSerializable -Value $item))
+        }
+        return @($safeList)
+    }
+
+    if ($Value.PSObject -and $Value.PSObject.Properties.Count -gt 0) {
+        $safeObj = [ordered]@{}
+        foreach ($prop in $Value.PSObject.Properties) {
+            $safeObj[$prop.Name] = Convert-ToSafeSerializable -Value $prop.Value
+        }
+        return [PSCustomObject]$safeObj
+    }
+
+    return $Value
+}
+
 function New-Slug {
     param([string]$Text)
     $slug = ($Text ?? "").ToLowerInvariant()
@@ -568,7 +627,7 @@ try {
             attempts   = $attempts
             raw        = $response
         }
-        $fallback | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
+        (Convert-ToSafeSerializable -Value $fallback) | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
         Write-Host "Apify posts import: no posts found in API response."
         exit 1
     }
@@ -785,7 +844,7 @@ try {
         raw = $response
     }
 
-    $payload | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
+    (Convert-ToSafeSerializable -Value $payload) | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
     Write-Host "Apify posts import: generated $($generated.Count) Hugo posts and wrote $PostsJsonOut"
 }
 catch {
@@ -799,7 +858,7 @@ catch {
         endpoint_source = $EndpointSource
         attempts = $attempts
     }
-    $payload | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
+    (Convert-ToSafeSerializable -Value $payload) | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
     Write-Host "Apify posts import failed: $($_.Exception.Message)"
     exit 1
 }
