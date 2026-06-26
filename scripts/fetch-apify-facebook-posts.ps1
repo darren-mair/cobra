@@ -8,6 +8,8 @@ param(
     [string]$FallbackImage = "img/cobra-cropped.png",
     [string]$PostsJsonOut = "data/facebook_posts.json",
     [int]$MaxPosts = 10,
+    [int]$RequestTimeoutSec = 30,
+    [int]$MaxMediaDownloadsPerPost = 4,
     [string]$Endpoint = $env:APIFY_DATASET_ITEMS_URL,
     [string]$DatasetId = $env:APIFY_DATASET_ID,
     [string]$TaskId = $env:APIFY_TASK_ID,
@@ -93,6 +95,8 @@ $resolvedEndpointInfo = Resolve-ApifyItemsEndpoint -ExplicitEndpoint $Endpoint -
 $Endpoint = [string]$resolvedEndpointInfo.endpoint
 $EndpointSource = [string]$resolvedEndpointInfo.source
 Write-Host "Apify source: $EndpointSource"
+Write-Host "Apify request timeout: ${RequestTimeoutSec}s"
+Write-Host "Apify max media downloads per post: $MaxMediaDownloadsPerPost"
 
 function Redact-SecretsInString {
     param([string]$Text)
@@ -115,42 +119,20 @@ function Redact-SecretsInString {
     return $value
 }
 
-function Convert-ToSafeSerializable {
-    param($Value)
+function Get-SanitizedAttempts {
+    param($AttemptList)
 
-    if ($null -eq $Value) {
-        return $null
-    }
-
-    if ($Value -is [string]) {
-        return (Redact-SecretsInString -Text $Value)
-    }
-
-    if ($Value -is [System.Collections.IDictionary]) {
-        $safeMap = [ordered]@{}
-        foreach ($key in $Value.Keys) {
-            $safeMap[[string]$key] = Convert-ToSafeSerializable -Value $Value[$key]
+    $safe = @()
+    foreach ($a in @($AttemptList)) {
+        $safe += [ordered]@{
+            endpoint = Redact-SecretsInString -Text ([string]$a.endpoint)
+            ok = [bool]$a.ok
+            posts_detected = [int]$a.posts_detected
+            error = Redact-SecretsInString -Text ([string]$a.error)
         }
-        return [PSCustomObject]$safeMap
     }
 
-    if ($Value -is [System.Collections.IEnumerable] -and -not ($Value -is [string])) {
-        $safeList = [System.Collections.ArrayList]::new()
-        foreach ($item in $Value) {
-            [void]$safeList.Add((Convert-ToSafeSerializable -Value $item))
-        }
-        return @($safeList)
-    }
-
-    if ($Value.PSObject -and $Value.PSObject.Properties.Count -gt 0) {
-        $safeObj = [ordered]@{}
-        foreach ($prop in $Value.PSObject.Properties) {
-            $safeObj[$prop.Name] = Convert-ToSafeSerializable -Value $prop.Value
-        }
-        return [PSCustomObject]$safeObj
-    }
-
-    return $Value
+    return $safe
 }
 
 function New-Slug {
@@ -579,7 +561,7 @@ try {
     $uris = Build-EndpointCandidates -BaseEndpoint $Endpoint
     foreach ($candidate in $uris) {
         try {
-            $tmp = Invoke-RestMethod -Uri $candidate -Headers $headers -Method Get -ErrorAction Stop
+            $tmp = Invoke-RestMethod -Uri $candidate -Headers $headers -Method Get -TimeoutSec $RequestTimeoutSec -ErrorAction Stop
             $tmpPosts = Normalize-PostsArray -Json $tmp
 
             $attempts += [ordered]@{
@@ -622,12 +604,12 @@ try {
             reason     = "no_posts_in_response"
             fetched_at = (Get-Date).ToUniversalTime().ToString("o")
             page_url   = $PageUrl
-            endpoint   = $usedUri
+            endpoint   = (Redact-SecretsInString -Text $usedUri)
             endpoint_source = $EndpointSource
-            attempts   = $attempts
-            raw        = $response
+            attempts   = (Get-SanitizedAttempts -AttemptList $attempts)
+            raw_included = $false
         }
-        (Convert-ToSafeSerializable -Value $fallback) | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
+        $fallback | ConvertTo-Json -Depth 20 | Set-Content -Path $PostsJsonOut -Encoding UTF8
         Write-Host "Apify posts import: no posts found in API response."
         exit 1
     }
@@ -695,7 +677,8 @@ try {
 
         $localImagePaths = @()
         $localImageFiles = @()
-        for ($m = 0; $m -lt $media.images.Count; $m++) {
+        $imageLimit = [Math]::Min($media.images.Count, [Math]::Max(0, $MaxMediaDownloadsPerPost))
+        for ($m = 0; $m -lt $imageLimit; $m++) {
             $imageUrl = [string]$media.images[$m]
             if ([string]::IsNullOrWhiteSpace($imageUrl)) { continue }
 
@@ -703,7 +686,7 @@ try {
                 $ext = Detect-ImageExtFromUrl -Url $imageUrl
                 $imageFile = "apify-{0}-{1}{2}" -f $safeId, ($m + 1), $ext
                 $imageOut = Join-Path $ImageDir $imageFile
-                Invoke-WebRequest -Uri $imageUrl -OutFile $imageOut -Headers @{ "User-Agent" = "Mozilla/5.0" } -ErrorAction Stop | Out-Null
+                Invoke-WebRequest -Uri $imageUrl -OutFile $imageOut -Headers @{ "User-Agent" = "Mozilla/5.0" } -TimeoutSec $RequestTimeoutSec -ErrorAction Stop | Out-Null
                 if (Test-ImageFileSignature -Path $imageOut) {
                     $localImagePaths += "img/posters/$imageFile"
                     $localImageFiles += $imageFile
@@ -717,7 +700,8 @@ try {
 
         $localVideoPaths = @()
         $localVideoFiles = @()
-        for ($v = 0; $v -lt $media.videos.Count; $v++) {
+        $videoLimit = [Math]::Min($media.videos.Count, [Math]::Max(0, $MaxMediaDownloadsPerPost))
+        for ($v = 0; $v -lt $videoLimit; $v++) {
             $videoUrl = [string]$media.videos[$v]
             if ([string]::IsNullOrWhiteSpace($videoUrl)) { continue }
 
@@ -725,7 +709,7 @@ try {
                 $ext = Detect-VideoExtFromUrl -Url $videoUrl
                 $videoFile = "apify-{0}-{1}{2}" -f $safeId, ($v + 1), $ext
                 $videoOut = Join-Path $VideoDir $videoFile
-                Invoke-WebRequest -Uri $videoUrl -OutFile $videoOut -Headers @{ "User-Agent" = "Mozilla/5.0" } -ErrorAction Stop | Out-Null
+                Invoke-WebRequest -Uri $videoUrl -OutFile $videoOut -Headers @{ "User-Agent" = "Mozilla/5.0" } -TimeoutSec $RequestTimeoutSec -ErrorAction Stop | Out-Null
                 if (Test-VideoFileSignature -Path $videoOut) {
                     $localVideoPaths += "video/posts/$videoFile"
                     $localVideoFiles += $videoFile
@@ -835,16 +819,16 @@ try {
         reason = ""
         fetched_at = (Get-Date).ToUniversalTime().ToString("o")
         page_url = $PageUrl
-        endpoint = $usedUri
+        endpoint = (Redact-SecretsInString -Text $usedUri)
         endpoint_source = $EndpointSource
-        attempts = $attempts
+        attempts = (Get-SanitizedAttempts -AttemptList $attempts)
         generated = $generated.Count
         files = $generated
         posts = $normalized
-        raw = $response
+        raw_included = $false
     }
 
-    (Convert-ToSafeSerializable -Value $payload) | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
+    $payload | ConvertTo-Json -Depth 20 | Set-Content -Path $PostsJsonOut -Encoding UTF8
     Write-Host "Apify posts import: generated $($generated.Count) Hugo posts and wrote $PostsJsonOut"
 }
 catch {
@@ -854,11 +838,12 @@ catch {
         message = $_.Exception.Message
         fetched_at = (Get-Date).ToUniversalTime().ToString("o")
         page_url = $PageUrl
-        endpoint = $Endpoint
+        endpoint = (Redact-SecretsInString -Text $Endpoint)
         endpoint_source = $EndpointSource
-        attempts = $attempts
+        attempts = (Get-SanitizedAttempts -AttemptList $attempts)
+        raw_included = $false
     }
-    (Convert-ToSafeSerializable -Value $payload) | ConvertTo-Json -Depth 30 | Set-Content -Path $PostsJsonOut -Encoding UTF8
+    $payload | ConvertTo-Json -Depth 20 | Set-Content -Path $PostsJsonOut -Encoding UTF8
     Write-Host "Apify posts import failed: $($_.Exception.Message)"
     exit 1
 }

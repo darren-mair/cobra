@@ -125,13 +125,16 @@ jobs:
         run: echo "No new Google reviews imported; skipping commit."
 
       - name: Fetch Facebook posts into News (Apify dataset)
+        timeout-minutes: 12
         run: |
           pwsh -File scripts/fetch-apify-facebook-posts.ps1 \
             -OutputDir content/news \
             -ImageDir static/img/posters \
             -ChampsImageDir static/img/cobra-champs \
             -PostsJsonOut data/facebook_posts.json \
-            -MaxPosts 50
+            -MaxPosts 50 \
+            -RequestTimeoutSec 30 \
+            -MaxMediaDownloadsPerPost 4
         env:
           FB_PAGE_URL: ${{ secrets.FB_PAGE_URL }}
           APIFY_DATASET_ITEMS_URL: ${{ secrets.APIFY_DATASET_ITEMS_URL }}
