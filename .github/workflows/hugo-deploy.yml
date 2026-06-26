@@ -175,20 +175,20 @@ jobs:
           current_ids = {str(p.get("id", "")).strip() for p in current if str(p.get("id", "")).strip()}
           previous_ids = {str(p.get("id", "")).strip() for p in previous if str(p.get("id", "")).strip()}
           new_count = len(current_ids - previous_ids)
-            status_output = subprocess.check_output(
+          status_output = subprocess.check_output(
               [
-                "git",
-                "status",
-                "--porcelain",
-                "--",
-                "data/facebook_posts.json",
-                "content/news",
-                "static/img/posters",
-                "static/img/cobra-champs",
+                  "git",
+                  "status",
+                  "--porcelain",
+                  "--",
+                  "data/facebook_posts.json",
+                  "content/news",
+                  "static/img/posters",
+                  "static/img/cobra-champs",
               ],
               text=True,
-            )
-            content_changed = bool(status_output.strip())
+          )
+          content_changed = bool(status_output.strip())
           has_changes = new_count > 0 or content_changed
 
           print(f"Detected {new_count} newly imported Facebook posts")
