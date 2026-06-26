@@ -117,7 +117,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(data): refresh Google reviews [skip ci]"
+          git commit -m "chore(data): refresh Google reviews"
           git push
 
       - name: Skip Google reviews commit (no new imports)
@@ -215,7 +215,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(data): refresh Facebook news posts [skip ci]"
+          git commit -m "chore(data): refresh Facebook news posts"
           git push
 
       - name: Skip Facebook commit (no new imports)
