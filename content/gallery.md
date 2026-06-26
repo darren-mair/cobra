@@ -10,4 +10,4 @@ aliases = ["/gallary/"]
 
 Photos from recent sessions, classes, and events.
 
-{{< gallery folder="gallery" >}}
+{{< gallery folders="gallery,posters" >}}

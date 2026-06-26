@@ -188,6 +188,8 @@ jobs:
                   "content/news",
                   "static/img/posters",
                   "static/img/cobra-champs",
+                "static/video/posts",
+                "static/video/cobra-champs",
               ],
               text=True,
           )
@@ -205,10 +207,10 @@ jobs:
       - name: Commit refreshed Facebook news data
         if: steps.facebook_posts_delta.outputs.has_changes == 'true'
         run: |
-          git add -A content/news static/img/posters static/img/cobra-champs
+          git add -A content/news static/img/posters static/img/cobra-champs static/video/posts static/video/cobra-champs
           git add -f data/facebook_posts.json
 
-          if git diff --cached --quiet -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs; then
+          if git diff --cached --quiet -- data/facebook_posts.json content/news static/img/posters static/img/cobra-champs static/video/posts static/video/cobra-champs; then
             echo "No Facebook news changes to commit"
             exit 0
           fi

@@ -759,8 +759,17 @@ try {
         if ($localImagePaths.Count -gt 0) {
             $frontMatter += ('images = {0}' -f (Build-TomlStringArray -Values $localImagePaths))
         }
-        if ($localVideoPaths.Count -gt 0) {
-            $frontMatter += ('videos = {0}' -f (Build-TomlStringArray -Values $localVideoPaths))
+
+        $existingVideoPaths = @()
+        foreach ($vidFile in $localVideoFiles) {
+            $videoLocalFsPath = Join-Path $VideoDir $vidFile
+            if (Test-Path -LiteralPath $videoLocalFsPath) {
+                $existingVideoPaths += "video/posts/$vidFile"
+            }
+        }
+
+        if ($existingVideoPaths.Count -gt 0) {
+            $frontMatter += ('videos = {0}' -f (Build-TomlStringArray -Values $existingVideoPaths))
         }
 
         $frontMatter += "+++"
@@ -781,10 +790,10 @@ try {
             $body += ""
         }
 
-        if ($localVideoPaths.Count -gt 0) {
+        if ($existingVideoPaths.Count -gt 0) {
             $body += "### Video"
             $body += ""
-            foreach ($videoPath in $localVideoPaths) {
+            foreach ($videoPath in $existingVideoPaths) {
                 $body += ('{{{{< video src="{0}" >}}}}' -f $videoPath)
                 $body += ""
             }
@@ -793,7 +802,7 @@ try {
         if ($localImagePaths.Count -gt 1) {
             $body += "### Gallery"
             $body += ""
-            foreach ($galleryImage in $localImagePaths) {
+            foreach ($galleryImage in ($localImagePaths | Select-Object -Skip 1)) {
                 $body += ("![Facebook post image](/{0})" -f $galleryImage)
                 $body += ""
             }
@@ -809,7 +818,7 @@ try {
         $fullPost["permalink_url"] = $link
         $fullPost["full_picture"] = $postImage
         $fullPost["local_images"] = $localImagePaths
-        $fullPost["local_videos"] = $localVideoPaths
+        $fullPost["local_videos"] = $existingVideoPaths
 
         $normalized += [PSCustomObject]$fullPost
     }

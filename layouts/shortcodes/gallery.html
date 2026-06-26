@@ -1,10 +1,30 @@
 {{- $folder := .Get "folder" | default "posters" -}}
-{{- $galleryDir := printf "static/img/%s" $folder -}}
-{{- $files := slice -}}
-{{- if fileExists $galleryDir -}}
-  {{- $files = readDir $galleryDir -}}
-  {{- $files = sort $files "Name" "desc" -}}
+{{- $foldersParam := .Get "folders" -}}
+{{- $folders := slice -}}
+{{- if $foldersParam -}}
+  {{- range (split $foldersParam ",") -}}
+    {{- $trimmed := trim . " " -}}
+    {{- if $trimmed -}}
+      {{- $folders = $folders | append $trimmed -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- $folders = $folders | append $folder -}}
 {{- end -}}
+
+{{- $files := slice -}}
+{{- range $folders -}}
+  {{- $folderName := . -}}
+  {{- $galleryDir := printf "static/img/%s" $folderName -}}
+  {{- if fileExists $galleryDir -}}
+    {{- $dirFiles := readDir $galleryDir -}}
+    {{- range $dirFiles -}}
+      {{- $sortKey := printf "%020d-%s" .ModTime.Unix .Name -}}
+      {{- $files = $files | append (dict "Folder" $folderName "Name" .Name "SortKey" $sortKey) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $files = sort $files "SortKey" "desc" -}}
 
 <section class="cobra-champs-gallery">
   <div class="heading text-center">
@@ -16,10 +36,11 @@
     <div class="row">
       {{ range $files }}
         {{ $fileName := lower .Name }}
+        {{ $folderName := .Folder }}
         {{ if findRE "\\.(jpg|jpeg|png|webp|gif|svg)$" $fileName }}
           {{ $baseName := replaceRE "\\.[^.]+$" "" .Name }}
           {{ $title := humanize (replace $baseName "-" " ") }}
-          {{ $imagePath := printf "img/%s/%s" $folder .Name }}
+          {{ $imagePath := printf "img/%s/%s" $folderName .Name }}
           {{ $imageStaticPath := printf "static/%s" $imagePath }}
           {{ $imageLocalPath := printf "/%s" $imageStaticPath }}
           {{ $imgWidth := 1200 }}
@@ -41,6 +62,6 @@
       {{ end }}
     </div>
   {{ else }}
-    <p class="gallery-empty">Drop images into <strong>static/img/{{ $folder }}</strong> and they will appear here automatically.</p>
+    <p class="gallery-empty">Drop images into <strong>static/img/{{ index $folders 0 }}</strong> and they will appear here automatically.</p>
   {{ end }}
 </section>
