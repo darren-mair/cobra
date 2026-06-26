@@ -59,6 +59,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import json
+          import os
           import subprocess
 
           def review_key(review):
@@ -79,7 +80,11 @@ jobs:
 
           def get_reviews_from_head(path):
               try:
-                  content = subprocess.check_output(["git", "show", f"HEAD:{path}"], text=True)
+                content = subprocess.check_output(
+                  ["git", "show", f"HEAD:{path}"],
+                  text=True,
+                  stderr=subprocess.DEVNULL,
+                )
                   payload = json.loads(content)
               except Exception:
                   return []
@@ -95,7 +100,7 @@ jobs:
           has_new = new_count > 0
 
           print(f"Detected {new_count} newly imported Google reviews")
-          with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
+            with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
               out.write(f"new_count={new_count}\n")
               out.write(f"has_new={'true' if has_new else 'false'}\n")
           PY
@@ -138,6 +143,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import json
+          import os
           import subprocess
 
           def get_posts_from_path(path):
@@ -151,7 +157,11 @@ jobs:
 
           def get_posts_from_head(path):
               try:
-                  content = subprocess.check_output(["git", "show", f"HEAD:{path}"], text=True)
+                content = subprocess.check_output(
+                  ["git", "show", f"HEAD:{path}"],
+                  text=True,
+                  stderr=subprocess.DEVNULL,
+                )
                   payload = json.loads(content)
               except Exception:
                   return []
@@ -174,7 +184,7 @@ jobs:
 
           print(f"Detected {new_count} newly imported Facebook posts")
           print(f"Detected generated Facebook content changes: {content_changed}")
-          with open("$GITHUB_OUTPUT", "a", encoding="utf-8") as out:
+            with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
               out.write(f"new_count={new_count}\n")
               out.write(f"content_changed={'true' if content_changed else 'false'}\n")
               out.write(f"has_changes={'true' if has_changes else 'false'}\n")
