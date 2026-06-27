@@ -1,7 +1,7 @@
 {
   "ok": true,
   "reason": "",
-  "fetched_at": "2026-06-26T20:27:22.6992567Z",
+  "fetched_at": "2026-06-27T03:57:12.0379389Z",
   "page_url": "https://facebook.com/CobraBoxingClub",
   "endpoint": "https://api.apify.com/v2/actor-tasks/ApI3Pmmt2dzOxLrX8/runs/last/dataset/items?token=***REDACTED***&clean=1&format=json&desc=1",
   "endpoint_source": "APIFY_TASK_ID",
